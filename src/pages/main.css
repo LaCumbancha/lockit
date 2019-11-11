@@ -1,0 +1,13 @@
+.main-title{
+    margin-left: 15px;
+    margin-top: 30px;
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.015em;
+    color: #000000;
+}
