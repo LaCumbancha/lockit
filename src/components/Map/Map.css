@@ -1,0 +1,31 @@
+.bag-info{
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin: 15px;
+    padding: 15px;
+}
+
+.bag-info-main-text{
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+.bag-info-secondary-text{
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 8px;
+    line-height: 9px;
+    display: flex;
+    align-items: center;
+    color: #0029FF;
+}

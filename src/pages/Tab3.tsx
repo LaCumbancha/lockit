@@ -1,15 +1,20 @@
 import React from 'react';
-import { IonHeader, IonToolbar, IonPage, IonTitle, IonContent } from '@ionic/react';
+import { IonContent, 
+  IonPage, 
+  IonToolbar, 
+  IonSearchbar } from '@ionic/react';
+
+import LockitMap from "../components/Map/LockitMap";
 
 const Tab3Page: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab Three</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent />
+      <IonToolbar color="dark">
+        <IonSearchbar placeholder="Quiero buscar mi locker en..."></IonSearchbar>
+      </IonToolbar>
+      <IonContent>
+        <LockitMap></LockitMap>
+      </IonContent>
     </IonPage>
   );
 };
