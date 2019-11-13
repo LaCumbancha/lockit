@@ -51,6 +51,38 @@ export default class Map extends Component {
 
   componentDidMount() {
     this._animatePoint();
+    const map = this.reactMap.getMap();
+
+      console.log(map)
+    map.on('style.load', () => {
+      //add the GeoJSON layer here
+      map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": {
+        "type": "geojson",
+        "data": {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [-58.381592, -34.613722],
+              [-58.391592,-34.603722],
+              [-58.391592,-34.593722],
+            ]
+          }
+        }},
+        "layout": {
+          "line-join": "round",
+          "line-cap": "round"
+        },
+        "paint": {
+          "line-color": "#f3601a",
+          "line-width": 4
+        }
+      })
+    })
   }
 
   componentWillUnmount() {
@@ -58,6 +90,7 @@ export default class Map extends Component {
   }
 
   animation = null;
+  reactMap = null;
 
   _animatePoint = () => {
     this.setState({
@@ -93,7 +126,6 @@ export default class Map extends Component {
   render() {
     const {viewport, 
       pointData, 
-      currentLocation,
       lockers} = this.state;
 
     return (
@@ -104,6 +136,7 @@ export default class Map extends Component {
         mapStyle="mapbox://styles/mapbox/light-v9"
         onViewportChange={this._onViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}
+        ref={(reactMap) => this.reactMap = reactMap}
       >
         {pointData && (
           <Source type="geojson" data={pointData}>
