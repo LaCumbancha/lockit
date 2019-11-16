@@ -15,10 +15,12 @@
     "ionicons": "^4.6.3",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "react-ionicons": "^3.0.1",
     "react-map-gl": "^5.1.2",
     "react-router": "^5.1.0",
     "react-router-dom": "^5.1.0",
-    "typescript": "3.6.3"
+    "typescript": "3.6.3",
+    "@material-ui/icons": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -4,6 +4,14 @@
     border-radius: 6px;
     margin: 15px;
     padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bag-info-main{
+    display: flex;
+    flex-direction: column;
 }
 
 .bag-info-main-text{
@@ -28,4 +36,67 @@
     display: flex;
     align-items: center;
     color: #0029FF;
+}
+
+.bag-info-transport{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bag-info-transport-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 7px;
+}
+
+.bag-info-transport-text{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 9px;
+    display: flex;
+    align-items: center;
+    color: #EE0000;
+}
+
+
+.bag-info-transport-text-2{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 9px;
+    display: flex;
+    align-items: center;
+    color: #177300;
+    margin-bottom: 3px;
+}
+
+.bag-info-transport-move-to{
+    background: #000000;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.bag-info-transport-move-to-text{
+    font-style: normal;
+    font-weight: 900;
+    font-size: 9px;
+    line-height: 11px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-bottom: 3px;
+}
+
+.bag-icon{
+    font-size: 20px;
 }

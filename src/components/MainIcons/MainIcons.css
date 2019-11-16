@@ -1,0 +1,30 @@
+.main-icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.main-icon-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90px;
+}
+
+.main-icon-text{
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+.main-icon{
+    font-size: 80px;
+}

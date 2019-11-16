@@ -4,6 +4,8 @@
     border-radius: 6px;
     margin: 15px;
     padding: 15px;
+    display: flex;
+    flex-direction: row;
 }
 
 .bag-info-main-text{
