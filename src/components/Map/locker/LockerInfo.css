@@ -1,20 +1,21 @@
 .locker-info{
-    border: 2px solid #000000;
+    border: 2px solid lightgray;
     box-sizing: border-box;
     border-radius: 6px;
-    margin: 15px;
-    padding: 15px;
+    padding: 5px;
     display: flex;
     flex-direction: row;
     background: white;
+    margin-left: 24px;
+    margin-top: -70px;
 }
 
-.bag-info-main{
+.info-main-column{
     display: flex;
     flex-direction: column;
 }
 
-.bag-info-main-text{
+.info-main-text{
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: 900;
@@ -27,7 +28,7 @@
     color: #000000;
 }
 
-.bag-info-secondary-text{
+.info-secondary-text{
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: normal;
@@ -38,20 +39,7 @@
     color: #0029FF;
 }
 
-.bag-info-transport{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.bag-info-transport-2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 7px;
-}
-
-.bag-info-transport-text{
+.info-availability-text{
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
@@ -59,44 +47,34 @@
     line-height: 9px;
     display: flex;
     align-items: center;
+    margin-top: 5px;
+}
+
+.info-unavailable-text{
     color: #EE0000;
-}
-
-
-.bag-info-transport-text-2{
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 10px;
-    line-height: 9px;
-    display: flex;
-    align-items: center;
-    color: #177300;
     margin-bottom: 3px;
 }
 
-.bag-info-transport-move-to{
-    background: #000000;
-    border: 2px solid #000000;
+
+.info-available-text{
+    color: #177300;
+}
+
+.info-price-text{
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 8px;
+    font-weight: bold;
+}
+
+.reservation-button{
+    border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 6px;
-    padding: 3px;
-}
-
-.bag-info-transport-move-to-text{
-    font-style: normal;
-    font-weight: 900;
-    font-size: 9px;
-    line-height: 11px;
+    background: #000000;
     display: flex;
-    align-items: center;
-    text-align: center;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    margin-bottom: 3px;
-}
-
-.bag-icon{
-    font-size: 20px;
+    align-content: center;
+    margin-top: 5px;
+    color: white;
+    font-size: 10px;
 }

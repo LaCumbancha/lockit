@@ -14,24 +14,25 @@ const pinStyle = {
 type PinProps = {
     size?: number,
     lockerName:string,
-    lockerAddress:string
+    lockerAddress:string,
+    lockerPrice: string
 }
 
 type State = {
-    showInfo: boolean
+    hideInfo: boolean
 };
 
 
 export default class LockerPin extends Component<PinProps, State> {
     constructor({props}: { props: any }){
         super(props);
-        this.state = {showInfo: false};
+        this.state = {hideInfo: true};
         this.changeInfoState = this.changeInfoState.bind(this);
     }
 
     changeInfoState() {
         this.setState(state => ({
-            showInfo: !state.showInfo
+            hideInfo: !state.hideInfo
         }));
     }
 
@@ -39,10 +40,11 @@ export default class LockerPin extends Component<PinProps, State> {
     const size = this.props.size;
     return (
         <div>
-            <LockerInfo lockerName={this.props.lockerName} lockerAddress={this.props.lockerAddress} showInfo={this.state.showInfo}/>
-          <svg height={size} viewBox="0 0 24 24" style={pinStyle} onClick={()=> this.changeInfoState() }>
-            <path d={ICON} />
-          </svg>
+            <svg height={size} viewBox="0 0 24 24" style={pinStyle} onClick={()=> this.changeInfoState() }>
+              <path d={ICON} />
+            </svg>
+            <LockerInfo lockerName={this.props.lockerName} lockerAddress={this.props.lockerAddress}
+                        lockerPrice={this.props.lockerPrice} hideInfo={this.state.hideInfo}/>
         </div>
     );
   }

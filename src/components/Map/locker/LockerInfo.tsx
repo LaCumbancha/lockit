@@ -1,22 +1,45 @@
 import React, {Component} from 'react';
 import './LockerInfo.css'
+import {IonIcon, IonLabel, IonTabBar, IonTabButton} from "@ionic/react";
+import {flash, navigate} from "ionicons/icons";
+import {
+    IonButton
+} from '@ionic/react';
 
 type InfoProps = {
-  lockerName:string,
-  lockerAddress:string,
-    showInfo:boolean
+    lockerName:string,
+    lockerAddress:string,
+    hideInfo:boolean,
+    lockerPrice:string
 }
 
+type State = {
+    available: boolean
+};
 
 
-export default class LockerPin extends Component<InfoProps> {
-  render() {
+export default class LockerPin extends Component<InfoProps, State> {
+    constructor({props}: { props: any }){
+        super(props);
+        this.state = {available: true};
+    }
 
-    return (
-      <div className={"locker-info"} hidden={this.props.showInfo}>
-        <span>{this.props.lockerName}</span>
-        <span>{this.props.lockerAddress}</span>
-      </div>
-    );
-  }
+    render() {
+        return (
+          <div className={"locker-info info-main-column"} hidden={this.props.hideInfo}>
+              <span className={"info-main-text"}>{this.props.lockerName}</span>
+              <span className={"info-secondary-text"}>{this.props.lockerAddress}</span>
+              {this.state.available ?
+                  <div>
+                      <div className={"info-availability-text info-available-text"}>Disponible</div>
+                      <div className={"info-price-text"}>Price: ${this.props.lockerPrice}</div>
+                      <button className={"reservation-button"}>Reservar</button>
+                  </div>
+                  :
+                  <span className={"info-availability-text info-unavailable-text"}>No Disponible</span>
+              }
+
+          </div>
+        );
+    }
 }
