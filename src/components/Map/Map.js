@@ -5,7 +5,7 @@ import './Map.css';
 import MapGL, {Source, Layer, Marker} from 'react-map-gl';
 
 import Pin from './Pin';
-import LockerPin from './LockerPin';
+import LockerPin from './locker/LockerPin';
 
 import {pointOnCircle} from './utils';
 
@@ -36,24 +36,29 @@ export default class Map extends Component {
     lockers: [
       {
         latitude: -34.613722,
-        longitude: -58.381592
+        longitude: -58.381592,
+        name: "Locker 1",
+        address: "calle falsa 123"
       },
       {
         latitude: -34.603722,
-        longitude: -58.391592
+        longitude: -58.391592,
+        name: "Locker 2",
+        address: "calle falsa"
       },
       {
         latitude: -34.593722,
-        longitude: -58.391592
+        longitude: -58.391592,
+        name: "Locker 3",
+        address: "calle 123"
       },
     ]
   };
 
-  componentDidMount() {
+  componentDidMounts() {
     this._animatePoint();
     const map = this.reactMap.getMap();
 
-      console.log(map)
     map.on('style.load', () => {
       //add the GeoJSON layer here
       map.addLayer({
@@ -118,7 +123,7 @@ export default class Map extends Component {
   _renderLockerMarket = (locker, index) => {
     return (
       <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
-        <LockerPin size={20} onClick={() => this.setState({popupInfo: locker})} />
+        <LockerPin size={20} lockerName={locker.name} lockerAddress={locker.address}/>
       </Marker>
     );
   }
