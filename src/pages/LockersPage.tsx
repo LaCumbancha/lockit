@@ -8,7 +8,7 @@ const LockersPage: React.FC = () => {
     return (
         <IonPage>
             <IonContent>
-                <span className="main-title">Mis Lockers</span>
+                <span className="main-title">Mis LockIts</span>
                 <Bag
                     name="Mochila de trabajo"
                     location="Starbucks (San Telmo) - Defensa 1102"
