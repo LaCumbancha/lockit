@@ -11,7 +11,7 @@ export default class LockitMap extends Component<MapProps> {
 	render() {
 
     return (
-      <Map></Map>
+      <Map/>
     );
   }
 
