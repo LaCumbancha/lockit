@@ -39,19 +39,19 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route path="/" render={() => <Redirect to="/map" />} exact={true} />
+          <Route path="/map" component={MapPage} />
           <Route path="/lockers" component={LockersPage} exact={true} />
           <Route path="/lockers/details" component={Details} />
-          <Route path="/map" component={MapPage} />
-          <Route path="/" render={() => <Redirect to="/lockers" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="lockers" href="/lockers">
-            <IonIcon icon={lock} />
-            <IonLabel>Mis LockIts</IonLabel>
-          </IonTabButton>
           <IonTabButton tab="map" href="/map">
             <IonIcon icon={map} />
             <IonLabel>Mapa</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="lockers" href="/lockers">
+            <IonIcon icon={lock} />
+            <IonLabel>Mis LockIts</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

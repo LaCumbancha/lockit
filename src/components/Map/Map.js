@@ -23,36 +23,36 @@ export default class Map extends Component {
     state = {
         pointData: null,
         viewport: {
-            latitude: -34.603722,
-            longitude: -58.381592,
-            zoom: 12,
+            latitude: -34.618043,
+            longitude: -58.367896,
+            zoom: 14,
             bearing: 0,
             pitch: 0
         },
         currentLocation: {
-            latitude: -34.603722,
-            longitude: -58.381592
+            latitude: -34.618043,
+            longitude: -58.367896
         },
         lockers: [
             {
-                latitude: -34.613722,
-                longitude: -58.381592,
-                name: "Locker 1",
-                address: "calle falsa 123",
+                latitude: -34.616489,
+                longitude: -58.365291,
+                name: "Starbucks - UCA",
+                address: "Av. Alicia Moreau de Justo 1604",
                 price: 150
             },
             {
-                latitude: -34.603722,
-                longitude: -58.391592,
-                name: "Locker 2",
-                address: "calle falsa",
+                latitude: -34.615473,
+                longitude: -58.369561,
+                name: "Che Viejo",
+                address: "Av. Paseo Colón 667",
                 price: 150
             },
             {
-                latitude: -34.593722,
-                longitude: -58.391592,
-                name: "Locker 3",
-                address: "calle 123",
+                latitude: -34.620704,
+                longitude: -58.371348,
+                name: "Starbucks - San Telmo",
+                address: "Defensa 1102",
                 price: 150
             },
         ]
@@ -122,7 +122,7 @@ export default class Map extends Component {
                 offsetTop={-20}
                 offsetLeft={-10}
             >
-                <Pin size={20}/>
+                <Pin size={25}/>
             </Marker>
         );
     };
@@ -130,11 +130,11 @@ export default class Map extends Component {
     _renderLockerMarket = (locker, index) => {
         return (
             <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
-                <LockerPin size={20} lockerName={locker.name} lockerAddress={locker.address}
+                <LockerPin size={25} lockerName={locker.name} lockerAddress={locker.address}
                            lockerPrice={locker.price}/>
             </Marker>
         );
-    }
+    };
 
     render() {
         const {
