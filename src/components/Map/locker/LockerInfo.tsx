@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
 import './LockerInfo.css'
-import {IonIcon, IonLabel, IonTabBar, IonTabButton} from "@ionic/react";
-import {flash, navigate} from "ionicons/icons";
-import {
-    IonButton
-} from '@ionic/react';
 
 type InfoProps = {
     lockerName:string,

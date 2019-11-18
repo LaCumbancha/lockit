@@ -5,8 +5,8 @@ import {IonIcon} from "@ionic/react";
 
 type BagProps = {
     name: string,
-    location:string,
-    transporting:boolean
+    location: string,
+    transporting: boolean
 }
 
 export default class Bag extends Component<BagProps> {
