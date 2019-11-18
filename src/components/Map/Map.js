@@ -25,7 +25,7 @@ export default class Map extends Component {
         viewport: {
             latitude: -34.618043,
             longitude: -58.367896,
-            zoom: 14,
+            zoom: 16,
             bearing: 0,
             pitch: 0
         },
@@ -34,6 +34,13 @@ export default class Map extends Component {
             longitude: -58.367896
         },
         lockers: [
+            {
+                latitude: -34.618043,
+                longitude: -58.367896,
+                name: "FIUBA",
+                address: "Av. Paseo Colón 850",
+                price: 150
+            },
             {
                 latitude: -34.616489,
                 longitude: -58.365291,
