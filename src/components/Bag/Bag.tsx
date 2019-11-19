@@ -4,10 +4,14 @@ import './Bag.css'
 import {IonIcon} from "@ionic/react";
 
 type BagProps = {
-    name: string,
-    location: string,
-    transporting: boolean
+    name: String,
+    location: String,
+    transporting: Boolean,
+    moveTo: (name: String, location: String) => void,
+    bagMovingTo: String,
+    showSaved: Boolean
 }
+
 
 export default class Bag extends Component<BagProps> {
 
@@ -20,14 +24,22 @@ export default class Bag extends Component<BagProps> {
                 </div>
                 {this.props.transporting ?
                     <div className="bag-info-transport">
-                        <span className="bag-info-transport-text"><tr>transportando</tr></span>
                         <IonIcon className="bag-icon" icon={bicycle} />
+                        <span className="bag-info-transport-text"><tr>transportando a:</tr></span>
+                        <span className="bag-info-transport-text">{ this.props.bagMovingTo }</span>
                     </div>
                     : <div className="bag-info-transport-2">
-                        <span className="bag-info-transport-text-2"><tr>guardada</tr></span>
-                        <div className="bag-info-transport-move-to">
+                        {this.props.showSaved ?
+                            <span className="bag-info-transport-text-2"><tr>guardada</tr></span>
+                            : <div></div>
+                        }
+                        <div className="bag-info-transport-move-to" onClick={() => this.props.moveTo(this.props.name, this.props.location)}>
                             <span className="bag-info-transport-move-to-text">mover</span>
                         </div>
+                        {!this.props.showSaved ?
+                            <span className="bag-info-price-text"><tr>Precio: $150</tr></span>
+                            : <div></div>
+                        }
                     </div>
                 }
             </div>

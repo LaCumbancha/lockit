@@ -31,11 +31,12 @@
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 8px;
+    font-size: 9px;
     line-height: 9px;
     display: flex;
     align-items: center;
     color: #0029FF;
+    margin-top: 5px;
 }
 
 .bag-info-transport{
@@ -56,7 +57,7 @@
     font-style: normal;
     font-weight: bold;
     font-size: 10px;
-    line-height: 9px;
+    line-height: 12px;
     display: flex;
     align-items: center;
     color: #EE0000;
@@ -64,18 +65,19 @@
 
 
 .bag-info-transport-text-2{
+    margin-bottom: 5px;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 10px;
-    line-height: 9px;
+    line-height: 12px;
     display: flex;
     align-items: center;
     color: #177300;
-    margin-bottom: 3px;
 }
 
 .bag-info-transport-move-to{
+
     background: #000000;
     border: 2px solid #000000;
     box-sizing: border-box;
@@ -84,6 +86,7 @@
 }
 
 .bag-info-transport-move-to-text{
+    margin-top: 3px;
     font-style: normal;
     font-weight: 900;
     font-size: 9px;
@@ -99,4 +102,12 @@
 
 .bag-icon{
     font-size: 20px;
+}
+
+.bag-info-price-text{
+    margin-top: 5px;
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-size: 8px;
+    font-weight: bold;
 }
