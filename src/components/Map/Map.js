@@ -1,6 +1,7 @@
 /* global window */
 import React, {Component} from 'react';
 import  { withRouter } from 'react-router-dom';
+import { IonToast } from '@ionic/react';
 
 import MapGL, {Source, Layer, Marker} from 'react-map-gl';
 
@@ -275,7 +276,7 @@ class Map extends Component {
         viewport: {
             latitude: -34.618043,
             longitude: -58.367896,
-            zoom: 16,
+            zoom: 15,
             bearing: 0,
             pitch: 0
         },
@@ -317,7 +318,8 @@ class Map extends Component {
           lockerName: "",
           lockerLocation: "",
           show: false
-        }
+        },
+        showToast: false
     };
 
     componentDidMount() {
@@ -439,7 +441,8 @@ class Map extends Component {
           lockerName: "",
           lockerLocation: "",
           show: false
-        }
+        },
+        showToast: true
       })
     };
 
@@ -449,7 +452,8 @@ class Map extends Component {
             pointData,
             lockers,
             bikeData,
-            checkout
+            checkout,
+            showToast
         } = this.state;
 
         return (
@@ -485,6 +489,23 @@ class Map extends Component {
               {lockers.map(this._renderLockerMarker)}
             </MapGL>
           }
+          <IonToast
+            isOpen={showToast}
+            onDidDismiss={() => this.setState({showToast: false})}
+            message="En momentos verá pedido en su lista de lockits"
+            position="bottom"
+            buttons={[
+              {
+                text: 'OK',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancel clicked');
+                }
+              }
+            ]}
+            duration={5000}
+            color={"success"}
+          />
           </>
         );
     }

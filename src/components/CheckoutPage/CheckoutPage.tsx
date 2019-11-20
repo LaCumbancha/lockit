@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Redirect, Route } from 'react-router-dom';
 import {
     IonLoading
 } from '@ionic/react';
@@ -54,7 +53,7 @@ export default class CheckoutPage extends Component<CheckoutPageProps,CheckoutPa
                 <IonLoading
                     isOpen={this.state.loading}
                     onDidDismiss={() => this.changeLocation()}
-                    message={'Loading...'}
+                    message={'Procesando el pago...'}
                     duration={2000}
                 />
             </div>
