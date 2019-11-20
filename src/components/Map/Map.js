@@ -274,7 +274,7 @@ class Map extends Component {
         viewport: {
             latitude: -34.618043,
             longitude: -58.367896,
-            zoom: 15,
+            zoom: 16,
             bearing: 0,
             pitch: 0
         },

@@ -25,7 +25,7 @@ class Bag extends Component<RouteComponentProps<{}> & BagProps> {
 
     render() {
         return(
-            <div className={!this.props.transporting? 'bag-info':'bag-info bag-info-clickable'} onClick={this._goToMap.bind(this)}>
+            <div className={!this.props.transporting? 'bag-info':'bag-info clickable'} onClick={this._goToMap.bind(this)}>
                 <div className="bag'-info-main">
                     <span className="bag-info-main-text">{ this.props.name }</span>
                     {this.props.showSaved && !this.props.transporting ?

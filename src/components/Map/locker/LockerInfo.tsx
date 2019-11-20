@@ -28,7 +28,7 @@ export default class LockerPin extends Component<InfoProps, State> {
                   <div>
                       <div className={"info-availability-text info-available-text"}>Disponible</div>
                       <div className={"info-price-text"}>Precio: ${this.props.lockerPrice}</div>
-                      <button className={"reservation-button"}>Reservar</button>
+                      <button className={"reservation-button clickable"}>Reservar</button>
                   </div>
                   :
                   <span className={"info-availability-text info-unavailable-text"}>No Disponible</span>
