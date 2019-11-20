@@ -8,7 +8,7 @@ import Pin from './Pin';
 import Bike from "./Bike";
 import LockerPin from './locker/LockerPin';
 
-import {pointOnCircle} from './utils';
+//import {pointOnCircle} from './utils';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbnphcmFnb3phZ2NiYSIsImEiOiJjanJqaG5hc2UwMGJ3M3lwODlmZTI4NjAwIn0.sTM1hm0HAjSmcg3FfSBsHA'; // Set your mapbox token here
 
@@ -268,6 +268,7 @@ export default class Map extends Component {
         nextBikeIteration: null,
         bikeMoving: false,
         pointData: null,
+        bikeData: null,
         viewport: {
             latitude: -34.618043,
             longitude: -58.367896,
@@ -311,12 +312,13 @@ export default class Map extends Component {
         ]
     };
 
-    /*Esto no lo borro porque me sirve de ejemplo para otras cosas,
-    pero no se esta utilizando
-     */
-    componentDidMounts() {
-        this._animatePoint();
-        const map = this.reactMap.getMap();
+    componentDidMount() {
+        this._animateBike();
+        /*
+        Esto no lo borro porque me sirve de ejemplo para otras cosas,
+        pero no se esta utilizando
+        */
+        /*const map = this.reactMap.getMap();
 
         map.on('style.load', () => {
             //add the GeoJSON layer here
@@ -330,11 +332,7 @@ export default class Map extends Component {
                         "properties": {},
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": [
-                                [-58.381592, -34.613722],
-                                [-58.391592, -34.603722],
-                                [-58.391592, -34.593722],
-                            ]
+                            "coordinates": this.bikeCoordinates
                         }
                     }
                 },
@@ -347,7 +345,7 @@ export default class Map extends Component {
                     "line-width": 4
                 }
             })
-        })
+        })*/
     }
 
     componentWillUnmount() {
@@ -357,12 +355,31 @@ export default class Map extends Component {
     animation = null;
     reactMap = null;
 
-    _animatePoint = () => {
+    _animateBike = () => {
+      if (this.state.currentBikeIndex >= this.bikeCoordinates.length /*|| !this.state.bikeMoving*/) return;
+      let longitude = this.bikeCoordinates[this.state.currentBikeIndex][0];
+      let latitude = this.bikeCoordinates[this.state.currentBikeIndex][1];
+      if (this.state.nextBikeIteration == null || this.state.nextBikeIteration.getTime() < Date.now()) {
+        if (this.state.nextBikeIteration != null) {
+          let newDate = new Date();
+          let sumValue = Math.ceil(Math.abs(newDate.getTime() - this.state.nextBikeIteration.getTime()) / 1000);
+          this.setState({
+            currentBikeIndex: this.state.currentBikeIndex + sumValue
+          })
+        }
+        let currentDate = new Date();
+        currentDate.setSeconds(currentDate.getSeconds() + 1);
         this.setState({
-            pointData: pointOnCircle({center: [-58.381592, -34.603722], angle: Date.now() / 1000, radius: 0.01})
+          nextBikeIteration: currentDate
         });
-        this.animation = window.requestAnimationFrame(this._animatePoint);
-    };
+      }
+      this.setState({
+        bikeData: {
+          longitude: longitude,
+          latitude: latitude
+        }});
+      this.animation = window.requestAnimationFrame(this._animateBike);
+    }
 
     _onViewportChange = viewport => this.setState({viewport});
 
@@ -380,23 +397,6 @@ export default class Map extends Component {
         );
     };
 
-    _renderBike = () => {
-        if (this.state.currentBikeIndex >= this.bikeCoordinates.length /*|| !this.state.bikeMoving*/) return;
-        let longitude = this.bikeCoordinates[this.state.currentBikeIndex][0];
-        let latitude = this.bikeCoordinates[this.state.currentBikeIndex][1];
-        if (this.state.nextBikeIteration == null || this.state.nextBikeIteration.getTime() < Date.now()) {
-            if (this.state.nextBikeIteration != null) {
-                let newDate = new Date();
-                let sumValue = Math.ceil(Math.abs(newDate.getTime() - this.state.nextBikeIteration.getTime()) / 1000);
-                console.log(sumValue);
-                this.state.currentBikeIndex += sumValue;
-            }
-            this.state.nextBikeIteration = new Date();
-            this.state.nextBikeIteration.setSeconds(this.state.nextBikeIteration.getSeconds() + 1);
-        }
-        return <Marker longitude={longitude} latitude={latitude}> <Bike size={25}/> </Marker>
-    };
-
     _renderLockerMarker = (locker, index) => {
         return (
             <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
@@ -410,7 +410,8 @@ export default class Map extends Component {
         const {
             viewport,
             pointData,
-            lockers
+            lockers,
+            bikeData
         } = this.state;
 
         return (
@@ -429,9 +430,12 @@ export default class Map extends Component {
                     </Source>
                 )}
 
+                {bikeData && (
+                  <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <Bike size={25}/> </Marker>
+                )}
+
                 {this._renderMyPositionMarker()}
                 {lockers.map(this._renderLockerMarker)}
-                {this._renderBike()}
             </MapGL>
         );
     }
