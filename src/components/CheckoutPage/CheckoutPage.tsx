@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-
+import { Redirect, Route } from 'react-router-dom';
+import {
+    IonLoading
+} from '@ionic/react';
 type CheckoutPageProps = {
     bagName: String,
     lockerName: String,
@@ -7,12 +10,26 @@ type CheckoutPageProps = {
     changeBagLocation: (bagName: String, lockerName: String) => void
 }
 
+type CheckoutPageState = {
+    loading: boolean
+}
 
-export default class CheckoutPage extends Component<CheckoutPageProps> {
+
+export default class CheckoutPage extends Component<CheckoutPageProps,CheckoutPageState> {
+
+    constructor({props}: { props: any }){
+        super(props);
+        this.state = {loading: false};
+    }
 
     moveTo = () => {
-        this.props.changeBagLocation(this.props.bagName, this.props.lockerName);
+        this.setState({loading: true});
     };
+
+    changeLocation(){
+        this.setState({loading: false});
+        this.props.changeBagLocation(this.props.bagName, this.props.lockerName);
+    }
 
     render() {
         return (
@@ -34,6 +51,12 @@ export default class CheckoutPage extends Component<CheckoutPageProps> {
                 <div className="main-button" onClick={() => this.props.changeBagLocation("", "")}>
                     <span className="main-button-text">cancelar</span>
                 </div>
+                <IonLoading
+                    isOpen={this.state.loading}
+                    onDidDismiss={() => this.changeLocation()}
+                    message={'Loading...'}
+                    duration={2000}
+                />
             </div>
         )
     }
