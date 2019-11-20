@@ -16,7 +16,8 @@ type PinProps = {
     size?: number,
     lockerName:string,
     lockerAddress:string,
-    lockerPrice: string
+    lockerPrice: string,
+    onRequestBooking?:Function
 }
 
 type State = {
@@ -37,6 +38,14 @@ export default class LockerPin extends Component<PinProps, State> {
         }));
     }
 
+    onRequestBooking(info: any){
+        if(this.props.onRequestBooking){
+            this.props.onRequestBooking(info);
+        }
+        this.changeInfoState();
+    }
+
+
   render() {
     const size = this.props.size;
     return (
@@ -45,7 +54,8 @@ export default class LockerPin extends Component<PinProps, State> {
                 <path d={ICON}/>
             </svg>
             <LockerInfo lockerName={this.props.lockerName} lockerAddress={this.props.lockerAddress}
-                        lockerPrice={this.props.lockerPrice} hideInfo={this.state.hideInfo}/>
+                        lockerPrice={this.props.lockerPrice} hideInfo={this.state.hideInfo}
+                        onRequestBooking={this.onRequestBooking.bind(this)} />
         </div>
     );
   }

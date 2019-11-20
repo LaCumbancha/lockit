@@ -5,7 +5,8 @@ type InfoProps = {
     lockerName:string,
     lockerAddress:string,
     hideInfo:boolean,
-    lockerPrice:string
+    lockerPrice:string,
+    onRequestBooking?:Function
 }
 
 type State = {
@@ -19,6 +20,16 @@ export default class LockerPin extends Component<InfoProps, State> {
         this.state = {available: true};
     }
 
+    onRequestBooking(event: any){
+        if(this.props.onRequestBooking){
+            this.props.onRequestBooking({
+                lockerName: this.props.lockerName,
+                lockerAddress: this.props.lockerAddress,
+                lockerPrice: this.props.lockerPrice
+            })
+        }
+    }
+
     render() {
         return (
           <div className={"locker-info info-main-column"} hidden={this.props.hideInfo}>
@@ -28,7 +39,7 @@ export default class LockerPin extends Component<InfoProps, State> {
                   <div>
                       <div className={"info-availability-text info-available-text"}>Disponible</div>
                       <div className={"info-price-text"}>Precio: ${this.props.lockerPrice}</div>
-                      <button className={"reservation-button clickable"}>Reservar</button>
+                      <button className={"reservation-button clickable"} onClick={this.onRequestBooking.bind(this)}>Reservar</button>
                   </div>
                   :
                   <span className={"info-availability-text info-unavailable-text"}>No Disponible</span>

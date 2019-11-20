@@ -9,6 +9,7 @@ import './Map.css';
 import Pin from './Pin';
 import Bike from "./Bike";
 import LockerPin from './locker/LockerPin';
+import CheckoutPage from "../CheckoutPage/CheckoutPage";
 
 //import {pointOnCircle} from './utils';
 
@@ -311,7 +312,12 @@ class Map extends Component {
                 address: "Defensa 1102",
                 price: 150
             },
-        ]
+        ],
+        checkout: {
+          lockerName: "",
+          lockerLocation: "",
+          show: false
+        }
     };
 
     componentDidMount() {
@@ -412,9 +418,29 @@ class Map extends Component {
         return (
             <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
                 <LockerPin size={25} lockerName={locker.name} lockerAddress={locker.address}
-                           lockerPrice={locker.price}/>
+                           lockerPrice={locker.price} onRequestBooking={this._onRequestBooking.bind(this)}/>
             </Marker>
         );
+    };
+
+    _onRequestBooking(info){
+      this.setState({
+        checkout: {
+          lockerName: info.lockerName,
+          lockerLocation: info.lockerLocation,
+          show: true
+        }
+      })
+    }
+
+    _changeBagLocation = (bagName, lockerName) => {
+      this.setState({
+        checkout: {
+          lockerName: "",
+          lockerLocation: "",
+          show: false
+        }
+      })
     };
 
     render() {
@@ -422,32 +448,44 @@ class Map extends Component {
             viewport,
             pointData,
             lockers,
-            bikeData
+            bikeData,
+            checkout
         } = this.state;
 
         return (
+          <>
+          {checkout.show
+            ? <CheckoutPage
+              bagName={this.props.bagName}
+              lockerName={this.state.lockerName}
+              lockerLocation={this.state.lockerLocation}
+              changeBagLocation={this._changeBagLocation}
+            />
+            :
             <MapGL
-                {...viewport}
-                width="100%"
-                height="100%"
-                mapStyle="mapbox://styles/mapbox/light-v9"
-                onViewportChange={this._onViewportChange}
-                mapboxApiAccessToken={MAPBOX_TOKEN}
-                ref={(reactMap) => this.reactMap = reactMap}
+              {...viewport}
+              width="100%"
+              height="100%"
+              mapStyle="mapbox://styles/mapbox/light-v9"
+              onViewportChange={this._onViewportChange}
+              mapboxApiAccessToken={MAPBOX_TOKEN}
+              ref={(reactMap) => this.reactMap = reactMap}
             >
-                {pointData && (
-                    <Source type="geojson" data={pointData}>
-                        <Layer {...pointLayer} />
-                    </Source>
-                )}
+              {pointData && (
+                <Source type="geojson" data={pointData}>
+                  <Layer {...pointLayer} />
+                </Source>
+              )}
 
-                {bikeData && (
-                  <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <Bike size={25}/> </Marker>
-                )}
+              {bikeData && (
+                <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <Bike size={25}/> </Marker>
+              )}
 
-                {this._renderMyPositionMarker()}
-                {lockers.map(this._renderLockerMarker)}
+              {this._renderMyPositionMarker()}
+              {lockers.map(this._renderLockerMarker)}
             </MapGL>
+          }
+          </>
         );
     }
 }
