@@ -1,8 +1,10 @@
 /* global window */
 import React, {Component} from 'react';
-import './Map.css';
+import  { withRouter } from 'react-router-dom';
 
 import MapGL, {Source, Layer, Marker} from 'react-map-gl';
+
+import './Map.css';
 
 import Pin from './Pin';
 import Bike from "./Bike";
@@ -20,7 +22,7 @@ const pointLayer = {
     }
 };
 
-export default class Map extends Component {
+class Map extends Component {
     bikeCoordinates = [
         [-58.370574133333335, -34.6206582],
         [-58.370546266666665, -34.6206574],
@@ -352,10 +354,20 @@ export default class Map extends Component {
         window.cancelAnimationFrame(this.animation);
     }
 
+    componentWillReceiveProps(){
+        /* Si le pasamos cualquier query param => se tiene que mover la bici*/
+        /*TODO: esto es el unico modo de reemplazar redux central. Cambiar!!*/
+        this.setState({
+          bikeMoving: this.props.location.search? true:false
+        })
+    }
+
     animation = null;
     reactMap = null;
 
     _animateBike = () => {
+      this.animation = window.requestAnimationFrame(this._animateBike);
+      if(!this.state.bikeMoving) return;
       if (this.state.currentBikeIndex >= this.bikeCoordinates.length /*|| !this.state.bikeMoving*/) return;
       let longitude = this.bikeCoordinates[this.state.currentBikeIndex][0];
       let latitude = this.bikeCoordinates[this.state.currentBikeIndex][1];
@@ -378,7 +390,6 @@ export default class Map extends Component {
           longitude: longitude,
           latitude: latitude
         }});
-      this.animation = window.requestAnimationFrame(this._animateBike);
     }
 
     _onViewportChange = viewport => this.setState({viewport});
@@ -440,3 +451,5 @@ export default class Map extends Component {
         );
     }
 }
+
+export default withRouter(Map);

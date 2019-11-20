@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React, {Component} from 'react';
 import LockerInfo from "./LockerInfo";
 import * as path from "path";
 

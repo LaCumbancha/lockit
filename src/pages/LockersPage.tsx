@@ -59,7 +59,7 @@ export default class LockersPage extends Component<{}, LockersState> {
                             <span className="main-title">Mis LockIts</span>
                             < Bag
                                 name="Mochila de trabajo"
-                                location="Starbucks (San Telmo) - Defensa 1102"
+                                locationName="Starbucks (San Telmo) - Defensa 1102"
                                 moveTo={this.moveTo}
                                 showSaved={true}
                                 transporting={this.state.bag1Moving}

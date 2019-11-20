@@ -47,7 +47,7 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                         <span className="main-title">Elegí un Locker</span>
                         < Bag
                             name="FIUBA"
-                            location="Av. Paseo Colón 850"
+                            locationName="Av. Paseo Colón 850"
                             moveTo={this.showCheckOut}
                             transporting={false}
                             showSaved={false}
@@ -55,7 +55,7 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                         />
                         < Bag
                             name="Starbucks (UCA)"
-                            location="Av. Alicia Moreau de Justo 1604"
+                            locationName="Av. Alicia Moreau de Justo 1604"
                             moveTo={this.showCheckOut}
                             transporting={false}
                             showSaved={false}
@@ -63,7 +63,7 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                         />
                         < Bag
                             name="Che Viejo"
-                            location="Av. Paseo Colón 667"
+                            locationName="Av. Paseo Colón 667"
                             moveTo={this.showCheckOut}
                             transporting={false}
                             showSaved={false}
@@ -71,7 +71,7 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                         />
                         < Bag
                             name="Starbucks (San Telmo)"
-                            location="Defensa 1102"
+                            locationName="Defensa 1102"
                             moveTo={this.showCheckOut}
                             transporting={false}
                             showSaved={false}

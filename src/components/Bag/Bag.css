@@ -76,6 +76,10 @@
     color: #177300;
 }
 
+.bag-info-clickable {
+    cursor: pointer;
+}
+
 .bag-info-transport-move-to{
 
     background: #000000;
@@ -83,6 +87,7 @@
     box-sizing: border-box;
     border-radius: 6px;
     padding: 3px;
+    cursor: pointer;
 }
 
 .bag-info-transport-move-to-text{

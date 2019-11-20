@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {IonIcon} from "@ionic/react";
-import {bicycle} from "ionicons/icons";
 
 type CheckoutPageProps = {
     bagName: String,
