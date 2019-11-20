@@ -7,6 +7,18 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 70px;
+}
+
+.bag-info-empty {
+    border: 2px solid #aaaaaa;
+    background: #dddddd;
+    border-radius: 6px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
 }
 
 .bag-info-main{
@@ -14,7 +26,7 @@
     flex-direction: column;
 }
 
-.bag-info-main-text{
+.bag-info-main-text {
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: 900;
@@ -31,7 +43,7 @@
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 9px;
     display: flex;
     align-items: center;

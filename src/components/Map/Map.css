@@ -6,13 +6,27 @@
     padding: 15px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chk-info {
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin: 15px;
+    padding: 2px 15px 2px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .bag-info-main-text{
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: 900;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 15px;
     display: flex;
     align-items: center;
@@ -25,7 +39,7 @@
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 9px;
     display: flex;
     align-items: center;

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {IonContent, IonPage} from '@ionic/react';
 import Bag from "../components/Bag/Bag";
 import './main.css'
-import MainIcons from "../components/MainIcons/MainIcons";
 import MoveToPage from "../components/MoveToPage/MoveToPage";
+import EmptyBag from "../components/Bag/EmptyBag";
 
 type LockersState = {
     name: String,
@@ -57,6 +57,8 @@ export default class LockersPage extends Component<{}, LockersState> {
                         :
                         <div>
                             <span className="main-title">Mis LockIts</span>
+                            <span className="sub-title">Estos son los objetos que actualmente tenés guardados en LockIt,
+                                tocá el que quieras para interactuar!</span>
                             < Bag
                                 name="Mochila de trabajo"
                                 locationName="Starbucks (San Telmo) - Defensa 1102"
@@ -65,7 +67,11 @@ export default class LockersPage extends Component<{}, LockersState> {
                                 transporting={this.state.bag1Moving}
                                 bagMovingTo={this.state.bag1MovingTo}
                             />
-                            <MainIcons/>
+                            <EmptyBag/>
+                            <EmptyBag/>
+                            <EmptyBag/>
+                            <EmptyBag/>
+                            <EmptyBag/>
                         </div>
                     }
 
