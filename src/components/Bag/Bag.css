@@ -77,7 +77,8 @@
 
 
 .bag-info-transport-text-2{
-    margin-bottom: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
@@ -92,22 +93,49 @@
     cursor: pointer;
 }
 
-.bag-info-transport-move-to{
-
+.bag-info-open{
     background: #000000;
     border: 2px solid #000000;
     box-sizing: border-box;
     border-radius: 6px;
-    padding: 3px;
+    padding: 2px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.bag-info-open-text {
+    width: 32px;
+    padding-left: 2px;
+    margin-top: 3px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 8px;
+    line-height: 9px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-bottom: 3px;
+}
+
+.bag-info-transport-move-to{
+    background: #000000;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 2px;
     cursor: pointer;
 }
 
 .bag-info-transport-move-to-text{
+    width: 32px;
     margin-top: 3px;
     font-style: normal;
     font-weight: 900;
-    font-size: 9px;
-    line-height: 11px;
+    font-size: 8px;
+    line-height: 9px;
     display: flex;
     align-items: center;
     text-align: center;
