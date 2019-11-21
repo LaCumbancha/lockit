@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import './QRLockerModal.css'
 
 type ModalProps = {
-    show: boolean
+    show: Boolean
 };
 
 type State = {
-    show: boolean
+    show: Boolean
 };
 
 
@@ -14,7 +14,7 @@ export default class QRLockerModal extends Component<ModalProps,State> {
 
     constructor({props}: { props: any }) {
         super(props);
-        this.state = {show: false};
+        this.state = {show: true};
     }
 
     render() {

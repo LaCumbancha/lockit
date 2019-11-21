@@ -64,6 +64,7 @@ export default class LockersPage extends Component<{}, LockersState> {
                                 locationName="Starbucks (San Telmo) - Defensa 1102"
                                 moveTo={this.moveTo}
                                 showSaved={true}
+                                showModal={false}
                                 transporting={this.state.bag1Moving}
                                 bagMovingTo={this.state.bag1MovingTo}
                             />

@@ -28,9 +28,10 @@
 }
 
 .close-button {
+    margin-top: 1px;
     background: white;
     font-weight: bold;
-    margin-left: 175px;
+    margin-left: 180px;
     color: rgb(0, 12, 255)
 }
 

@@ -4,6 +4,7 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {bicycle} from 'ionicons/icons';
 import './Bag.css'
 import {IonIcon} from "@ionic/react";
+import QRLockerModal from "../QR/QRLockerModal";
 
 type BagProps = {
     name: String,
@@ -12,8 +13,8 @@ type BagProps = {
     moveTo: (name: String, location: String) => void,
     bagMovingTo: String,
     showSaved: Boolean
+    showModal: Boolean
 }
-
 
 class Bag extends Component<RouteComponentProps<{}> & BagProps> {
 
@@ -27,6 +28,7 @@ class Bag extends Component<RouteComponentProps<{}> & BagProps> {
         return (
             <div className={!this.props.transporting ? 'bag-info' : 'bag-info clickable'}
                  onClick={this._goToMap.bind(this)}>
+                <QRLockerModal show={true}/>
                 <div className="bag'-info-main">
                     <span className="bag-info-main-text">{this.props.name}</span>
                     {this.props.showSaved && !this.props.transporting ?
