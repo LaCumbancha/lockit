@@ -51,7 +51,6 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                             moveTo={this.showCheckOut}
                             transporting={false}
                             showSaved={false}
-                            showModal={false}
                             bagMovingTo=""
                         />
                         < Bag
@@ -59,7 +58,6 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                             locationName="Av. Alicia Moreau de Justo 1604"
                             moveTo={this.showCheckOut}
                             transporting={false}
-                            showModal={false}
                             showSaved={false}
                             bagMovingTo=""
                         />
@@ -68,7 +66,6 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                             locationName="Av. Paseo Colón 667"
                             moveTo={this.showCheckOut}
                             transporting={false}
-                            showModal={false}
                             showSaved={false}
                             bagMovingTo=""
                         />
@@ -77,7 +74,6 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                             locationName="Defensa 1102"
                             moveTo={this.showCheckOut}
                             transporting={false}
-                            showModal={false}
                             showSaved={false}
                             bagMovingTo=""
                         />

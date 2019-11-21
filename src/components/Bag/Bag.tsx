@@ -13,10 +13,10 @@ type BagProps = {
     moveTo: (name: String, location: String) => void,
     bagMovingTo: String,
     showSaved: Boolean
-    showModal: Boolean
 }
 
 class Bag extends Component<RouteComponentProps<{}> & BagProps> {
+    modalElement: React.RefObject<QRLockerModal> = React.createRef();
 
     _goToMap() {
         if (this.props.transporting) {
@@ -24,11 +24,16 @@ class Bag extends Component<RouteComponentProps<{}> & BagProps> {
         }
     }
 
+    _showModal() {
+        // @ts-ignore
+        this.modalElement.current.showModal();
+    }
+
     render() {
         return (
             <div className={!this.props.transporting ? 'bag-info' : 'bag-info clickable'}
                  onClick={this._goToMap.bind(this)}>
-                <QRLockerModal show={true}/>
+                <QRLockerModal show={false} ref={this.modalElement}/>
                 <div className="bag'-info-main">
                     <span className="bag-info-main-text">{this.props.name}</span>
                     {this.props.showSaved && !this.props.transporting ?
@@ -48,8 +53,7 @@ class Bag extends Component<RouteComponentProps<{}> & BagProps> {
                             <span className="bag-info-transport-move-to-text">MOVER</span>
                         </div>
                         {!this.props.showSaved ? <span className="bag-info-price-text">Precio: $150</span> :
-                            <div className="bag-info-open"
-                                 onClick={() => this.props.moveTo(this.props.name, this.props.locationName)}>
+                            <div className="bag-info-open" onClick={this._showModal.bind(this)}>
                                 <span className="bag-info-open-text">ABRIR</span>
                             </div>}
                     </div>

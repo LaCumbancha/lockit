@@ -14,7 +14,7 @@ export default class QRLockerModal extends Component<ModalProps,State> {
 
     constructor({props}: { props: any }) {
         super(props);
-        this.state = {show: true};
+        this.state = {show: false};
     }
 
     render() {
