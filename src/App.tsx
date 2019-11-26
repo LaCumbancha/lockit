@@ -34,6 +34,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+localStorage.lockers = JSON.stringify([{name: "", location: "", status: "MOVING", moveTo: undefined}]);
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>

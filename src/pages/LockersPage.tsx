@@ -4,6 +4,8 @@ import Bag from "../components/Bag/Bag";
 import './main.css'
 import MoveToPage from "../components/MoveToPage/MoveToPage";
 import EmptyBag from "../components/Bag/EmptyBag";
+import StoredLockersBuilder from "../model/LockersBuilder.js";
+import Locker from "../model/Locker";
 
 type LockersState = {
     name: String,
@@ -14,9 +16,12 @@ type LockersState = {
 }
 
 export default class LockersPage extends Component<{}, LockersState> {
+    private lockers: Locker[];
 
     constructor(props:PropertyDecorator) {
         super(props);
+        this.lockers = StoredLockersBuilder.build(localStorage.lockers);
+        console.log(this.lockers.length);
         this.state = {
             name: "",
             location: "",
