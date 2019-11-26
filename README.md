@@ -1,4 +1,4 @@
-# LockIt Web
+# LockIt
 
 ## Bootstrapping
 To begin, let's install the latest version of the Ionic CLI.
@@ -18,7 +18,7 @@ The server will be listening at `localhost:8100`. Just access with your favorite
 #### Mobile
 
 To run the application, you must first download the **Ionic Devapp** for your mobile OS (you can find it at the [PlayStore](https://play.google.com/store/apps/details?id=io.ionic.devapp) or at the [AppStore](https://apps.apple.com/us/app/ionic-devapp/id1233447133)). Once you got the app, be sure to connect both your mobile and the server on the same WiFi network. Then, open the **Ionic Devapp** and set the server address manually in the menu:
-* Address: 192.168.1.118
+* Address: Local IP
 * Port: 8100
 
 Finally, just find your application in the list, and enjoy!
