@@ -5,21 +5,21 @@ import {bicycle} from 'ionicons/icons';
 import './Bag.css'
 import {IonIcon} from "@ionic/react";
 import QRLockerModal from "../QR/QRLockerModal";
+import Locker from "../../model/Locker";
 
 type BagProps = {
     name: String,
-    locationName: String,
-    transporting: Boolean,
-    moveTo: (name: String, location: String) => void,
-    bagMovingTo: String,
-    showSaved: Boolean
+    locker: Locker,
+    status: String,
+    moveTo: String
 }
 
 class Bag extends Component<RouteComponentProps<{}> & BagProps> {
     modalElement: React.RefObject<QRLockerModal> = React.createRef();
+    transporting = this.props.status === "MOVING";
 
     _goToMap() {
-        if (this.props.transporting) {
+        if (this.transporting) {
             this.props.history.push('/map?ib=1422');
         }
     }
@@ -31,31 +31,28 @@ class Bag extends Component<RouteComponentProps<{}> & BagProps> {
 
     render() {
         return (
-            <div className={!this.props.transporting ? 'bag-info' : 'bag-info clickable'}
-                 onClick={this._goToMap.bind(this)}>
+            <div className={!this.transporting ? 'bag-info' : 'bag-info clickable'} onClick={this._goToMap.bind(this)}>
                 <QRLockerModal show={false} ref={this.modalElement}/>
                 <div className="bag'-info-main">
                     <span className="bag-info-main-text">{this.props.name}</span>
-                    {this.props.showSaved && !this.props.transporting ?
+                    {!this.transporting ?
                         <span className="bag-info-transport-text-2">GUARDADA</span> : <div/>
                     }
-                    <span className="bag-info-secondary-text">{this.props.locationName}</span>
+                    <span className="bag-info-secondary-text">{this.props.locker.address}</span>
                 </div>
-                {this.props.transporting ?
+                {this.transporting ?
                     <div className="bag-info-transport">
                         <IonIcon className="bag-icon" icon={bicycle}/>
                         <span className="bag-info-transport-text">Transportando a:</span>
-                        <span className="bag-info-transport-text">{this.props.bagMovingTo}</span>
+                        <span className="bag-info-transport-text">{this.props.moveTo}</span>
                     </div>
                     : <div className="bag-info-transport-2">
-                        <div className="bag-info-transport-move-to"
-                             onClick={() => this.props.moveTo(this.props.name, this.props.locationName)}>
+                        <div className="bag-info-transport-move-to">
                             <span className="bag-info-transport-move-to-text">MOVER</span>
                         </div>
-                        {!this.props.showSaved ? <span className="bag-info-price-text">Precio: $150</span> :
-                            <div className="bag-info-open" onClick={this._showModal.bind(this)}>
-                                <span className="bag-info-open-text">ABRIR</span>
-                            </div>}
+                        <div className="bag-info-open" onClick={this._showModal.bind(this)}>
+                            <span className="bag-info-open-text">ABRIR</span>
+                        </div>
                     </div>
                 }
             </div>

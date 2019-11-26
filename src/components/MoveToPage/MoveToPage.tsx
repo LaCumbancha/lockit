@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Bag from "../Bag/Bag";
 import CheckoutPage from "../CheckoutPage/CheckoutPage";
 
 type MoveToPageProps = {
@@ -45,38 +44,6 @@ export default class MoveToPage extends Component<MoveToPageProps, MoveToPageSta
                     />
                     : <div>
                         <span className="main-title">Elegí un Locker</span>
-                        < Bag
-                            name="FIUBA"
-                            locationName="Av. Paseo Colón 850"
-                            moveTo={this.showCheckOut}
-                            transporting={false}
-                            showSaved={false}
-                            bagMovingTo=""
-                        />
-                        < Bag
-                            name="Starbucks (UCA)"
-                            locationName="Av. Alicia Moreau de Justo 1604"
-                            moveTo={this.showCheckOut}
-                            transporting={false}
-                            showSaved={false}
-                            bagMovingTo=""
-                        />
-                        < Bag
-                            name="Che Viejo"
-                            locationName="Av. Paseo Colón 667"
-                            moveTo={this.showCheckOut}
-                            transporting={false}
-                            showSaved={false}
-                            bagMovingTo=""
-                        />
-                        < Bag
-                            name="Starbucks (San Telmo)"
-                            locationName="Defensa 1102"
-                            moveTo={this.showCheckOut}
-                            transporting={false}
-                            showSaved={false}
-                            bagMovingTo=""
-                        />
                         <div className="main-button" onClick={() => this.props.changeBagLocation("", "")}>
                             <span className="main-button-text">cancelar</span>
                         </div>
