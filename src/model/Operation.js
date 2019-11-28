@@ -5,7 +5,7 @@ const OperationType = {
 
 export default class Operation {
 
-    constructor(type, price, itemId, lockerToId, lockerFromId = undefined) {
+    constructor(type, itemId, price = undefined, lockerToId = undefined, lockerFromId = undefined) {
         this.type = type;
         this.price = price;
         this.itemId = itemId;

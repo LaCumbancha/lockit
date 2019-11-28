@@ -18,7 +18,6 @@ class LockerTag extends Component<RouteComponentProps<{}> & LockerProps> {
 
     _selectLockerToMove() {
         localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.price, this.props.item.id, this.props.lockerId, this.props.item.locker.id));
-        console.log("Stored")
     }
 
     render() {

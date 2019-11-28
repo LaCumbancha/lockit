@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IonButton, IonContent, IonPage, IonTabButton} from '@ionic/react';
+import {IonButton, IonContent, IonPage} from '@ionic/react';
 import './main.css'
 import SavedItemsBuilder from "../model/SavedItemsBuilder";
 import SavedItem from "../model/SavedItem";
@@ -21,14 +21,11 @@ export default class MoveToPage extends Component<{}, MoveToState> {
         this.state = {showCheckout: false};
         this.item = SavedItemsBuilder.build(localStorage.savedItems)
             .filter(function (item: SavedItem) {
-                return item.id === localStorage.itemToMove
-            });
+                return item.id === JSON.parse(localStorage.operation).itemId
+            })[0];
 
         // TODO: Hardcode nearest lockers in list and calculate price.
         this.nearestLockers = LockersBuilder.build(localStorage.availableLockers);
-
-        console.log(this.item);
-        console.log(this.item.id);
     }
 
     render() {
