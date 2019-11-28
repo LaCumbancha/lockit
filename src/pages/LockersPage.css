@@ -1,0 +1,9 @@
+.lockers-button {
+    background: #000000 !important;
+    border: 2px solid #000000 !important;
+    box-sizing: border-box !important;
+    border-radius: 6px !important;
+    padding: 2px !important;
+    cursor: pointer !important;
+    margin-top: 4px !important;
+}

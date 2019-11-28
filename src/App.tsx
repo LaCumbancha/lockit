@@ -33,12 +33,27 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import MoveToPage from "./pages/MoveToPage";
 
 localStorage.availableLockers = JSON.stringify([
     {id: 1, latitude: -34.618043, longitude: -58.367896, name: "FIUBA", address: "Av. Paseo Colón 850", price: 150},
-    {id: 2, latitude: -34.616489, longitude: -58.365291, name: "Starbucks (UCA)", address: "Av. Alicia Moreau de Justo 1604", price: 150},
+    {
+        id: 2,
+        latitude: -34.616489,
+        longitude: -58.365291,
+        name: "Starbucks (UCA)",
+        address: "Av. Alicia Moreau de Justo 1604",
+        price: 150
+    },
     {id: 3, latitude: -34.615473, longitude: -58.369561, name: "Che Viejo", address: "Av. Paseo Colón 667", price: 150},
-    {id: 4, latitude: -34.620704, longitude: -58.371348, name: "Starbucks (San Telmo)", address: "Defensa 1102", price: 150}
+    {
+        id: 4,
+        latitude: -34.620704,
+        longitude: -58.371348,
+        name: "Starbucks (San Telmo)",
+        address: "Defensa 1102",
+        price: 150
+    }
 ]);
 
 localStorage.savedItems = JSON.stringify([
@@ -55,6 +70,7 @@ const App: React.FC = () => (
                     <Route path="/map" component={MapPage}/>
                     <Route path="/lockers" component={LockersPage} exact={true}/>
                     <Route path="/lockers/details" component={Details}/>
+                    <Route path="/lockers/move" component={MoveToPage} exact={true}/>
                 </IonRouterOutlet>
                 <IonTabBar slot="bottom">
                     <IonTabButton tab="map" href="/map">

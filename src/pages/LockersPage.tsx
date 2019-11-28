@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IonContent, IonPage} from '@ionic/react';
+import {IonContent, IonPage, IonRouterOutlet} from '@ionic/react';
 import Bag from "../components/Bag/Bag";
 import './main.css'
 import EmptyBag from "../components/Bag/EmptyBag";
@@ -38,7 +38,6 @@ export default class LockersPage extends Component<{}, LockersState> {
                             {storedLockers}
                             {emptyLockers}
                         </div>
-
                 </IonContent>
             </IonPage>
         )
