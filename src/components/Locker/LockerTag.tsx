@@ -21,10 +21,9 @@ class LockerTag extends Component<RouteComponentProps<{}> & LockerProps> {
                 </div>
                 <div className="locker-info-transport">
                     <div className="locker-info-transport-move-to">
-                        <span className="locker-info-transport-move-to-text">
-                            MOVER
-                        </span>
+                        <span className="locker-info-transport-move-to-text">MOVER</span>
                     </div>
+                    <span className="bag-info-price-text">Precio: {this.props.price}</span>
                 </div>
             </div>
         )
