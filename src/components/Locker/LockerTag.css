@@ -1,0 +1,77 @@
+.locker-info{
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.locker-info-main{
+    display: flex;
+    flex-direction: column;
+}
+
+.locker-info-main-text {
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+.locker-info-secondary-text{
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 9px;
+    display: flex;
+    align-items: center;
+    color: #0029FF;
+    margin-top: 5px;
+}
+
+.locker-info-transport{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 7px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.locker-info-transport-move-to{
+    background: #000000;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.locker-info-transport-move-to-text{
+    width: 32px;
+    margin-top: 3px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 8px;
+    line-height: 9px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-bottom: 3px;
+}

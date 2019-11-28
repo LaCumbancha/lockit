@@ -1,41 +1,46 @@
 import React, {Component} from 'react';
-import {IonContent, IonHeader, IonPage, IonRouterOutlet, IonTitle, IonToolbar} from '@ionic/react';
+import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import './main.css'
-import EmptyBag from "../components/Bag/EmptyBag";
+import SavedItemsBuilder from "../model/SavedItemsBuilder";
+import SavedItem from "../model/SavedItem";
 import CheckoutPage from "../components/CheckoutPage/CheckoutPage";
+import Locker from "../model/Locker";
+import LockersBuilder from "../model/LockersBuilder";
+import LockerTag from "../components/Locker/LockerTag";
 
-type LockersState = {
-    showMoveTo: Boolean,
+type MoveToState = {
+    showCheckout: Boolean,
 }
 
-export default class MoveToPage extends Component<{}, LockersState> {
+export default class MoveToPage extends Component<{}, MoveToState> {
+    private readonly item: SavedItem;
+    private readonly nearestLockers: Locker[];
 
     constructor(props: PropertyDecorator) {
         super(props);
-        this.state = {showMoveTo: false};
+        this.state = {showCheckout: false};
+        this.item = SavedItemsBuilder.build(localStorage.savedItems)
+            .filter(function (item: SavedItem) {
+                return item.id === localStorage.itemToMove
+            });
+
+        // TODO: Hardcode nearest lockers in list and calculate price.
+        this.nearestLockers = LockersBuilder.build(localStorage.availableLockers);
     }
 
-    changeBagLocation = (bagName: String, lockerName: String) => {
-        console.log("Changing bag location")
-    };
-
     render() {
+        let lockers = this.nearestLockers.map(locker =>
+            <LockerTag id={locker.id} name={locker.name} address={locker.address} price={locker.price}/>
+        );
+
         return (
             <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonTitle>Ionic Blank</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonContent className="ion-padding">
-                    The world is your oyster.
-                    <p>
-                        If you get lost, the{' '}
-                        <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/">
-                            docs
-                        </a>{' '}
-                        will be your guide.
-                    </p>
+                <IonContent>
+                    {this.state.showCheckout
+                        ? <div className="main-move-to-page"><CheckoutPage item={this.item}/></div>
+                        : null
+                    }
+                    {lockers}
                 </IonContent>
             </IonPage>
         )

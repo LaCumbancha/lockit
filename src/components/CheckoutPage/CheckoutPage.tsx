@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import {
     IonLoading
 } from '@ionic/react';
+import SavedItem from "../../model/SavedItem";
+
 type CheckoutPageProps = {
-    bagName: String,
-    lockerName: String,
-    lockerLocation: String,
-    changeBagLocation: (bagName: String, lockerName: String) => void
+    item: SavedItem
 }
 
 type CheckoutPageState = {
@@ -27,7 +26,7 @@ export default class CheckoutPage extends Component<CheckoutPageProps,CheckoutPa
 
     changeLocation(){
         this.setState({loading: false});
-        this.props.changeBagLocation(this.props.bagName, this.props.lockerName);
+        //this.props.changeBagLocation(this.props.bagName, this.props.lockerName);
     }
 
     render() {
@@ -47,9 +46,6 @@ export default class CheckoutPage extends Component<CheckoutPageProps,CheckoutPa
                     <GenericCard/>
                 </div>
                 <span className="main-title" onClick={this.moveTo}>Total: $150</span>
-                <div className="main-button" onClick={() => this.props.changeBagLocation("", "")}>
-                    <span className="main-button-text">cancelar</span>
-                </div>
                 <IonLoading
                     isOpen={this.state.loading}
                     onDidDismiss={() => this.changeLocation()}

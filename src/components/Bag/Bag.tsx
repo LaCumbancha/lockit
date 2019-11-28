@@ -3,11 +3,12 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 import {bicycle} from 'ionicons/icons';
 import './Bag.css'
-import {IonButton, IonIcon, IonTabBar, IonTabButton} from "@ionic/react";
+import {IonIcon, IonTabButton} from "@ionic/react";
 import QRLockerModal from "../QR/QRLockerModal";
 import Locker from "../../model/Locker";
 
 type BagProps = {
+    id: Number,
     name: String,
     locker: Locker,
     status: String,
@@ -18,8 +19,8 @@ class Bag extends Component<RouteComponentProps<{}> & BagProps> {
     modalElement: React.RefObject<QRLockerModal> = React.createRef();
     transporting = this.props.status === "MOVING";
 
-    _goToMoveLocker() {
-        this.props.history.push('/lockers/move');
+    _selectBagToMove() {
+        localStorage.itemToMove = this.props.id;
     }
 
     _goToMap() {
@@ -52,11 +53,11 @@ class Bag extends Component<RouteComponentProps<{}> & BagProps> {
                     </div>
                     : <div className="bag-info-transport-2">
                         <div className="bag-info-transport-move-to">
-                            <IonButton class="lockers-button" href="/lockers/move">
-                                <span className="bag-info-transport-move-to-text" onClick={this._goToMoveLocker.bind(this)}>
+                            <IonTabButton class="lockers-button" href="/lockers/move" onClick={this._selectBagToMove.bind(this)}>
+                                <span className="bag-info-transport-move-to-text">
                                     MOVER
                                 </span>
-                            </IonButton>
+                            </IonTabButton>
                         </div>
                         <div className="bag-info-open" onClick={this._showModal.bind(this)}>
                             <span className="bag-info-open-text">ABRIR</span>
