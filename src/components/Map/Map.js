@@ -10,7 +10,7 @@ import './Map.css';
 import Pin from './Pin';
 import Bike from "./Bike";
 import LockerPin from './locker/LockerPin';
-import CheckoutPage from "../CheckoutPage/CheckoutPage";
+import CheckoutComponent from "../CheckoutPage/CheckoutComponent";
 
 //import {pointOnCircle} from './utils';
 
@@ -459,7 +459,7 @@ class Map extends Component {
         return (
           <>
           {checkout.show
-            ? <CheckoutPage
+            ? <CheckoutComponent
               bagName={this.props.bagName}
               lockerName={this.state.lockerName}
               lockerLocation={this.state.lockerLocation}

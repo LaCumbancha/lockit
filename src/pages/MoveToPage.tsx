@@ -3,7 +3,7 @@ import {IonButton, IonContent, IonPage, IonTabButton} from '@ionic/react';
 import './main.css'
 import SavedItemsBuilder from "../model/SavedItemsBuilder";
 import SavedItem from "../model/SavedItem";
-import CheckoutPage from "../components/CheckoutPage/CheckoutPage";
+import CheckoutComponent from "../components/CheckoutPage/CheckoutComponent";
 import Locker from "../model/Locker";
 import LockersBuilder from "../model/LockersBuilder";
 import LockerTag from "../components/Locker/LockerTag";
@@ -26,18 +26,21 @@ export default class MoveToPage extends Component<{}, MoveToState> {
 
         // TODO: Hardcode nearest lockers in list and calculate price.
         this.nearestLockers = LockersBuilder.build(localStorage.availableLockers);
+
+        console.log(this.item);
+        console.log(this.item.id);
     }
 
     render() {
         let lockers = this.nearestLockers.map(locker =>
-            <LockerTag id={locker.id} name={locker.name} address={locker.address} price={locker.price}/>
+            <LockerTag item={this.item} lockerId={locker.id} lockerName={locker.name} lockerAddress={locker.address} price={locker.price}/>
         );
 
         return (
             <IonPage>
                 <IonContent>
                     {this.state.showCheckout
-                        ? <div className="main-move-to-page"><CheckoutPage item={this.item}/></div>
+                        ? <div className="main-move-to-page"><CheckoutComponent item={this.item}/></div>
                         : <div>
                             <span className="main-title">Elegí un Locker</span>
                             {lockers}

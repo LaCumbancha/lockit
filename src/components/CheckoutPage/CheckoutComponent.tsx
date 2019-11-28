@@ -13,7 +13,7 @@ type CheckoutPageState = {
 }
 
 
-export default class CheckoutPage extends Component<CheckoutPageProps,CheckoutPageState> {
+export default class CheckoutComponent extends Component<CheckoutPageProps,CheckoutPageState> {
 
     constructor({props}: { props: any }){
         super(props);
