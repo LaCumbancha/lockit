@@ -94,6 +94,7 @@
 }
 
 .bag-info-open{
+    width: 40px !important;
     background: #000000;
     border: 2px solid #000000;
     box-sizing: border-box;
@@ -121,6 +122,7 @@
 }
 
 .bag-info-transport-move-to{
+    width: 40px !important;
     background: #000000;
     border: 2px solid #000000;
     box-sizing: border-box;

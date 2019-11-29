@@ -3,7 +3,6 @@ import {IonButton, IonContent, IonPage} from '@ionic/react';
 import './main.css'
 import SavedItemsBuilder from "../model/SavedItemsBuilder";
 import SavedItem from "../model/SavedItem";
-import CheckoutComponent from "../components/CheckoutPage/CheckoutComponent";
 import Locker from "../model/Locker";
 import LockersBuilder from "../model/LockersBuilder";
 import LockerTag from "../components/Locker/LockerTag";
@@ -36,13 +35,8 @@ export default class MoveToPage extends Component<{}, MoveToState> {
         return (
             <IonPage>
                 <IonContent>
-                    {this.state.showCheckout
-                        ? <div className="main-move-to-page"><CheckoutComponent item={this.item}/></div>
-                        : <div>
-                            <span className="main-title">Elegí un Locker</span>
-                            {lockers}
-                        </div>
-                    }
+                    <span className="main-title">Elegí un Locker</span>
+                    {lockers}
                     <div>
                     <IonButton className="main-button" href="/lockers">
                         <div className="main-button cancel-button">

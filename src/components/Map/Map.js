@@ -1,7 +1,7 @@
 /* global window */
 import React, {Component} from 'react';
-import  { withRouter } from 'react-router-dom';
-import { IonToast } from '@ionic/react';
+import {withRouter} from 'react-router-dom';
+import {IonToast} from '@ionic/react';
 
 import MapGL, {Source, Layer, Marker} from 'react-map-gl';
 
@@ -10,7 +10,6 @@ import './Map.css';
 import Pin from './Pin';
 import Bike from "./Bike";
 import LockerPin from './locker/LockerPin';
-import CheckoutComponent from "../CheckoutPage/CheckoutComponent";
 
 //import {pointOnCircle} from './utils';
 
@@ -315,9 +314,9 @@ class Map extends Component {
             },
         ],
         checkout: {
-          lockerName: "",
-          lockerLocation: "",
-          show: false
+            lockerName: "",
+            lockerLocation: "",
+            show: false
         },
         showToast: false
     };
@@ -362,11 +361,11 @@ class Map extends Component {
         window.cancelAnimationFrame(this.animation);
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps() {
         /* Si le pasamos cualquier query param => se tiene que mover la bici*/
         /*TODO: esto es el unico modo de reemplazar redux central. Cambiar!!*/
         this.setState({
-          bikeMoving: this.props.location.search? true:false
+            bikeMoving: this.props.location.search ? true : false
         })
     }
 
@@ -374,30 +373,31 @@ class Map extends Component {
     reactMap = null;
 
     _animateBike = () => {
-      this.animation = window.requestAnimationFrame(this._animateBike);
-      if(!this.state.bikeMoving) return;
-      if (this.state.currentBikeIndex >= this.bikeCoordinates.length /*|| !this.state.bikeMoving*/) return;
-      let longitude = this.bikeCoordinates[this.state.currentBikeIndex][0];
-      let latitude = this.bikeCoordinates[this.state.currentBikeIndex][1];
-      if (this.state.nextBikeIteration == null || this.state.nextBikeIteration.getTime() < Date.now()) {
-        if (this.state.nextBikeIteration != null) {
-          let newDate = new Date();
-          let sumValue = Math.ceil(Math.abs(newDate.getTime() - this.state.nextBikeIteration.getTime()) / 1000);
-          this.setState({
-            currentBikeIndex: this.state.currentBikeIndex + sumValue
-          })
+        this.animation = window.requestAnimationFrame(this._animateBike);
+        if (!this.state.bikeMoving) return;
+        if (this.state.currentBikeIndex >= this.bikeCoordinates.length /*|| !this.state.bikeMoving*/) return;
+        let longitude = this.bikeCoordinates[this.state.currentBikeIndex][0];
+        let latitude = this.bikeCoordinates[this.state.currentBikeIndex][1];
+        if (this.state.nextBikeIteration == null || this.state.nextBikeIteration.getTime() < Date.now()) {
+            if (this.state.nextBikeIteration != null) {
+                let newDate = new Date();
+                let sumValue = Math.ceil(Math.abs(newDate.getTime() - this.state.nextBikeIteration.getTime()) / 1000);
+                this.setState({
+                    currentBikeIndex: this.state.currentBikeIndex + sumValue
+                })
+            }
+            let currentDate = new Date();
+            currentDate.setSeconds(currentDate.getSeconds() + 1);
+            this.setState({
+                nextBikeIteration: currentDate
+            });
         }
-        let currentDate = new Date();
-        currentDate.setSeconds(currentDate.getSeconds() + 1);
         this.setState({
-          nextBikeIteration: currentDate
+            bikeData: {
+                longitude: longitude,
+                latitude: latitude
+            }
         });
-      }
-      this.setState({
-        bikeData: {
-          longitude: longitude,
-          latitude: latitude
-        }});
     }
 
     _onViewportChange = viewport => this.setState({viewport});
@@ -425,25 +425,25 @@ class Map extends Component {
         );
     };
 
-    _onRequestBooking(info){
-      this.setState({
-        checkout: {
-          lockerName: info.lockerName,
-          lockerLocation: info.lockerLocation,
-          show: true
-        }
-      })
+    _onRequestBooking(info) {
+        this.setState({
+            checkout: {
+                lockerName: info.lockerName,
+                lockerLocation: info.lockerLocation,
+                show: true
+            }
+        })
     }
 
     _changeBagLocation = (bagName, lockerName) => {
-      this.setState({
-        checkout: {
-          lockerName: "",
-          lockerLocation: "",
-          show: false
-        },
-        showToast: true
-      })
+        this.setState({
+            checkout: {
+                lockerName: "",
+                lockerLocation: "",
+                show: false
+            },
+            showToast: true
+        })
     };
 
     render() {
@@ -457,56 +457,59 @@ class Map extends Component {
         } = this.state;
 
         return (
-          <>
-          {checkout.show
-            ? <CheckoutComponent
-              bagName={this.props.bagName}
-              lockerName={this.state.lockerName}
-              lockerLocation={this.state.lockerLocation}
-              changeBagLocation={this._changeBagLocation}
-            />
-            :
-            <MapGL
-              {...viewport}
-              width="100%"
-              height="100%"
-              mapStyle="mapbox://styles/mapbox/light-v9"
-              onViewportChange={this._onViewportChange}
-              mapboxApiAccessToken={MAPBOX_TOKEN}
-              ref={(reactMap) => this.reactMap = reactMap}
-            >
-              {pointData && (
-                <Source type="geojson" data={pointData}>
-                  <Layer {...pointLayer} />
-                </Source>
-              )}
+            <>
+                {checkout.show ?
+                    // TODO: Replace redirecting to Checkout Page
+                    null
+                    // <CheckoutComponent
+                    //     bagName={this.props.bagName}
+                    //     lockerName={this.state.lockerName}
+                    //     lockerLocation={this.state.lockerLocation}
+                    //     changeBagLocation={this._changeBagLocation}
+                    // />
+                    :
+                    <MapGL
+                        {...viewport}
+                        width="100%"
+                        height="100%"
+                        mapStyle="mapbox://styles/mapbox/light-v9"
+                        onViewportChange={this._onViewportChange}
+                        mapboxApiAccessToken={MAPBOX_TOKEN}
+                        ref={(reactMap) => this.reactMap = reactMap}
+                    >
+                        {pointData && (
+                            <Source type="geojson" data={pointData}>
+                                <Layer {...pointLayer} />
+                            </Source>
+                        )}
 
-              {bikeData && (
-                <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <Bike size={25}/> </Marker>
-              )}
+                        {bikeData && (
+                            <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <Bike size={25}/>
+                            </Marker>
+                        )}
 
-              {this._renderMyPositionMarker()}
-              {lockers.map(this._renderLockerMarker)}
-            </MapGL>
-          }
-          <IonToast
-            isOpen={showToast}
-            onDidDismiss={() => this.setState({showToast: false})}
-            message="En momentos verá pedido en su lista de lockits"
-            position="bottom"
-            buttons={[
-              {
-                text: 'OK',
-                role: 'cancel',
-                handler: () => {
-                  console.log('Cancel clicked');
+                        {this._renderMyPositionMarker()}
+                        {lockers.map(this._renderLockerMarker)}
+                    </MapGL>
                 }
-              }
-            ]}
-            duration={5000}
-            color={"success"}
-          />
-          </>
+                <IonToast
+                    isOpen={showToast}
+                    onDidDismiss={() => this.setState({showToast: false})}
+                    message="En momentos verá pedido en su lista de lockits"
+                    position="bottom"
+                    buttons={[
+                        {
+                            text: 'OK',
+                            role: 'cancel',
+                            handler: () => {
+                                console.log('Cancel clicked');
+                            }
+                        }
+                    ]}
+                    duration={5000}
+                    color={"success"}
+                />
+            </>
         );
     }
 }

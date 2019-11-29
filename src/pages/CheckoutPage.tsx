@@ -1,22 +1,53 @@
 import React, {Component} from 'react';
 import {IonContent, IonLoading, IonPage} from '@ionic/react';
 import './main.css'
+import SavedItem from "../model/SavedItem";
+import Operation from "../model/Operation";
+import OperationBuilder from "../model/OperationBuilder";
+import SavedItemsBuilder from "../model/SavedItemsBuilder";
+import LockersBuilder from "../model/LockersBuilder";
+import Locker from "../model/Locker";
 
-type MoveToState = {
-    showCheckout: Boolean,
+type CheckoutPageProps = {
+    item: SavedItem
 }
 
-export default class CheckoutPage extends Component<{}, MoveToState> {
+type CheckoutPageState = {
+    loading: boolean
+}
 
-    constructor(props: PropertyDecorator) {
+export default class CheckoutPage extends Component<CheckoutPageProps, CheckoutPageState> {
+    private readonly operation: Operation;
+
+    constructor({props}: { props: any }) {
         super(props);
+        this.state = {loading: false};
+        this.operation = OperationBuilder.build(localStorage.operation);
     }
 
+    moveTo = () => {
+        this.setState({loading: true});
+    };
 
+    changeLocation() {
+        let operation = this.operation;
+        let items = SavedItemsBuilder.build(localStorage.savedItems);
+        let lockers = LockersBuilder.build(localStorage.availableLockers);
+
+        items.map(function (item: SavedItem) {
+            if (item.id === operation.itemId) {
+                item.locker = lockers.filter(function (locker: Locker) {
+                    return locker.id === operation.lockerToId
+                })[0]
+            }
+            return item
+        });
+
+        localStorage.savedItems = JSON.stringify(items);
+        this.setState({loading: false});
+    }
 
     render() {
-
-
         return (
             <IonPage>
                 <IonContent>
@@ -34,7 +65,7 @@ export default class CheckoutPage extends Component<{}, MoveToState> {
                             Otra Tarjeta
                             <GenericCard/>
                         </div>
-                        <span className="main-title" onClick={this.moveTo}>Total: $150</span>
+                        <span className="main-title" onClick={this.moveTo}>Total: ${this.operation.price}</span>
                         <IonLoading
                             isOpen={this.state.loading}
                             onDidDismiss={() => this.changeLocation()}
