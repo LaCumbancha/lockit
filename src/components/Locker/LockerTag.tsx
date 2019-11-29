@@ -33,7 +33,7 @@ class LockerTag extends Component<RouteComponentProps<{}> & LockerProps> {
                             <span className="locker-info-transport-move-to-text">MOVER</span>
                         </IonTabButton>
                     </div>
-                    <span className="bag-info-price-text">Precio: {this.props.price}</span>
+                    <span className="bag-info-price-text">Precio: {this.props.price}$</span>
                 </div>
             </div>
         )
