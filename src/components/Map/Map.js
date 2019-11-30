@@ -11,6 +11,8 @@ import Pin from './Pin';
 import Bike from "./Bike";
 import LockerPin from './locker/LockerPin';
 
+import * as firebase from '../../services/firebase';
+
 //import {pointOnCircle} from './utils';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbnphcmFnb3phZ2NiYSIsImEiOiJjanJqaG5hc2UwMGJ3M3lwODlmZTI4NjAwIn0.sTM1hm0HAjSmcg3FfSBsHA'; // Set your mapbox token here
@@ -355,7 +357,12 @@ class Map extends Component {
                 }
             })
         })*/
-    }
+
+        // TODO: borrar pero es un ejemplo para traer datos de firebase
+        firebase.getBikeCoordinates(1).then(
+            res => console.log(res.data()),
+            err => console.log(err));
+        }
 
     componentWillUnmount() {
         window.cancelAnimationFrame(this.animation);
