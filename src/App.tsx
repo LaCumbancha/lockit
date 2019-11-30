@@ -49,32 +49,34 @@ localStorage.savedItems = JSON.stringify([
     {id: "2", name: "Comida", locker: "3", status: "STORED", moveTo: undefined}
 ]);
 
-const App: React.FC = () => (
-    <IonApp>
-        <IonReactRouter>
-            <IonTabs>
-                <IonRouterOutlet>
-                    <Route path="/login" component={LoginPage}/>
-                    <Route path="/" render={() => <Redirect to="/map"/>} exact={true}/>
-                    <Route path="/map" component={MapPage}/>
-                    <Route path="/lockers" component={LockersPage} exact={true}/>
-                    <Route path="/lockers/details" component={Details}/>
-                    <Route path="/lockers/move" component={MoveToPage} exact={true}/>
-                    <Route path="/checkout" component={CheckoutPage} exact={true}/>
-                </IonRouterOutlet>
-                <IonTabBar slot="bottom">
-                    <IonTabButton tab="map" href="/map">
-                        <IonIcon icon={map}/>
-                        <IonLabel>Mapa</IonLabel>
-                    </IonTabButton>
-                    <IonTabButton tab="lockers" href="/lockers">
-                        <IonIcon icon={lock}/>
-                        <IonLabel>Mis LockIts</IonLabel>
-                    </IonTabButton>
-                </IonTabBar>
-            </IonTabs>
-        </IonReactRouter>
-    </IonApp>
-);
+const App: React.FC = () => {
+    return (
+        <IonApp>
+            <IonReactRouter>
+                <IonTabs>
+                    <IonRouterOutlet>
+                        <Route path="/login" component={LoginPage}/>
+                        <Route path="/" render={() => <Redirect to="/map"/>} exact={true}/>
+                        <Route path="/map" component={MapPage} />
+                        <Route path="/lockers" component={LockersPage} exact={true}/>
+                        <Route path="/lockers/details" component={Details}/>
+                        <Route path="/lockers/move" component={MoveToPage} exact={true}/>
+                        <Route path="/checkout" component={CheckoutPage} exact={true}/>
+                    </IonRouterOutlet>
+                    <IonTabBar slot="bottom">
+                        <IonTabButton tab="map" href="/map">
+                            <IonIcon icon={map}/>
+                            <IonLabel>Mapa</IonLabel>
+                        </IonTabButton>
+                        <IonTabButton tab="lockers" href="/lockers">
+                            <IonIcon icon={lock}/>
+                            <IonLabel>Mis LockIts</IonLabel>
+                        </IonTabButton>
+                    </IonTabBar>
+                </IonTabs>
+            </IonReactRouter>
+        </IonApp>
+    );
+}
 
 export default App;
