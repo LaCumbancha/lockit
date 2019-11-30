@@ -94,7 +94,7 @@
 }
 
 .bag-info-open{
-    width: 40px !important;
+    width: 60px !important;
     background: #000000;
     border: 2px solid #000000;
     box-sizing: border-box;
@@ -105,24 +105,22 @@
 }
 
 .bag-info-open-text {
-    width: 32px;
-    padding-left: 2px;
-    margin-top: 3px;
+    padding: 3px;
     font-style: normal;
     font-weight: 900;
-    font-size: 8px;
+    font-size: 12px;
     line-height: 9px;
     display: flex;
     align-items: center;
+    justify-content: center;
     text-align: center;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #FFFFFF;
-    margin-bottom: 3px;
 }
 
 .bag-info-transport-move-to{
-    width: 40px !important;
+    width: 60px !important;
     background: #000000;
     border: 2px solid #000000;
     box-sizing: border-box;
@@ -132,11 +130,10 @@
 }
 
 .bag-info-transport-move-to-text{
-    width: 32px;
-    margin-top: 3px;
+    padding: 3px;
     font-style: normal;
     font-weight: 900;
-    font-size: 8px;
+    font-size: 12px;
     line-height: 9px;
     display: flex;
     align-items: center;
@@ -144,7 +141,6 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #FFFFFF;
-    margin-bottom: 3px;
 }
 
 .bag-icon{

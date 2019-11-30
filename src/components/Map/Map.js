@@ -16,6 +16,7 @@ import * as firebase from '../../services/firebase';
 //import {pointOnCircle} from './utils';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbnphcmFnb3phZ2NiYSIsImEiOiJjanJqaG5hc2UwMGJ3M3lwODlmZTI4NjAwIn0.sTM1hm0HAjSmcg3FfSBsHA'; // Set your mapbox token here
+const ICONS_SIZE = 48;
 
 const pointLayer = {
     type: 'circle',
@@ -282,8 +283,8 @@ class Map extends Component {
             pitch: 0
         },
         currentLocation: {
-            latitude: -34.618043,
-            longitude: -58.367896
+            latitude: -34.617243,
+            longitude: -58.367996
         },
         lockers: [
             {
@@ -310,7 +311,7 @@ class Map extends Component {
             {
                 latitude: -34.620704,
                 longitude: -58.371348,
-                name: "Starbucks (San Telmo)",
+                name: "Starbucks",
                 address: "Defensa 1102",
                 price: 150
             },
@@ -418,7 +419,7 @@ class Map extends Component {
                 offsetTop={-20}
                 offsetLeft={-10}
             >
-                <Pin size={25}/>
+                <Pin size={ICONS_SIZE}/>
             </Marker>
         );
     };
@@ -426,7 +427,7 @@ class Map extends Component {
     _renderLockerMarker = (locker, index) => {
         return (
             <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
-                <LockerPin size={25} lockerName={locker.name} lockerAddress={locker.address}
+                <LockerPin size={ICONS_SIZE} lockerName={locker.name} lockerAddress={locker.address}
                            lockerPrice={locker.price} onRequestBooking={this._onRequestBooking.bind(this)}/>
             </Marker>
         );
@@ -491,7 +492,7 @@ class Map extends Component {
                         )}
 
                         {bikeData && (
-                            <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <Bike size={25}/>
+                            <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <Bike size={ICONS_SIZE}/>
                             </Marker>
                         )}
 
