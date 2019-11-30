@@ -16,3 +16,7 @@ firebase.initializeApp(config);
 export function getBikeCoordinates(objectId){
   return firebase.firestore().doc("bikeCoordinates/" + objectId).get();
 }
+
+export function login(email, password){
+  return firebase.auth().signInWithEmailAndPassword(email, password);
+}

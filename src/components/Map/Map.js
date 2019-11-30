@@ -363,7 +363,8 @@ class Map extends Component {
         firebase.getBikeCoordinates(1).then(
             res => console.log(res.data()),
             err => console.log(err));
-        }
+    }
+
 
     componentWillUnmount() {
         window.cancelAnimationFrame(this.animation);

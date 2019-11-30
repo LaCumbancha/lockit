@@ -35,6 +35,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import MoveToPage from "./pages/MoveToPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import LoginPage from "./pages/LoginPage";
 
 localStorage.availableLockers = JSON.stringify([
     {id: "1", latitude: -34.618043, longitude: -58.367896, name: "FIUBA", address: "Av. Paseo Colón 850", price: 150},
@@ -53,6 +54,7 @@ const App: React.FC = () => (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
+                    <Route path="/login" component={LoginPage}/>
                     <Route path="/" render={() => <Redirect to="/map"/>} exact={true}/>
                     <Route path="/map" component={MapPage}/>
                     <Route path="/lockers" component={LockersPage} exact={true}/>
