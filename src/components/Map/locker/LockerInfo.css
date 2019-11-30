@@ -1,13 +1,12 @@
-.locker-info{
+.locker-info2{
     border: 2px solid lightgray;
     box-sizing: border-box;
     border-radius: 6px;
-    padding: 5px;
+    padding: 15px;
     display: flex;
-    flex-direction: row;
     background: white;
-    margin-left: 24px;
-    margin-top: -70px;
+    margin-left: 48px;
+    margin-top: -90px;
 }
 
 .info-main-column{
@@ -19,7 +18,7 @@
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: 900;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 15px;
     display: flex;
     align-items: center;
@@ -32,7 +31,7 @@
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 8px;
+    font-size: 10px;
     line-height: 9px;
     display: flex;
     align-items: center;
@@ -43,7 +42,7 @@
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 10px;
+    font-size: 15px;
     line-height: 9px;
     display: flex;
     align-items: center;
@@ -63,7 +62,7 @@
 .info-price-text{
     font-family: Roboto;
     font-style: normal;
-    font-size: 8px;
+    font-size: 13px;
     font-weight: bold;
 }
 
@@ -76,5 +75,5 @@
     align-content: center;
     margin-top: 5px;
     color: white;
-    font-size: 10px;
+    font-size: 15px;
 }

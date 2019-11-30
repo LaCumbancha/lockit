@@ -40,7 +40,7 @@ localStorage.availableLockers = JSON.stringify([
     {id: "1", latitude: -34.618043, longitude: -58.367896, name: "FIUBA", address: "Av. Paseo Colón 850", price: 150},
     {id: "2", latitude: -34.616489, longitude: -58.365291, name: "Starbucks (UCA)", address: "Av. Alicia Moreau de Justo 1604", price: 150},
     {id: "3", latitude: -34.615473, longitude: -58.369561, name: "Che Viejo", address: "Av. Paseo Colón 667", price: 150},
-    {id: "4", latitude: -34.620704, longitude: -58.371348, name: "Starbucks (San Telmo)", address: "Defensa 1102", price: 150}
+    {id: "4", latitude: -34.620704, longitude: -58.371348, name: "Starbucks", address: "Defensa 1102", price: 150}
 ]);
 
 localStorage.savedItems = JSON.stringify([

@@ -32,7 +32,7 @@ export default class LockerPin extends Component<InfoProps, State> {
 
     render() {
         return (
-          <div className={"locker-info info-main-column"} hidden={this.props.hideInfo}>
+          <div className={"locker-info2 info-main-column"} hidden={this.props.hideInfo}>
               <span className={"info-main-text"}>{this.props.lockerName}</span>
               <span className={"info-secondary-text"}>{this.props.lockerAddress}</span>
               {this.state.available ?

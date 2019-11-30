@@ -13,6 +13,7 @@
 .locker-info-main{
     display: flex;
     flex-direction: column;
+    padding: 5px;
 }
 
 .locker-info-main-text {
@@ -42,8 +43,6 @@
 
 .locker-info-transport{
     display: flex;
-    flex-direction: column;
-    align-items: center;
     margin-right: 7px;
 }
 
@@ -61,11 +60,10 @@
 }
 
 .locker-info-transport-move-to-text{
-    width: 32px;
-    margin-top: 3px;
+    padding: 3px;
     font-style: normal;
     font-weight: 900;
-    font-size: 8px;
+    font-size: 12px;
     line-height: 9px;
     display: flex;
     align-items: center;
@@ -73,5 +71,4 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #FFFFFF;
-    margin-bottom: 3px;
 }
