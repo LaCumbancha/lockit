@@ -50,6 +50,7 @@ localStorage.savedItems = JSON.stringify([
 ]);
 
 const App: React.FC = () => {
+    const isLoggedIn = localStorage.userID? true:false;
     return (
         <IonApp>
             <IonReactRouter>
@@ -62,16 +63,26 @@ const App: React.FC = () => {
                         <Route path="/lockers/details" component={Details}/>
                         <Route path="/lockers/move" component={MoveToPage} exact={true}/>
                         <Route path="/checkout" component={CheckoutPage} exact={true}/>
+                        {!isLoggedIn ?
+                            (<Redirect to="/login" from="*"/>)
+                            :
+                            null
+                        }
                     </IonRouterOutlet>
                     <IonTabBar slot="bottom">
-                        <IonTabButton tab="map" href="/map">
-                            <IonIcon icon={map}/>
-                            <IonLabel>Mapa</IonLabel>
-                        </IonTabButton>
-                        <IonTabButton tab="lockers" href="/lockers">
-                            <IonIcon icon={lock}/>
-                            <IonLabel>Mis LockIts</IonLabel>
-                        </IonTabButton>
+                        {isLoggedIn?
+                            (
+                                <>
+                                <IonTabButton tab="map" href="/map">
+                                    <IonIcon icon={map}/>
+                                    <IonLabel>Mapa</IonLabel>
+                                </IonTabButton>
+                                <IonTabButton tab="lockers" href="/lockers">
+                                    <IonIcon icon={lock}/>
+                                    <IonLabel>Mis LockIts</IonLabel>
+                                </IonTabButton>
+                                </>
+                            ):null}
                     </IonTabBar>
                 </IonTabs>
             </IonReactRouter>
