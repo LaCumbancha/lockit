@@ -57,3 +57,14 @@
     text-transform: uppercase;
     color: #FFFFFF;
 }
+
+.settings-icon{
+    margin: 15px;
+    font-size: 32px;
+}
+
+.main-settings{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

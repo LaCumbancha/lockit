@@ -1,5 +1,7 @@
 {
   "name": "lockit",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }

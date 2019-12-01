@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "351929988099",
+    "firebase_url": "https://lockit-tdp1.firebaseio.com",
+    "project_id": "lockit-tdp1",
+    "storage_bucket": "lockit-tdp1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351929988099:android:8cb2b3f532ebcda2c48a36",
+        "android_client_info": {
+          "package_name": "com.fiuba.lockit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351929988099-bbcmfdr9ij9avuc34elulda9u82hhqlj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgeyl1yGflHd4oJsawmx6lqVd8Z3e3Ag0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351929988099-bbcmfdr9ij9avuc34elulda9u82hhqlj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

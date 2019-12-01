@@ -13,7 +13,7 @@ type CheckoutPageProps = {
 }
 
 type CheckoutPageState = {
-    loading: boolean
+    loading: boolean,
 }
 
 export default class CheckoutPage extends Component<CheckoutPageProps, CheckoutPageState> {
@@ -21,7 +21,9 @@ export default class CheckoutPage extends Component<CheckoutPageProps, CheckoutP
 
     constructor({props}: { props: any }) {
         super(props);
-        this.state = {loading: false};
+        this.state = {
+            loading: false,
+        };
         this.operation = OperationBuilder.build(localStorage.operation);
     }
 
