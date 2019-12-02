@@ -85,7 +85,7 @@ class Login extends Component {
                     <IonRow>
                         <IonCol className="text-center">
                             <IonText className="title">
-                                Si te carga, nos encargamos
+                                Si es una carga, nos encargamos
                             </IonText>
                         </IonCol>
                     </IonRow>
