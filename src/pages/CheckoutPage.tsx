@@ -37,30 +37,36 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
 
     changeLocation() {
         let operation = this.operation;
-        SavedItemsBuilder.build(localStorage.savedItems).then(
-            res => {
-                let items = res;
-                firebase.getAvailableLockers().then(
+        firebase.getSavedItems().then(
+            savedItems => {
+                SavedItemsBuilder.build(savedItems).then(
                     res => {
-                        let availableLockers = res;
-                        let lockers = LockersBuilder.build(availableLockers);
+                        let items = res;
+                        firebase.getAvailableLockers().then(
+                            res => {
+                                let availableLockers = res;
+                                let lockers = LockersBuilder.build(availableLockers);
 
-                        items.map(function (item: SavedItem) {
-                            if (item.id === operation.itemId) {
-                                item.locker = lockers.filter(function (locker: Locker) {
-                                    return locker.id === operation.lockerToId
-                                })[0]
-                            }
-                            return item
-                        });
+                                items.map(function (item: SavedItem) {
+                                    if (item.id === operation.itemId) {
+                                        item.locker = lockers.filter(function (locker: Locker) {
+                                            return locker.id === operation.lockerToId
+                                        })[0]
+                                    }
+                                    firebase.setSavedItem(item);
+                                    return item;
+                                });
 
-                        localStorage.savedItems = JSON.stringify(items);
-                        this.setState({loading: false});
-                        this.props.history.push('/map');
+                                localStorage.savedItems = JSON.stringify(items);
+                                this.setState({loading: false});
+                                this.props.history.push('/map');
+                            },
+                            err => console.log(err));
                     },
                     err => console.log(err));
             },
             err => console.log(err));
+        
         
     }
 

@@ -6,7 +6,7 @@ export default class SavedItemsBuilder {
     static async build(rawData) {
 
         let availableLockers = await firebase.getAvailableLockers();
-        return JSON.parse(rawData).map(field => {
+        return rawData.map(field => {
             let locker = availableLockers.filter(locker => {
             	return locker.id === field.locker;
             })[0];

@@ -28,6 +28,19 @@ export async function getAvailableLockers(){
   return snapshot.docs.map(doc => doc.data());
 }
 
+/*localStorage.savedItems = JSON.stringify([
+    {id: "1", name: "Mochila de Trabajo", locker: "1", status: "STORED", moveTo: undefined},
+    {id: "2", name: "Comida", locker: "3", status: "STORED", moveTo: undefined}
+]);*/
+export async function getSavedItems(){
+  const snapshot = await firebase.firestore().collection('savedItems').get()
+  return snapshot.docs.map(doc => doc.data());
+}
+
+export function setSavedItem(item){
+  firebase.database().ref('savedItems/' + item.id).set(item);
+}
+
 export function login(email, password){
   return firebase.auth().signInWithEmailAndPassword(email, password);
 }

@@ -25,24 +25,29 @@ export default class MoveToPage extends Component<{}, MoveToState> {
             showCheckout: false,
             nearestLockers: []
         };
-        SavedItemsBuilder.build(localStorage.savedItems).then(
-            res => {
-                this.item = res.filter(function (item: SavedItem) {
-                    return item.id === JSON.parse(localStorage.operation).itemId
-                })[0];
+        firebase.getSavedItems().then(
+            savedItems => {
+                SavedItemsBuilder.build(savedItems).then(
+                    res => {
+                        this.item = res.filter(function (item: SavedItem) {
+                            return item.id === JSON.parse(localStorage.operation).itemId
+                        })[0];
 
-                // TODO: Hardcode nearest lockers in list and calculate price.
-                firebase.getAvailableLockers().then(
-                    availableLockers => {
-                        //this.nearestLockers = LockersBuilder.build(availableLockers);
-                        this.setState({
-                            nearestLockers: LockersBuilder.build(availableLockers)
-                        })
+                        // TODO: Hardcode nearest lockers in list and calculate price.
+                        firebase.getAvailableLockers().then(
+                            availableLockers => {
+                                //this.nearestLockers = LockersBuilder.build(availableLockers);
+                                this.setState({
+                                    nearestLockers: LockersBuilder.build(availableLockers)
+                                })
+                            },
+                            err => console.log(err));
+                        
                     },
-                    err => console.log(err));
+                    err => console.log(err))
                 
             },
-            err => console.log(err))
+            err => console.log(err));
     }
 
     render() {

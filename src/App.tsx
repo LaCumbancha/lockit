@@ -37,11 +37,6 @@ import MoveToPage from "./pages/MoveToPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
 
-localStorage.savedItems = JSON.stringify([
-    {id: "1", name: "Mochila de Trabajo", locker: "1", status: "STORED", moveTo: undefined},
-    {id: "2", name: "Comida", locker: "3", status: "STORED", moveTo: undefined}
-]);
-
 const App: React.FC = () => {
     const isLoggedIn = localStorage.userID? true:false;
     console.log(isLoggedIn)
