@@ -38,7 +38,9 @@ export async function getSavedItems(){
 }
 
 export function setSavedItem(item){
-  firebase.database().ref('savedItems/' + item.id).set(item);
+  let saveItem = Object.assign({}, item);
+  saveItem.locker = Object.assign({}, item.locker);
+  firebase.firestore().doc('savedItems/' + item.id).set(saveItem);
 }
 
 export function login(email, password){

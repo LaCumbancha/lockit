@@ -57,7 +57,7 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
                                     return item;
                                 });
 
-                                localStorage.savedItems = JSON.stringify(items);
+                                //localStorage.savedItems = JSON.stringify(items);
                                 this.setState({loading: false});
                                 this.props.history.push('/map');
                             },
