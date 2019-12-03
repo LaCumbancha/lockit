@@ -39,7 +39,6 @@ import LoginPage from "./pages/LoginPage";
 
 const App: React.FC = () => {
     const isLoggedIn = localStorage.userID? true:false;
-    console.log(isLoggedIn)
     return (
         <IonApp>
             <IonReactRouter>
