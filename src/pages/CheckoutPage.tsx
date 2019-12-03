@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {IonContent, IonLoading, IonPage} from '@ionic/react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 
+import * as firebase from '../services/firebase';
+
 import './main.css'
 import SavedItem from "../model/SavedItem";
 import Operation from "../model/Operation";
@@ -35,21 +37,31 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
 
     changeLocation() {
         let operation = this.operation;
-        let items = SavedItemsBuilder.build(localStorage.savedItems);
-        let lockers = LockersBuilder.build(localStorage.availableLockers);
+        SavedItemsBuilder.build(localStorage.savedItems).then(
+            res => {
+                let items = res;
+                firebase.getAvailableLockers().then(
+                    res => {
+                        let availableLockers = res;
+                        let lockers = LockersBuilder.build(availableLockers);
 
-        items.map(function (item: SavedItem) {
-            if (item.id === operation.itemId) {
-                item.locker = lockers.filter(function (locker: Locker) {
-                    return locker.id === operation.lockerToId
-                })[0]
-            }
-            return item
-        });
+                        items.map(function (item: SavedItem) {
+                            if (item.id === operation.itemId) {
+                                item.locker = lockers.filter(function (locker: Locker) {
+                                    return locker.id === operation.lockerToId
+                                })[0]
+                            }
+                            return item
+                        });
 
-        localStorage.savedItems = JSON.stringify(items);
-        this.setState({loading: false});
-        this.props.history.push('/map');
+                        localStorage.savedItems = JSON.stringify(items);
+                        this.setState({loading: false});
+                        this.props.history.push('/map');
+                    },
+                    err => console.log(err));
+            },
+            err => console.log(err));
+        
     }
 
     render() {

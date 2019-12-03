@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {IonButton, IonContent, IonPage} from '@ionic/react';
+
+import * as firebase from '../services/firebase';
+
 import './main.css'
 import SavedItemsBuilder from "../model/SavedItemsBuilder";
 import SavedItem from "../model/SavedItem";
@@ -9,28 +12,46 @@ import LockerTag from "../components/Locker/LockerTag";
 
 type MoveToState = {
     showCheckout: Boolean,
+    nearestLockers: Locker[]
 }
 
 export default class MoveToPage extends Component<{}, MoveToState> {
-    private readonly item: SavedItem;
-    private readonly nearestLockers: Locker[];
+    private item!: SavedItem;
+    //private nearestLockers: Locker[] = [];
 
     constructor(props: PropertyDecorator) {
         super(props);
-        this.state = {showCheckout: false};
-        this.item = SavedItemsBuilder.build(localStorage.savedItems)
-            .filter(function (item: SavedItem) {
-                return item.id === JSON.parse(localStorage.operation).itemId
-            })[0];
+        this.state = {
+            showCheckout: false,
+            nearestLockers: []
+        };
+        SavedItemsBuilder.build(localStorage.savedItems).then(
+            res => {
+                this.item = res.filter(function (item: SavedItem) {
+                    return item.id === JSON.parse(localStorage.operation).itemId
+                })[0];
 
-        // TODO: Hardcode nearest lockers in list and calculate price.
-        this.nearestLockers = LockersBuilder.build(localStorage.availableLockers);
+                // TODO: Hardcode nearest lockers in list and calculate price.
+                firebase.getAvailableLockers().then(
+                    availableLockers => {
+                        //this.nearestLockers = LockersBuilder.build(availableLockers);
+                        this.setState({
+                            nearestLockers: LockersBuilder.build(availableLockers)
+                        })
+                    },
+                    err => console.log(err));
+                
+            },
+            err => console.log(err))
     }
 
     render() {
-        let lockers = this.nearestLockers.map(locker =>
-            <LockerTag item={this.item} lockerId={locker.id} lockerName={locker.name} lockerAddress={locker.address} price={locker.price}/>
-        );
+        let lockers;
+        if(this.item){
+            lockers = this.state.nearestLockers.map(locker =>
+                <LockerTag key={locker.id} item={this.item} lockerId={locker.id} lockerName={locker.name} lockerAddress={locker.address} price={locker.price}/>
+            );
+        }
 
         return (
             <IonPage>

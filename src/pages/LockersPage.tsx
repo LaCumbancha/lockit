@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonText} from '@ionic/react';
+import {IonContent, IonIcon, IonPage} from '@ionic/react';
 import Bag from "../components/Bag/Bag";
 import './main.css'
 import EmptyBag from "../components/Bag/EmptyBag";
@@ -14,19 +14,28 @@ const MAX_LOCKERS = 5;
 
 type LockersState = {
     showMoveTo: Boolean,
-    notifications: [{ id: String, title: String, body: String }]
+    notifications: [{ id: String, title: String, body: String }],
+    savedItems: SavedItem[] 
 }
 
 export default class LockersPage extends Component<{}, LockersState> {
-    private readonly savedItems: SavedItem[];
+    private savedItems: SavedItem[] = [];
 
     constructor(props:PropertyDecorator) {
         super(props);
-        this.savedItems = SavedItemsBuilder.build(localStorage.savedItems);
-        this.state = {
+        SavedItemsBuilder.build(localStorage.savedItems).then(
+            res => {
+                this.setState({
+                    showMoveTo: false,
+                    notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }],
+                    savedItems: res
+                });
+            },
+            err => console.log(err));
+        /*this.state = {
             showMoveTo: false,
             notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }]
-        };
+        };*/
     }
 
     push = () => {
@@ -76,11 +85,15 @@ export default class LockersPage extends Component<{}, LockersState> {
     }
 
     render() {
-        let storedLockers = this.savedItems.slice(0, MAX_LOCKERS).map((item, key) =>
-            <Bag key={key} id={item.id} name={item.name} locker={item.locker} status={item.status} moveTo={item.moveTo}/>
-        );
-        let remainingFields = MAX_LOCKERS - this.savedItems.length;
-        let emptyLockers = remainingFields > 0 ? Array(remainingFields).fill(<EmptyBag/>) : null;
+        let storedLockers, remainingFields = MAX_LOCKERS, emptyLockers = null;
+        if(this.state && this.state.savedItems){
+            console.log(this.state.savedItems)
+            storedLockers = this.state.savedItems.slice(0, MAX_LOCKERS).map((item, key) =>
+                <Bag key={key} id={item.id} name={item.name} locker={item.locker} status={item.status} moveTo={item.moveTo}/>
+            );
+            remainingFields = MAX_LOCKERS - this.savedItems.length;
+            emptyLockers = remainingFields > 0 ? Array(remainingFields).fill(<EmptyBag/>) : null;
+        }
 
         return(
             <IonPage>

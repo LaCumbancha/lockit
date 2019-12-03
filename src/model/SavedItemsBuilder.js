@@ -1,11 +1,15 @@
 import SavedItem from "./SavedItem";
+import * as firebase from '../services/firebase';
 
 export default class SavedItemsBuilder {
 
-    static build(rawData) {
-        let availableLockers = JSON.parse(localStorage.availableLockers);
+    static async build(rawData) {
+
+        let availableLockers = await firebase.getAvailableLockers();
         return JSON.parse(rawData).map(field => {
-            let locker = availableLockers.filter(locker => locker.id === field.locker)[0];
+            let locker = availableLockers.filter(locker => {
+            	return locker.id === field.locker;
+            })[0];
             return new SavedItem(field.id, field.name, locker, field.status, field.moveTo)
         })
     }
