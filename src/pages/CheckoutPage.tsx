@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {IonContent, IonLoading, IonPage} from '@ionic/react';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
+
 import './main.css'
 import SavedItem from "../model/SavedItem";
 import Operation from "../model/Operation";
@@ -16,10 +18,10 @@ type CheckoutPageState = {
     loading: boolean,
 }
 
-export default class CheckoutPage extends Component<CheckoutPageProps, CheckoutPageState> {
+class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>, CheckoutPageState> {
     private readonly operation: Operation;
 
-    constructor({props}: { props: any }) {
+    constructor({props}: any) {
         super(props);
         this.state = {
             loading: false,
@@ -47,6 +49,7 @@ export default class CheckoutPage extends Component<CheckoutPageProps, CheckoutP
 
         localStorage.savedItems = JSON.stringify(items);
         this.setState({loading: false});
+        this.props.history.push('/map');
     }
 
     render() {
@@ -68,6 +71,9 @@ export default class CheckoutPage extends Component<CheckoutPageProps, CheckoutP
                             <GenericCard/>
                         </div>
                         <span className="main-title" onClick={this.moveTo}>Total: ${this.operation.price}</span>
+                        <div className="main-button" onClick={() => this.props.history.push('/map')}>
+                            <span className="main-button-text">cancelar</span>
+                        </div>
                         <IonLoading
                             isOpen={this.state.loading}
                             onDidDismiss={() => this.changeLocation()}
@@ -80,6 +86,8 @@ export default class CheckoutPage extends Component<CheckoutPageProps, CheckoutP
         )
     }
 }
+
+export default withRouter(CheckoutPage);
 
 class VisaCard extends Component {
     render() {

@@ -1,6 +1,6 @@
 /* global window */
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 import {IonToast} from '@ionic/react';
 
 import MapGL, {Source, Layer, Marker} from 'react-map-gl';
@@ -471,13 +471,14 @@ class Map extends Component {
             <>
                 {checkout.show ?
                     // TODO: Replace redirecting to Checkout Page
-                    null
+                    //null
                     // <CheckoutComponent
                     //     bagName={this.props.bagName}
                     //     lockerName={this.state.lockerName}
                     //     lockerLocation={this.state.lockerLocation}
                     //     changeBagLocation={this._changeBagLocation}
                     // />
+                    <Redirect to="/checkout"/>
                     :
                     <MapGL
                         {...viewport}
