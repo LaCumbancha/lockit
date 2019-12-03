@@ -20,7 +20,7 @@ type BikeProps = {
     size?: number
 }
 
-export default class Bike extends PureComponent<BikeProps> {
+export default class BikeIcon extends PureComponent<BikeProps> {
     render() {
         const {size = 20} = this.props;
 

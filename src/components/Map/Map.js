@@ -8,7 +8,7 @@ import MapGL, {Source, Layer, Marker} from 'react-map-gl';
 import './Map.css';
 
 import Pin from './Pin';
-import Bike from "./Bike";
+import BikeIcon from "../Bike/BikeIcon";
 import LockerPin from './locker/LockerPin';
 
 import * as firebase from '../../services/firebase';
@@ -386,7 +386,7 @@ class Map extends Component {
     _animateBike = () => {
         this.animation = window.requestAnimationFrame(this._animateBike);
         if (!this.state.bikeMoving) return;
-        if (this.state.currentBikeIndex >= this.bikeCoordinates.length /*|| !this.state.bikeMoving*/) return;
+        if (this.state.currentBikeIndex >= this.bikeCoordinates.length) return;
         let longitude = this.bikeCoordinates[this.state.currentBikeIndex][0];
         let latitude = this.bikeCoordinates[this.state.currentBikeIndex][1];
         if (this.state.nextBikeIteration == null || this.state.nextBikeIteration.getTime() < Date.now()) {
@@ -496,7 +496,8 @@ class Map extends Component {
                         )}
 
                         {bikeData && (
-                            <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <Bike size={ICONS_SIZE}/>
+                            <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <BikeIcon
+                                size={ICONS_SIZE}/>
                             </Marker>
                         )}
 

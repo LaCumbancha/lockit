@@ -23,29 +23,6 @@ export default class PageComponent extends Component<{}, State> {
     render() {
         return (
             <div className={"principal-component"}>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonSearchbar placeholder="Quiero buscar mi locker en..."
-                                      onClick={() => this.changeListState()}/>
-                        <IonList className={"list-padding"} hidden={this.state.showList}>
-                            <IonItem>
-                                <IonLabel>
-                                    Hola
-                                </IonLabel>
-                            </IonItem>
-                            <IonItem>
-                                <IonLabel>
-                                    Hola
-                                </IonLabel>
-                            </IonItem>
-                            <IonItem>
-                                <IonLabel>
-                                    Hola
-                                </IonLabel>
-                            </IonItem>
-                        </IonList>
-                    </IonToolbar>
-                </IonHeader>
                 <IonContent>
                     <LockitMap/>
                 </IonContent>
