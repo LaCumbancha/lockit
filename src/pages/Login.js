@@ -40,6 +40,10 @@ class Login extends Component {
                 console.info('result', res);
                 if (res) {
                     localStorage.userID = res.user.uid;
+                    this.event = new CustomEvent('loggedIn', {
+                        detail: res
+                    });
+                    window.dispatchEvent(this.event);
                     history.push({
                         pathname: '/',
                         state: {}
