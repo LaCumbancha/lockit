@@ -7,6 +7,7 @@ import * as firebase from '../services/firebase';
 import Bag from "../components/Bag/Bag";
 import './main.css'
 import EmptyBag from "../components/Bag/EmptyBag";
+import LoadingBag from "../components/Bag/LoadingBag";
 import SavedItemsBuilder from "../model/SavedItemsBuilder.js";
 import SavedItem from "../model/SavedItem";
 import {settings} from "ionicons/icons";
@@ -17,6 +18,7 @@ const { PushNotifications } = Plugins;
 const MAX_LOCKERS = 5;
 
 type LockersState = {
+    loading: Boolean,
     showMoveTo: Boolean,
     notifications: [{ id: String, title: String, body: String }],
     savedItems: SavedItem[] 
@@ -27,12 +29,19 @@ export default class LockersPage extends Component<{}, LockersState> {
 
     constructor(props:PropertyDecorator) {
         super(props);
+        this.state = {
+          loading: true,
+          showMoveTo: false,
+          notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }],
+          savedItems: []
+        };
         firebase.getSavedItems().then(
             savedItems => {
                 console.log(savedItems)
                 SavedItemsBuilder.build(savedItems).then(
                     res => {
                         this.setState({
+                            loading: false,
                             showMoveTo: false,
                             notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }],
                             savedItems: savedItems.map(function(item){
@@ -93,12 +102,16 @@ export default class LockersPage extends Component<{}, LockersState> {
     }
 
     render() {
+        const loading = this.state && this.state.loading;
         let storedLockers, remainingFields = MAX_LOCKERS, emptyLockers = null;
-        if(this.state && this.state.savedItems){
+        if(loading){
+          emptyLockers = remainingFields > 0 ? Array.from(Array(remainingFields),(x,index) => <LoadingBag key={index}/>) : null;
+        }
+        else if(this.state && this.state.savedItems){
             storedLockers = this.state.savedItems.slice(0, MAX_LOCKERS).map((item, key) =>
                 <Bag key={key} id={item.id} name={item.name} locker={item.locker} status={item.status} moveTo={item.moveTo}/>
             );
-            remainingFields = MAX_LOCKERS - this.savedItems.length;
+            remainingFields = MAX_LOCKERS - this.state.savedItems.length;
             emptyLockers = remainingFields > 0 ? Array.from(Array(remainingFields),(x,index) => <EmptyBag key={index}/>) : null;
         }
 
