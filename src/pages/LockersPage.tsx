@@ -35,7 +35,9 @@ export default class LockersPage extends Component<{}, LockersState> {
                         this.setState({
                             showMoveTo: false,
                             notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }],
-                            savedItems: res
+                            savedItems: savedItems.map(function(item){
+                              return new SavedItem(item.id,item.name,item.locker,item.status,item.moveTo);
+                            })
                         });
                     },
                     err => console.log(err));
@@ -97,7 +99,7 @@ export default class LockersPage extends Component<{}, LockersState> {
                 <Bag key={key} id={item.id} name={item.name} locker={item.locker} status={item.status} moveTo={item.moveTo}/>
             );
             remainingFields = MAX_LOCKERS - this.savedItems.length;
-            emptyLockers = remainingFields > 0 ? Array(remainingFields).fill(<EmptyBag/>) : null;
+            emptyLockers = remainingFields > 0 ? Array.from(Array(remainingFields),(x,index) => <EmptyBag key={index}/>) : null;
         }
 
         return(
