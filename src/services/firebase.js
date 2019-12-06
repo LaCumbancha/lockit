@@ -32,8 +32,10 @@ export async function getAvailableLockers(){
     {id: "1", name: "Mochila de Trabajo", locker: "1", status: "STORED", moveTo: undefined},
     {id: "2", name: "Comida", locker: "3", status: "STORED", moveTo: undefined}
 ]);*/
-export async function getSavedItems(){
-  const snapshot = await firebase.firestore().collection('savedItems').get()
+export async function getSavedItems(userID){
+  const snapshot = await firebase.firestore()
+      .collection('savedItems')
+      .where("userID", "==", userID).get()
   return snapshot.docs.map(doc => doc.data());
 }
 

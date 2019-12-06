@@ -17,7 +17,6 @@ type LockerProps = {
 class LockerTag extends Component<RouteComponentProps<{}> & LockerProps> {
 
     _selectLockerToMove() {
-        console.log(this.props)
         localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.item.id, this.props.price, this.props.lockerId, this.props.item.id));
         this.props.history.push("/checkout")
     }

@@ -28,7 +28,7 @@ export default class MoveToPage extends Component<{}, MoveToState> {
             showCheckout: false,
             nearestLockers: []
         };
-        firebase.getSavedItems().then(
+        firebase.getSavedItems(localStorage.userID).then(
             savedItems => {
                 SavedItemsBuilder.build(savedItems).then(
                     res => {
