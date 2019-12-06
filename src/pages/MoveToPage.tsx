@@ -9,11 +9,14 @@ import SavedItem from "../model/SavedItem";
 import Locker from "../model/Locker";
 import LockersBuilder from "../model/LockersBuilder";
 import LockerTag from "../components/Locker/LockerTag";
+import LoadingBag from "../components/Bag/LoadingBag";
 
 type MoveToState = {
     showCheckout: Boolean,
     nearestLockers: Locker[]
 }
+
+const MAX_LOCKERS = 4;
 
 export default class MoveToPage extends Component<{}, MoveToState> {
     private item!: SavedItem;
@@ -56,6 +59,8 @@ export default class MoveToPage extends Component<{}, MoveToState> {
             lockers = this.state.nearestLockers.map(locker =>
                 <LockerTag key={locker.id} item={this.item} lockerId={locker.id} lockerName={locker.name} lockerAddress={locker.address} price={locker.price}/>
             );
+        } else {
+            lockers = Array.from(Array(MAX_LOCKERS),(x,index) => <LoadingBag key={index}/>);
         }
 
         return (

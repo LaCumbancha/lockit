@@ -17,7 +17,9 @@ type LockerProps = {
 class LockerTag extends Component<RouteComponentProps<{}> & LockerProps> {
 
     _selectLockerToMove() {
-        localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.item.id, this.props.price, this.props.lockerId, this.props.item.locker.id));
+        console.log(this.props)
+        localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.item.id, this.props.price, this.props.lockerId, this.props.item.id));
+        this.props.history.push("/checkout")
     }
 
     render() {
@@ -29,7 +31,7 @@ class LockerTag extends Component<RouteComponentProps<{}> & LockerProps> {
                 </div>
                 <div className="locker-info-transport">
                     <div className="locker-info-transport-move-to">
-                        <IonTabButton class="lockers-button" href="/checkout" onClick={this._selectLockerToMove.bind(this)}>
+                        <IonTabButton class="lockers-button" onClick={this._selectLockerToMove.bind(this)}>
                             <span className="locker-info-transport-move-to-text">MOVER</span>
                         </IonTabButton>
                     </div>
