@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './LockerInfo.css'
 
 type InfoProps = {
+    id: string,
     lockerName:string,
     lockerAddress:string,
     hideInfo:boolean,
@@ -23,6 +24,7 @@ export default class LockerPin extends Component<InfoProps, State> {
     onRequestBooking(event: any){
         if(this.props.onRequestBooking){
             this.props.onRequestBooking({
+                lockerId: this.props.id,
                 lockerName: this.props.lockerName,
                 lockerAddress: this.props.lockerAddress,
                 lockerPrice: this.props.lockerPrice

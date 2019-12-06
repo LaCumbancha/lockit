@@ -12,6 +12,10 @@ import BikeIcon from "../Bike/BikeIcon";
 import LockerPin from './locker/LockerPin';
 
 import * as firebase from '../../services/firebase';
+import Operation from "../../model/Operation";
+import LockersBuilder from "../../model/LockersBuilder";
+import SavedItem from "../../model/SavedItem";
+import Locker from "../../model/Locker";
 
 //import {pointOnCircle} from './utils';
 
@@ -286,36 +290,7 @@ class Map extends Component {
             latitude: -34.617243,
             longitude: -58.367996
         },
-        lockers: [
-            {
-                latitude: -34.618043,
-                longitude: -58.367896,
-                name: "FIUBA",
-                address: "Av. Paseo Colón 850",
-                price: 150
-            },
-            {
-                latitude: -34.616489,
-                longitude: -58.365291,
-                name: "Starbucks (UCA)",
-                address: "Av. Alicia Moreau de Justo 1604",
-                price: 150
-            },
-            {
-                latitude: -34.615473,
-                longitude: -58.369561,
-                name: "Che Viejo",
-                address: "Av. Paseo Colón 667",
-                price: 150
-            },
-            {
-                latitude: -34.620704,
-                longitude: -58.371348,
-                name: "Starbucks",
-                address: "Defensa 1102",
-                price: 150
-            },
-        ],
+        lockers: [],
         checkout: {
             lockerName: "",
             lockerLocation: "",
@@ -360,8 +335,10 @@ class Map extends Component {
         })*/
 
         // TODO: borrar pero es un ejemplo para traer datos de firebase
-        firebase.getBikeCoordinates(1).then(
-            res => console.log(res.data()),
+        firebase.getAvailableLockers().then(
+            res => {
+                this.setState({lockers: res})
+            },
             err => console.log(err));
 
 
@@ -430,13 +407,15 @@ class Map extends Component {
     _renderLockerMarker = (locker, index) => {
         return (
             <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
-                <LockerPin size={ICONS_SIZE} lockerName={locker.name} lockerAddress={locker.address}
+                <LockerPin id={locker.id} size={ICONS_SIZE} lockerName={locker.name} lockerAddress={locker.address}
                            lockerPrice={locker.price} onRequestBooking={this._onRequestBooking.bind(this)}/>
             </Marker>
         );
     };
 
     _onRequestBooking(info) {
+        //TODO: refactor
+        localStorage.operation = JSON.stringify(new Operation("STORING_ITEM", info.lockerId, info.lockerPrice, undefined, undefined));
         this.setState({
             checkout: {
                 lockerName: info.lockerName,
