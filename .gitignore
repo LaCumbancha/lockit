@@ -63,3 +63,7 @@ typings/
 # Jet Brains
 .idea/
 lockit.iml
+
+#build
+android/
+build/

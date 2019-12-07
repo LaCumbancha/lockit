@@ -1,8 +1,8 @@
 {
-  "appId": "com.fiuba.lockit",
+  "appId": "io.ionic.starter",
   "appName": "lockit",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
-  "linuxAndroidStudioPath": "/snap/android-studio/81/android-studio/bin/studio.sh"
+  "cordova": {}
 }
