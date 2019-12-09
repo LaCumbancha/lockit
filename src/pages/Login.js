@@ -41,9 +41,7 @@ class Login extends Component {
                 if (res) {
                     localStorage.userID = res.user.uid;
                     localStorage.type = res.user.email === "usuario@lockitendero.com" ? "LOCKITENDERO" : "CLIENTE";
-                    this.event = new CustomEvent('loggedIn', {
-                        detail: res
-                    });
+                    this.event = new CustomEvent('loggedIn', { detail: res });
                     window.dispatchEvent(this.event);
                     if (localStorage.type === "LOCKITENDERO") {
                         history.push({pathname: '/transport', state: {}});

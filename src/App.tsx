@@ -39,14 +39,12 @@ import LoginPage from "./pages/LoginPage";
 import TransportPage from "./pages/TransportPage";
 
 const App: React.FC = (props) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.userID? true:false);
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.userID);
     const [isLockitender, setIsLockitender] = useState(localStorage.type === "LOCKITENDERO");
     //let isLoggedIn = localStorage.userID? true:false;
     //loggedIn it's fired when the user log in in the app
-    window.addEventListener('loggedIn', (e: any) => {
-        setIsLoggedIn(localStorage.userID? true:false);
-    });
-    window.addEventListener('lockitender', (e: any) => {
+    window.addEventListener('loggedIn', (_: any) => {
+        setIsLoggedIn(!!localStorage.userID);
         setIsLockitender(localStorage.type === "LOCKITENDERO");
     });
     return (
@@ -56,7 +54,7 @@ const App: React.FC = (props) => {
                     <IonRouterOutlet>
                         <Route path="/login" component={LoginPage}/>
                         <Route path="/" render={() => <Redirect to="/map"/>} exact={true}/>
-                        <Route path="/map" component={MapPage} />
+                        <Route path="/map" component={MapPage}/>
                         <Route path="/lockers" component={LockersPage} exact={true}/>
                         <Route path="/transport" component={TransportPage} exact={true}/>
                         <Route path="/lockers/details" component={Details}/>
@@ -70,17 +68,19 @@ const App: React.FC = (props) => {
                     </IonRouterOutlet>
                     {/* BUG: https://github.com/ionic-team/ionic/issues/18553 */}
                     <IonTabBar slot="bottom">
-                        <IonTabButton tab="map" href="/map" style={!isLoggedIn? {visibility:"hidden"}: {}}>
+                        <IonTabButton tab="map" href="/map" style={!isLoggedIn ? {visibility: "hidden"} : {}}>
                             <IonIcon icon={map}/>
                             <IonLabel>Mapa</IonLabel>
                         </IonTabButton>
                         {isLockitender ?
-                            <IonTabButton tab="lockers" href="/transport" style={!isLoggedIn? {visibility:"hidden"}: {}}>
+                            <IonTabButton tab="lockers" href="/transport"
+                                          style={!isLoggedIn ? {visibility: "hidden"} : {}}>
                                 <IonIcon icon={lock}/>
                                 <IonLabel>Pedidos</IonLabel>
                             </IonTabButton>
                             :
-                            <IonTabButton tab="lockers" href="/lockers" style={!isLoggedIn? {visibility:"hidden"}: {}}>
+                            <IonTabButton tab="lockers" href="/lockers"
+                                          style={!isLoggedIn ? {visibility: "hidden"} : {}}>
                                 <IonIcon icon={lock}/>
                                 <IonLabel>Mis LockIts</IonLabel>
                             </IonTabButton>
