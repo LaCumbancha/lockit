@@ -4,7 +4,6 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import './MovingRequest.css'
 import QRLockerModal from "../QR/QRLockerModal";
 import Movement from "../../model/Movement";
-import DataModal from "./Data/DataModal";
 import * as firebase from "../../services/firebase";
 import SavedItemsBuilder from "../../model/SavedItemsBuilder";
 import LockersBuilder from "../../model/LockersBuilder";
@@ -14,7 +13,7 @@ type BagProps = {
     movement: Movement
 }
 
-class MovingRequest extends Component<RouteComponentProps & BagProps> {
+class AcceptedRequest extends Component<RouteComponentProps & BagProps> {
     modalQR: React.RefObject<QRLockerModal> = React.createRef();
 
     _withdrawItem() {
@@ -71,7 +70,7 @@ class MovingRequest extends Component<RouteComponentProps & BagProps> {
         let moving = this.props.movement.status === "MOVING";
 
         return (
-            <div className="request-info">
+            <div className="accepted-request-info">
                 <QRLockerModal show={false} ref={this.modalQR}/>
                 <div className="request-info-main">
                     <span className="request-info-main-text">Locker en {this.props.movement.lockerFrom.name}</span>
@@ -95,4 +94,4 @@ class MovingRequest extends Component<RouteComponentProps & BagProps> {
     }
 }
 
-export default withRouter(MovingRequest)
+export default withRouter(AcceptedRequest)

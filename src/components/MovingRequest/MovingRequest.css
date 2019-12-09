@@ -189,3 +189,16 @@
     align-items: center;
     margin: 0 12px;
 }
+
+.accepted-request-info {
+    border: 2px solid #275704;
+    background-color: #d1ffc8;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin: 15px;
+    padding: 8px 15px 15px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 70px;
+}

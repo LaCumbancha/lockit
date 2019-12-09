@@ -120,6 +120,8 @@ export default class LockersPage extends Component<{}, TransportState> {
             }
         }
 
+        let hasActiveRequest = activeRequest !== null;
+
         return (
             <IonPage>
                 <IonContent>
@@ -128,7 +130,11 @@ export default class LockersPage extends Component<{}, TransportState> {
                             <span className="main-title">Pedidos</span>
                             <IonIcon onClick={this.push} className="settings-icon" icon={settings}/>
                         </div>
-                        <span className="sub-title">¡Estos son los pedidos actuales de movimientos en tu zona!</span>
+                        {hasActiveRequest ?
+                            <span className="sub-title">¡Completa tu pedido actual para poder tomar nuevos!</span>
+                            :
+                            <span className="sub-title">¡Estos son los pedidos de transporte actuales en tu zona!</span>
+                        }
                         {activeRequest}
                         {possibleRequests}
                         {emptyRequests}
