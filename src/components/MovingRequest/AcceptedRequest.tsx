@@ -32,7 +32,10 @@ class MovingRequest extends Component<RouteComponentProps & BagProps> {
                     item.moveTo = lockers
                         .filter((locker: Locker) => locker.id === movement.lockerTo.id)
                         .map((locker: Locker) => locker.name)[0];
-                    firebase.setSavedItem(item)
+                    firebase.setSavedItem(item);
+
+                    // eslint-disable-next-line no-restricted-globals
+                    location.reload();
                 });
             });
         });
@@ -49,10 +52,13 @@ class MovingRequest extends Component<RouteComponentProps & BagProps> {
         firebase.getSavedItemsById(movement.item.id).then(items => {
                 SavedItemsBuilder.build(items).then(items => {
                     let item = items[0];
-                    item.locker = movement.lockerTo.id;
+                    item.locker = movement.lockerTo;
                     item.status = "STORED";
                     delete item.moveTo;
-                    firebase.setSavedItem(item)
+                    firebase.setSavedItem(item);
+
+                    // eslint-disable-next-line no-restricted-globals
+                    location.reload();
                 });
             }
         );

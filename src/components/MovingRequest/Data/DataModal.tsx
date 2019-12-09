@@ -39,11 +39,12 @@ export default class DataModal extends Component<ModalProps, State> {
                 SavedItemsBuilder.build(items).then(items => {
                     let item = items[0];
                     item.status = "REQUEST_ACCEPTED";
-                    firebase.setSavedItem(item)
+                    firebase.setSavedItem(item);
+                    // eslint-disable-next-line no-restricted-globals
+                    location.reload();
                 });
             }
         );
-        //window.location.reload(false);
     };
 
     render() {
