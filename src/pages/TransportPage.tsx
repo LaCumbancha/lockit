@@ -13,6 +13,7 @@ import Movement from "../model/Movement";
 import MovementsBuilder from "../model/MovementsBuilder";
 import MovingRequest from "../components/MovingRequest/MovingRequest";
 import AcceptedRequest from "../components/MovingRequest/AcceptedRequest";
+import NoRequests from "../components/MovingRequest/NoRequests";
 
 const {PushNotifications} = Plugins;
 
@@ -115,6 +116,8 @@ export default class LockersPage extends Component<{}, TransportState> {
                 possibleRequests = this.movingRequests.slice(0, MAX_MOVEMENTS).map((movement, key) =>
                     <MovingRequest movement={movement}/>
                 );
+
+                if (possibleRequests.length === 0) { noRequests = <NoRequests/> }
             }
         }
 

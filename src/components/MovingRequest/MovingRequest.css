@@ -147,3 +147,45 @@
     font-size: 8px;
     font-weight: bold;
 }
+
+.no-requests-item {
+    border: 2px solid #aaaaaa;
+    background: #dddddd;
+    border-radius: 6px;
+    margin: 15px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.no-requests-image {
+    height: 75px;
+    width: 75px;
+    margin: 25px 0 0 135px;
+}
+
+.no-requests-title {
+    color: #000000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 7px 0 7px 102px;
+}
+
+.no-requests-text {
+    color: #393939;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: 0 12px;
+}
