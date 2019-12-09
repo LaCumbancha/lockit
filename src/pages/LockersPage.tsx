@@ -35,7 +35,7 @@ export default class LockersPage extends Component<{}, LockersState> {
           notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }],
           savedItems: []
         };
-        firebase.getSavedItems(localStorage.userID).then(
+        firebase.getSavedItemsByUserId(localStorage.userID).then(
             savedItems => {
                 console.log(savedItems);
                 SavedItemsBuilder.build(savedItems).then(

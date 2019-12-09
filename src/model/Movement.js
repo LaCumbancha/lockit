@@ -18,7 +18,7 @@ export default class Movement {
     }
 
     store() {
-        // TODO: Storing item.
+        this.status = "COMPLETED";
     }
 
 }

@@ -12,6 +12,7 @@ import {Plugins, PushNotification, PushNotificationToken, PushNotificationAction
 import Movement from "../model/Movement";
 import MovementsBuilder from "../model/MovementsBuilder";
 import MovingRequest from "../components/MovingRequest/MovingRequest";
+import AcceptedRequest from "../components/MovingRequest/AcceptedRequest";
 
 const {PushNotifications} = Plugins;
 
@@ -37,7 +38,7 @@ export default class LockersPage extends Component<{}, TransportState> {
                 console.log(movingRequests);
                 MovementsBuilder.build(movingRequests).then(
                     res => {
-                        this.movingRequests = res;
+                        this.movingRequests = res.filter((movement: Movement) => movement.status !== "COMPLETED");
                         this.setState({
                             loading: false,
                             notifications: [{id: 'id', title: "Test Push", body: "This is my first push notification"}]
@@ -98,18 +99,23 @@ export default class LockersPage extends Component<{}, TransportState> {
 
     render() {
         const loading = this.state && this.state.loading;
-        let requests, remainingFields = MAX_MOVEMENTS, emptyRequests = null;
+        let activeRequest = null, possibleRequests = null, remainingFields = MAX_MOVEMENTS, emptyRequests = null, noRequests = null;
 
         if (loading) {
             emptyRequests = remainingFields > 0 ? Array.from(Array(remainingFields), (x, index) =>
                 <LoadingBag key={index}/>) : null;
         } else if (this.state && this.movingRequests) {
-            requests = this.movingRequests.slice(0, MAX_MOVEMENTS).map((movement, key) =>
-                <MovingRequest movement={movement}/>
-            );
-            remainingFields = MAX_MOVEMENTS - this.movingRequests.length;
-            emptyRequests = remainingFields > 0 ? Array.from(Array(remainingFields), (x, index) =>
-                <EmptyBag key={index}/>) : null;
+            let acceptedRequests = this.movingRequests.filter((movement) =>
+                movement.status === "ACCEPTED" || movement.status === "MOVING"
+            ).map((movement) => <AcceptedRequest movement={movement}/>);
+
+            if (acceptedRequests.length > 0) {
+                activeRequest = acceptedRequests[0]
+            } else {
+                possibleRequests = this.movingRequests.slice(0, MAX_MOVEMENTS).map((movement, key) =>
+                    <MovingRequest movement={movement}/>
+                );
+            }
         }
 
         return (
@@ -121,8 +127,10 @@ export default class LockersPage extends Component<{}, TransportState> {
                             <IonIcon onClick={this.push} className="settings-icon" icon={settings}/>
                         </div>
                         <span className="sub-title">¡Estos son los pedidos actuales de movimientos en tu zona!</span>
-                        {requests}
+                        {activeRequest}
+                        {possibleRequests}
                         {emptyRequests}
+                        {noRequests}
                     </div>
                 </IonContent>
             </IonPage>

@@ -37,7 +37,7 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
 
     changeLocation() {
         let operation = this.operation;
-        firebase.getSavedItems(localStorage.userID).then(
+        firebase.getSavedItemsByUserId(localStorage.userID).then(
             savedItems => {
                 SavedItemsBuilder.build(savedItems).then(
                     res => {

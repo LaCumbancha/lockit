@@ -16,7 +16,7 @@ type BagProps = {
     moveTo: String
 }
 
-class Bag extends Component<RouteComponentProps<{}> & BagProps> {
+class Bag extends Component<RouteComponentProps & BagProps> {
     modalElement: React.RefObject<QRLockerModal> = React.createRef();
     transporting = this.props.status === "MOVING";
 

@@ -26,7 +26,7 @@ export default class QRLockerModal extends Component<ModalProps,State> {
                 <section className="modal-main">
                     <button className="close-button" onClick={this.hideModal}>X</button>
                     <img className="QR-image" src={QR} alt={""}/>
-                    <div className="QR-text">¡Escanea este QR para abrir tu locker!</div>
+                    <div className="QR-text">¡Escanea este QR para abrir el locker!</div>
                 </section>
             </div>
         );

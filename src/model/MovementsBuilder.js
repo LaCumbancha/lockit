@@ -6,7 +6,7 @@ export default class MovementsBuilder {
     static async build(rawData) {
 
         let availableLockers = await firebase.getAvailableLockers();
-        let savedItems = await firebase.getAllItems();
+        let savedItems = await firebase.getAllSavedItems();
         return rawData.map(field => {
             let item = savedItems.filter(item => { return item.id === field.itemId })[0];
             let lockerFrom = availableLockers.filter(locker => { return locker.id === field.lockerFromId })[0];

@@ -32,10 +32,23 @@ export async function getAvailableLockers() {
     {id: "1", name: "Mochila de Trabajo", locker: "1", status: "STORED", moveTo: undefined},
     {id: "2", name: "Comida", locker: "3", status: "STORED", moveTo: undefined}
 ]);*/
-export async function getSavedItems(userID) {
+export async function getSavedItemsByUserId(userID) {
     const snapshot = await firebase.firestore()
         .collection('savedItems')
         .where("userID", "==", userID).get();
+    return snapshot.docs.map(doc => doc.data());
+}
+
+export async function getSavedItemsById(id) {
+    const snapshot = await firebase.firestore()
+        .collection('savedItems')
+        .where("id", "==", id).get();
+    return snapshot.docs.map(doc => doc.data());
+}
+
+export async function getAllSavedItems() {
+    const snapshot = await firebase.firestore()
+        .collection('savedItems').get();
     return snapshot.docs.map(doc => doc.data());
 }
 
@@ -43,12 +56,6 @@ export function setSavedItem(item) {
     let saveItem = Object.assign({}, item);
     saveItem.locker = Object.assign({}, item.locker);
     firebase.firestore().doc('savedItems/' + item.id).set(saveItem);
-}
-
-export async function getAllItems() {
-    const snapshot = await firebase.firestore()
-        .collection('savedItems').get();
-    return snapshot.docs.map(doc => doc.data());
 }
 
 export async function getMovingRequests() {

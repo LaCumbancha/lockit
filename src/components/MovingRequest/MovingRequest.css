@@ -1,4 +1,4 @@
-.request-info{
+.request-info {
     border: 2px solid #000000;
     box-sizing: border-box;
     border-radius: 6px;
@@ -21,7 +21,7 @@
     height: 70px;
 }
 
-.request-info-main{
+.request-info-main {
     display: flex;
     flex-direction: column;
     margin-top: 9px;
@@ -40,7 +40,7 @@
     color: #000000;
 }
 
-.request-info-secondary-text{
+.request-info-secondary-text {
     font-family: Roboto, serif;
     font-style: normal;
     font-weight: normal;
@@ -52,21 +52,15 @@
     margin-top: 5px;
 }
 
-.request-info-transport{
+.request-info-transport {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.request-info-transport-2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: -3px;
+    margin-top: 9px;
     margin-right: 7px;
 }
 
-.request-info-transport-text{
+.request-info-transport-text {
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
@@ -81,7 +75,18 @@
     cursor: pointer;
 }
 
-.request-info-open{
+.accepted-request-info-open {
+    width: 70px !important;
+    background: #000000;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 2px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.request-info-open {
     width: 60px !important;
     background: #000000;
     border: 2px solid #000000;
@@ -107,7 +112,7 @@
     color: #FFFFFF;
 }
 
-.request-info-transport-move-to{
+.request-info-transport-move-to {
     width: 60px !important;
     background: #000000;
     border: 2px solid #000000;
@@ -117,7 +122,7 @@
     cursor: pointer;
 }
 
-.request-info-transport-move-to-text{
+.request-info-transport-move-to-text {
     padding: 3px;
     font-style: normal;
     font-weight: 900;
@@ -131,11 +136,11 @@
     color: #FFFFFF;
 }
 
-.request-icon{
+.request-icon {
     font-size: 20px;
 }
 
-.request-info-price-text{
+.request-info-price-text {
     margin-top: 5px;
     font-family: Roboto, serif;
     font-style: normal;
