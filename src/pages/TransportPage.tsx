@@ -3,13 +3,9 @@ import {IonContent, IonIcon, IonPage} from '@ionic/react';
 
 import * as firebase from '../services/firebase';
 
-
-import Bag from "../components/Bag/Bag";
 import './main.css'
 import EmptyBag from "../components/Bag/EmptyBag";
 import LoadingBag from "../components/Bag/LoadingBag";
-import SavedItemsBuilder from "../model/SavedItemsBuilder.js";
-import SavedItem from "../model/SavedItem";
 import {settings} from "ionicons/icons";
 
 import {Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed} from '@capacitor/core';
@@ -21,20 +17,18 @@ const {PushNotifications} = Plugins;
 
 const MAX_MOVEMENTS = 5;
 
-type LockersState = {
+type TransportState = {
     loading: Boolean,
-    showMoveTo: Boolean,
     notifications: [{ id: String, title: String, body: String }]
 }
 
-export default class LockersPage extends Component<{}, LockersState> {
+export default class LockersPage extends Component<{}, TransportState> {
     private movingRequests: Movement[] = [];
 
     constructor(props: PropertyDecorator) {
         super(props);
         this.state = {
             loading: true,
-            showMoveTo: false,
             notifications: [{id: 'id', title: "Test Push", body: "This is my first push notification"}]
         };
 
@@ -42,7 +36,13 @@ export default class LockersPage extends Component<{}, LockersState> {
             movingRequests => {
                 console.log(movingRequests);
                 MovementsBuilder.build(movingRequests).then(
-                    res => this.movingRequests = res,
+                    res => {
+                        this.movingRequests = res;
+                        this.setState({
+                            loading: false,
+                            notifications: [{id: 'id', title: "Test Push", body: "This is my first push notification"}]
+                        })
+                    },
                     err => console.log(err)
                 );
             },
@@ -71,11 +71,11 @@ export default class LockersPage extends Component<{}, LockersState> {
         // Show us the notification payload if the app is open on our device
         PushNotifications.addListener('pushNotificationReceived',
             (notification: PushNotification) => {
-                let notif = this.state.notifications;
+                let notifications = this.state.notifications;
                 // @ts-ignore
-                notif.push({id: notification.id, title: notification.title, body: notification.body})
+                notifications.push({id: notification.id, title: notification.title, body: notification.body})
                 this.setState({
-                    notifications: notif
+                    notifications: notifications
                 })
             }
         );

@@ -39,6 +39,12 @@ export async function getSavedItems(userID) {
     return snapshot.docs.map(doc => doc.data());
 }
 
+export function setSavedItem(item) {
+    let saveItem = Object.assign({}, item);
+    saveItem.locker = Object.assign({}, item.locker);
+    firebase.firestore().doc('savedItems/' + item.id).set(saveItem);
+}
+
 export async function getAllItems() {
     const snapshot = await firebase.firestore()
         .collection('savedItems').get();
@@ -51,10 +57,16 @@ export async function getMovingRequests() {
     return snapshot.docs.map(doc => doc.data());
 }
 
-export function setSavedItem(item) {
-    let saveItem = Object.assign({}, item);
-    saveItem.locker = Object.assign({}, item.locker);
-    firebase.firestore().doc('savedItems/' + item.id).set(saveItem);
+export function setMovingRequest(movingRequest) {
+    let request = {
+        id: movingRequest.id,
+        itemId: movingRequest.item.id,
+        lockerFromId: movingRequest.lockerFrom.id,
+        lockerToId: movingRequest.lockerTo.id,
+        price: movingRequest.price,
+        status: movingRequest.status
+    };
+    firebase.firestore().doc('movingRequests/' + movingRequest.id).set(request);
 }
 
 export function login(email, password) {
