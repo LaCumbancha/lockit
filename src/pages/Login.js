@@ -40,14 +40,16 @@ class Login extends Component {
                 console.info('result', res);
                 if (res) {
                     localStorage.userID = res.user.uid;
+                    localStorage.type = res.user.email === "usuario@lockitendero.com" ? "LOCKITENDERO" : "CLIENTE";
                     this.event = new CustomEvent('loggedIn', {
                         detail: res
                     });
                     window.dispatchEvent(this.event);
-                    history.push({
-                        pathname: '/',
-                        state: {}
-                    });
+                    if (localStorage.type === "LOCKITENDERO") {
+                        history.push({pathname: '/transport', state: {}});
+                    } else {
+                        history.push({pathname: '/', state: {}});
+                    }
                 }
             },
             err => {

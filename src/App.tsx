@@ -36,13 +36,18 @@ import './theme/variables.css';
 import MoveToPage from "./pages/MoveToPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
+import TransportPage from "./pages/TransportPage";
 
 const App: React.FC = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.userID? true:false);
+    const [isLockitender, setIsLockitender] = useState(localStorage.type === "LOCKITENDERO");
     //let isLoggedIn = localStorage.userID? true:false;
     //loggedIn it's fired when the user log in in the app
     window.addEventListener('loggedIn', (e: any) => {
         setIsLoggedIn(localStorage.userID? true:false);
+    });
+    window.addEventListener('lockitender', (e: any) => {
+        setIsLockitender(localStorage.type === "LOCKITENDERO");
     });
     return (
         <IonApp>
@@ -53,6 +58,7 @@ const App: React.FC = (props) => {
                         <Route path="/" render={() => <Redirect to="/map"/>} exact={true}/>
                         <Route path="/map" component={MapPage} />
                         <Route path="/lockers" component={LockersPage} exact={true}/>
+                        <Route path="/transport" component={TransportPage} exact={true}/>
                         <Route path="/lockers/details" component={Details}/>
                         <Route path="/lockers/move" component={MoveToPage} exact={true}/>
                         <Route path="/checkout" component={CheckoutPage} exact={true}/>
@@ -68,15 +74,22 @@ const App: React.FC = (props) => {
                             <IonIcon icon={map}/>
                             <IonLabel>Mapa</IonLabel>
                         </IonTabButton>
-                        <IonTabButton tab="lockers" href="/lockers" style={!isLoggedIn? {visibility:"hidden"}: {}}>
-                            <IonIcon icon={lock}/>
-                            <IonLabel>Mis LockIts</IonLabel>
-                        </IonTabButton>
+                        {isLockitender ?
+                            <IonTabButton tab="lockers" href="/transport" style={!isLoggedIn? {visibility:"hidden"}: {}}>
+                                <IonIcon icon={lock}/>
+                                <IonLabel>Pedidos</IonLabel>
+                            </IonTabButton>
+                            :
+                            <IonTabButton tab="lockers" href="/lockers" style={!isLoggedIn? {visibility:"hidden"}: {}}>
+                                <IonIcon icon={lock}/>
+                                <IonLabel>Mis LockIts</IonLabel>
+                            </IonTabButton>
+                        }
                     </IonTabBar>
                 </IonTabs>
             </IonReactRouter>
         </IonApp>
     );
-}
+};
 
 export default App;
