@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IonContent, IonHeader, IonItem, IonLabel, IonList, IonSearchbar, IonToolbar} from "@ionic/react";
+import {IonContent} from "@ionic/react";
 import LockitMap from "../Map/LockitMap";
 import './PageComponent.css'
 

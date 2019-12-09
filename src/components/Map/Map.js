@@ -13,11 +13,6 @@ import LockerPin from './locker/LockerPin';
 
 import * as firebase from '../../services/firebase';
 import Operation from "../../model/Operation";
-import LockersBuilder from "../../model/LockersBuilder";
-import SavedItem from "../../model/SavedItem";
-import Locker from "../../model/Locker";
-
-//import {pointOnCircle} from './utils';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbnphcmFnb3phZ2NiYSIsImEiOiJjanJqaG5hc2UwMGJ3M3lwODlmZTI4NjAwIn0.sTM1hm0HAjSmcg3FfSBsHA'; // Set your mapbox token here
 const ICONS_SIZE = 48;
