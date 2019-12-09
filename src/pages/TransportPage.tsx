@@ -4,7 +4,6 @@ import {IonContent, IonIcon, IonPage} from '@ionic/react';
 import * as firebase from '../services/firebase';
 
 import './main.css'
-import EmptyBag from "../components/Bag/EmptyBag";
 import LoadingBag from "../components/Bag/LoadingBag";
 import {settings} from "ionicons/icons";
 

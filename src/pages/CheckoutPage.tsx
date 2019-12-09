@@ -9,8 +9,8 @@ import SavedItem from "../model/SavedItem";
 import Operation from "../model/Operation";
 import OperationBuilder from "../model/OperationBuilder";
 import SavedItemsBuilder from "../model/SavedItemsBuilder";
-import LockersBuilder from "../model/LockersBuilder";
-import Locker from "../model/Locker";
+import Movement from "../model/Movement";
+import MovementsBuilder from "../model/MovementsBuilder";
 
 type CheckoutPageProps = {
     item: SavedItem
@@ -40,34 +40,38 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
         firebase.getSavedItemsByUserId(localStorage.userID).then(
             savedItems => {
                 SavedItemsBuilder.build(savedItems).then(
-                    res => {
-                        let items = res;
-                        firebase.getAvailableLockers().then(
-                            res => {
-                                let availableLockers = res;
-                                let lockers = LockersBuilder.build(availableLockers);
+                    items => {
+                        items.map(function (item: SavedItem) {
+                            if (item.id === operation.itemId) {
+                                item.waitForMovement();
+                            }
+                            firebase.setSavedItem(item);
+                            return item;
+                        });
 
-                                items.map(function (item: SavedItem) {
-                                    if (item.id === operation.itemId) {
-                                        item.locker = lockers.filter(function (locker: Locker) {
-                                            return locker.id === operation.lockerToId
-                                        })[0]
-                                    }
-                                    firebase.setSavedItem(item);
-                                    return item;
-                                });
+                        firebase.getMovingRequests().then(movingRequests => {
+                                MovementsBuilder.build(movingRequests).then(requests => {
+                                    let nextId = requests
+                                        .map((movement: Movement) => movement.id)
+                                        .reduce((maxId: number, id: number) => maxId > id ? maxId : id) + 1;
 
-                                //localStorage.savedItems = JSON.stringify(items);
-                                this.setState({loading: false});
-                                this.props.history.push('/map');
-                            },
-                            err => console.log(err));
+                                    let item = { id: operation.itemId };
+                                    let lockerFrom = { id: operation.lockerFromId };
+                                    let lockerTo = { id: operation.lockerToId };
+
+                                    firebase.setMovingRequest(new Movement(
+                                        nextId, item, lockerFrom, lockerTo, "150", "REQUEST_TO_MOVE"
+                                    ));
+                                })
+                            }
+                        );
+
+                        this.setState({loading: false});
+                        this.props.history.push('/map');
                     },
                     err => console.log(err));
             },
             err => console.log(err));
-        
-        
     }
 
     render() {

@@ -7,6 +7,8 @@ import Movement from "../../model/Movement";
 import DataModal from "./Data/DataModal";
 import * as firebase from "../../services/firebase";
 import SavedItemsBuilder from "../../model/SavedItemsBuilder";
+import LockersBuilder from "../../model/LockersBuilder";
+import Locker from "../../model/Locker";
 
 type BagProps = {
     movement: Movement
@@ -21,13 +23,19 @@ class MovingRequest extends Component<RouteComponentProps & BagProps> {
         firebase.setMovingRequest(movement);
 
         firebase.getSavedItemsById(movement.item.id).then(items => {
+            firebase.getAvailableLockers().then(rawLockers => {
+                let lockers = LockersBuilder.build(rawLockers);
                 SavedItemsBuilder.build(items).then(items => {
                     let item = items[0];
+                    item.locker = {id: ""};
                     item.status = "MOVING";
+                    item.moveTo = lockers
+                        .filter((locker: Locker) => locker.id === movement.lockerTo.id)
+                        .map((locker: Locker) => locker.name)[0];
                     firebase.setSavedItem(item)
                 });
-            }
-        );
+            });
+        });
 
         // @ts-ignore
         this.modalQR.current.showModal();
@@ -41,7 +49,9 @@ class MovingRequest extends Component<RouteComponentProps & BagProps> {
         firebase.getSavedItemsById(movement.item.id).then(items => {
                 SavedItemsBuilder.build(items).then(items => {
                     let item = items[0];
+                    item.locker = movement.lockerTo.id;
                     item.status = "STORED";
+                    delete item.moveTo;
                     firebase.setSavedItem(item)
                 });
             }

@@ -11,6 +11,7 @@ export default class SavedItem {
         this.locker = locker;
         this.status = status;
         this.moveTo = moveTo;
+        this.userId = "bFT6g4JV4mPmZBam7rkoLjahGvs2";
     }
 
     move(moveTo) {
@@ -27,4 +28,7 @@ export default class SavedItem {
         delete this.moveTo;
     }
 
+    waitForMovement() {
+        this.status = "REQUEST_TO_MOVE";
+    }
 }

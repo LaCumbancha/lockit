@@ -7,8 +7,8 @@ export default class SavedItemsBuilder {
 
         let availableLockers = await firebase.getAvailableLockers();
         return rawData.map(field => {
-            let locker = availableLockers.filter(locker => {
-            	return locker.id === field.locker;
+            let locker = !field.locker ? undefined : availableLockers.filter(locker => {
+                return locker.id === field.locker;
             })[0];
             return new SavedItem(field.id, field.name, locker, field.status, field.moveTo)
         })

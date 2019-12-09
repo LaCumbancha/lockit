@@ -35,7 +35,7 @@ export async function getAvailableLockers() {
 export async function getSavedItemsByUserId(userID) {
     const snapshot = await firebase.firestore()
         .collection('savedItems')
-        .where("userID", "==", userID).get();
+        .where("userId", "==", userID).get();
     return snapshot.docs.map(doc => doc.data());
 }
 
@@ -54,7 +54,7 @@ export async function getAllSavedItems() {
 
 export function setSavedItem(item) {
     let saveItem = Object.assign({}, item);
-    saveItem.locker = Object.assign({}, item.locker);
+    saveItem.locker = item.locker.id;
     firebase.firestore().doc('savedItems/' + item.id).set(saveItem);
 }
 
