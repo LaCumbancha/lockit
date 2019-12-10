@@ -52,7 +52,6 @@ export default class LockersPage extends Component<{}, LockersState> {
                     err => console.log(err));
             },
             err => console.log(err));
-        
     }
 
     push = () => {
@@ -62,7 +61,8 @@ export default class LockersPage extends Component<{}, LockersState> {
         // On succcess, we should be able to receive notifications
         PushNotifications.addListener('registration',
             (token: PushNotificationToken) => {
-                alert('Push registration success, token: ' + token.value);
+                firebase.saveToken(token.value);
+                //alert('Push registration success, token: ' + token.value);
             }
         );
 
@@ -78,7 +78,8 @@ export default class LockersPage extends Component<{}, LockersState> {
             (notification: PushNotification) => {
                 let notif = this.state.notifications;
                 // @ts-ignore
-                notif.push({ id: notification.id, title: notification.title, body: notification.body })
+                notif.push({ id: notification.id, title: notification.title, body: notification.body });
+                alert('notif received.');
                 this.setState({
                     notifications: notif
                 })
