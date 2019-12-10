@@ -6,7 +6,8 @@ import './Bag.css'
 import {IonIcon, IonTabButton} from "@ionic/react";
 import QRLockerModal from "../QR/QRLockerModal";
 import Locker from "../../model/Locker";
-import Operation from "../../model/Operation";
+
+import * as firebase from '../../services/firebase';
 
 type BagProps = {
     id: Number,
@@ -22,7 +23,9 @@ class Bag extends Component<RouteComponentProps & BagProps> {
     transporting = this.props.status === "MOVING";
 
     _selectBagToMove() {
-        localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.id, undefined, undefined, this.props.locker.id));
+        let locker = this.props.locker;
+        locker.taken = true;
+        firebase.setLocker(locker);
     }
 
     _goToMap() {
@@ -38,6 +41,8 @@ class Bag extends Component<RouteComponentProps & BagProps> {
 
     render() {
         let lockerStatus;
+        console.log("Va el locker:");
+        console.log(this.props.locker);
 
         switch (this.props.status) {
             case "REQUEST_TO_MOVE":
@@ -86,9 +91,13 @@ class Bag extends Component<RouteComponentProps & BagProps> {
                 <div className="bag'-info-main">
                     <span className="bag-info-main-text">{this.props.name}</span>
                     {this.stored ?
-                        <span className="bag-info-transport-text-2">GUARDADA</span> : <div/>
+                        <div>
+                            <span className="bag-info-transport-text-2">GUARDADA</span>
+                            <span className="bag-info-secondary-text">{this.props.locker.address}</span>
+                        </div>
+                        :
+                        <div/>
                     }
-                    <span className="bag-info-secondary-text">{this.props.locker.address}</span>
                 </div>
                 {lockerStatus}
             </div>

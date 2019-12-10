@@ -44,7 +44,7 @@ export default class LockersPage extends Component<{}, LockersState> {
                             loading: false,
                             showMoveTo: false,
                             notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }],
-                            savedItems: savedItems.map(function(item){
+                            savedItems: res.map(function(item: SavedItem){
                               return new SavedItem(item.id,item.name,item.locker,item.status,item.moveTo);
                             })
                         });
@@ -94,13 +94,13 @@ export default class LockersPage extends Component<{}, LockersState> {
                     id: notification.notification.data.id,
                     title: notification.notification.data.title,
                     body: notification.notification.data.body
-                })
+                });
                 this.setState({
                     notifications: notif
                 })
             }
         );
-    }
+    };
 
     render() {
         const loading = this.state && this.state.loading;

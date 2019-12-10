@@ -28,6 +28,11 @@ export async function getAvailableLockers() {
     return snapshot.docs.map(doc => doc.data());
 }
 
+export function setLocker(locker) {
+    let saveItem = Object.assign({}, locker);
+    firebase.firestore().doc('availableLockers/' + locker.id).set(locker);
+}
+
 /*localStorage.savedItems = JSON.stringify([
     {id: "1", name: "Mochila de Trabajo", locker: "1", status: "STORED", moveTo: undefined},
     {id: "2", name: "Comida", locker: "3", status: "STORED", moveTo: undefined}

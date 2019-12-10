@@ -33,6 +33,10 @@ class AcceptedRequest extends Component<RouteComponentProps & BagProps> {
                         .map((locker: Locker) => locker.name)[0];
                     firebase.setSavedItem(item);
 
+                    let freeLocker = lockers.filter((locker: Locker) => locker.id === movement.lockerFrom.id)[0];
+                    freeLocker.taken = false;
+                    firebase.setLocker(freeLocker);
+
                     // eslint-disable-next-line no-restricted-globals
                     location.reload();
                 });

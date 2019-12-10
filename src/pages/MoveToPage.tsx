@@ -41,7 +41,7 @@ export default class MoveToPage extends Component<{}, MoveToState> {
                             availableLockers => {
                                 //this.nearestLockers = LockersBuilder.build(availableLockers);
                                 this.setState({
-                                    nearestLockers: LockersBuilder.build(availableLockers)
+                                    nearestLockers: LockersBuilder.build(availableLockers).filter((locker: Locker) => !locker.taken)
                                 })
                             },
                             err => console.log(err));
