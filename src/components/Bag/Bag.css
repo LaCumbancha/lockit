@@ -51,7 +51,12 @@
     margin-top: 5px;
 }
 
+.bag-info-status {
+    margin-top: 4px;
+}
+
 .bag-info-transport{
+    width: 76px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,6 +67,36 @@
     flex-direction: column;
     align-items: center;
     margin-right: 7px;
+}
+
+.bag-info-waiting-text{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    color: #BD8B10;
+}
+
+.gold {
+    color: #BD8B10;
+}
+
+.bag-info-accepted-text{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    color: #195c2b;
+}
+
+.green {
+    color: #195c2b;
 }
 
 .bag-info-transport-text{
@@ -75,6 +110,9 @@
     color: #EE0000;
 }
 
+.red {
+    color: #EE0000;
+}
 
 .bag-info-transport-text-2{
     margin-top: 3px;

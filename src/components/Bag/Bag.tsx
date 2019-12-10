@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 
-import {bicycle} from 'ionicons/icons';
+import {alarm, bicycle, clock} from 'ionicons/icons';
 import './Bag.css'
 import {IonIcon, IonTabButton} from "@ionic/react";
 import QRLockerModal from "../QR/QRLockerModal";
@@ -18,6 +18,7 @@ type BagProps = {
 
 class Bag extends Component<RouteComponentProps & BagProps> {
     modalElement: React.RefObject<QRLockerModal> = React.createRef();
+    stored = this.props.status === "STORED";
     transporting = this.props.status === "MOVING";
 
     _selectBagToMove() {
@@ -36,25 +37,39 @@ class Bag extends Component<RouteComponentProps & BagProps> {
     }
 
     render() {
-        return (
-            <div className={!this.transporting ? 'bag-info' : 'bag-info clickable'} onClick={this._goToMap.bind(this)}>
-                <QRLockerModal show={false} ref={this.modalElement}/>
-                <div className="bag'-info-main">
-                    <span className="bag-info-main-text">{this.props.name}</span>
-                    {!this.transporting ?
-                        <span className="bag-info-transport-text-2">GUARDADA</span> : <div/>
-                    }
-                    <span className="bag-info-secondary-text">{this.props.locker.address}</span>
-                </div>
-                {this.transporting ?
+        let lockerStatus;
+
+        switch (this.props.status) {
+            case "REQUEST_TO_MOVE":
+                lockerStatus =
                     <div className="bag-info-transport">
-                        <IonIcon className="bag-icon" icon={bicycle}/>
-                        <span className="bag-info-transport-text">Transportando a:</span>
+                        <IonIcon className="bag-icon gold" icon={alarm}/>
+                        <span className="bag-info-status bag-info-waiting-text">Esperando</span>
+                        <span className="bag-info-waiting-text">Lockitendero</span>
+                    </div>;
+                break;
+            case "ACCEPTED":
+                lockerStatus =
+                    <div className="bag-info-transport">
+                        <IonIcon className="bag-icon green" icon={bicycle}/>
+                        <span className="bag-info-status bag-info-accepted-text">Lockitendero</span>
+                        <span className="bag-info-accepted-text">en camino</span>
+                    </div>;
+                break;
+            case "MOVING":
+                lockerStatus =
+                    <div className="bag-info-transport">
+                        <IonIcon className="bag-icon red" icon={bicycle}/>
+                        <span className="bag-info-status bag-info-transport-text">Transportando a:</span>
                         <span className="bag-info-transport-text">{this.props.moveTo}</span>
-                    </div>
-                    : <div className="bag-info-transport-2">
+                    </div>;
+                break;
+            default:
+                lockerStatus =
+                    <div className="bag-info-transport-2">
                         <div className="bag-info-transport-move-to">
-                            <IonTabButton class="lockers-button" href="/lockers/move" onClick={this._selectBagToMove.bind(this)}>
+                            <IonTabButton class="lockers-button" href="/lockers/move"
+                                          onClick={this._selectBagToMove.bind(this)}>
                                 <span className="bag-info-transport-move-to-text">
                                     MOVER
                                 </span>
@@ -63,8 +78,19 @@ class Bag extends Component<RouteComponentProps & BagProps> {
                         <div className="bag-info-open" onClick={this._showModal.bind(this)}>
                             <span className="bag-info-open-text">ABRIR</span>
                         </div>
-                    </div>
-                }
+                    </div>;
+        }
+        return (
+            <div className={!this.transporting ? 'bag-info' : 'bag-info clickable'} onClick={this._goToMap.bind(this)}>
+                <QRLockerModal show={false} ref={this.modalElement}/>
+                <div className="bag'-info-main">
+                    <span className="bag-info-main-text">{this.props.name}</span>
+                    {this.stored ?
+                        <span className="bag-info-transport-text-2">GUARDADA</span> : <div/>
+                    }
+                    <span className="bag-info-secondary-text">{this.props.locker.address}</span>
+                </div>
+                {lockerStatus}
             </div>
         )
     }
