@@ -24,7 +24,8 @@ const INITIAL_STATE = {
         show: false,
         message: '',
         color: ''
-    }
+    },
+    notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }]
 };
 
 class Login extends Component {

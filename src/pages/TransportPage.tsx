@@ -7,20 +7,16 @@ import './main.css'
 import LoadingBag from "../components/Bag/LoadingBag";
 import {settings} from "ionicons/icons";
 
-import {Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed} from '@capacitor/core';
 import Movement from "../model/Movement";
 import MovementsBuilder from "../model/MovementsBuilder";
 import MovingRequest from "../components/MovingRequest/MovingRequest";
 import AcceptedRequest from "../components/MovingRequest/AcceptedRequest";
 import NoRequests from "../components/MovingRequest/NoRequests";
 
-const {PushNotifications} = Plugins;
-
 const MAX_MOVEMENTS = 5;
 
 type TransportState = {
-    loading: Boolean,
-    notifications: [{ id: String, title: String, body: String }]
+    loading: Boolean
 }
 
 export default class LockersPage extends Component<{}, TransportState> {
@@ -30,7 +26,6 @@ export default class LockersPage extends Component<{}, TransportState> {
         super(props);
         this.state = {
             loading: true,
-            notifications: [{id: 'id', title: "Test Push", body: "This is my first push notification"}]
         };
 
         firebase.getMovingRequests().then(
@@ -41,7 +36,6 @@ export default class LockersPage extends Component<{}, TransportState> {
                         this.movingRequests = res.filter((movement: Movement) => movement.status !== "COMPLETED");
                         this.setState({
                             loading: false,
-                            notifications: [{id: 'id', title: "Test Push", body: "This is my first push notification"}]
                         })
                     },
                     err => console.log(err)
@@ -50,52 +44,6 @@ export default class LockersPage extends Component<{}, TransportState> {
             err => console.log(err));
 
     }
-
-    push = () => {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-
-        // On success, we should be able to receive notifications
-        PushNotifications.addListener('registration',
-            (token: PushNotificationToken) => {
-                alert('Push registration success, token: ' + token.value);
-            }
-        );
-
-        // Some issue with your setup and push will not work
-        PushNotifications.addListener('registrationError',
-            (error: any) => {
-                alert('Error on registration: ' + JSON.stringify(error));
-            }
-        );
-
-        // Show us the notification payload if the app is open on our device
-        PushNotifications.addListener('pushNotificationReceived',
-            (notification: PushNotification) => {
-                let notifications = this.state.notifications;
-                // @ts-ignore
-                notifications.push({id: notification.id, title: notification.title, body: notification.body})
-                this.setState({
-                    notifications: notifications
-                })
-            }
-        );
-
-        // Method called when tapping on a notification
-        PushNotifications.addListener('pushNotificationActionPerformed',
-            (notification: PushNotificationActionPerformed) => {
-                let notifications = this.state.notifications;
-                notifications.push({
-                    id: notification.notification.data.id,
-                    title: notification.notification.data.title,
-                    body: notification.notification.data.body
-                });
-                this.setState({
-                    notifications: notifications
-                })
-            }
-        );
-    };
 
     render() {
         const loading = this.state && this.state.loading;
@@ -128,7 +76,7 @@ export default class LockersPage extends Component<{}, TransportState> {
                     <div>
                         <div className="main-settings">
                             <span className="main-title">Pedidos</span>
-                            <IonIcon onClick={this.push} className="settings-icon" icon={settings}/>
+                            <IonIcon className="settings-icon" icon={settings}/>
                         </div>
                         {hasActiveRequest ?
                             <span className="sub-title">¡Completa tu pedido actual para poder tomar nuevos!</span>

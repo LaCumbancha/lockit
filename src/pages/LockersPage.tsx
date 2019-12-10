@@ -12,16 +12,12 @@ import SavedItemsBuilder from "../model/SavedItemsBuilder.js";
 import SavedItem from "../model/SavedItem";
 import {settings} from "ionicons/icons";
 
-import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed } from '@capacitor/core';
-const { PushNotifications } = Plugins;
-
 const MAX_LOCKERS = 5;
 
 type LockersState = {
     loading: Boolean,
     showMoveTo: Boolean,
-    notifications: [{ id: String, title: String, body: String }],
-    savedItems: SavedItem[] 
+    savedItems: SavedItem[]
 }
 
 export default class LockersPage extends Component<{}, LockersState> {
@@ -32,7 +28,6 @@ export default class LockersPage extends Component<{}, LockersState> {
         this.state = {
           loading: true,
           showMoveTo: false,
-          notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }],
           savedItems: []
         };
         firebase.getSavedItemsByUserId(localStorage.userID).then(
@@ -43,7 +38,6 @@ export default class LockersPage extends Component<{}, LockersState> {
                         this.setState({
                             loading: false,
                             showMoveTo: false,
-                            notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }],
                             savedItems: res.map(function(item: SavedItem){
                               return new SavedItem(item.id,item.name,item.locker,item.status,item.moveTo);
                             })
@@ -53,54 +47,6 @@ export default class LockersPage extends Component<{}, LockersState> {
             },
             err => console.log(err));
     }
-
-    push = () => {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-
-        // On succcess, we should be able to receive notifications
-        PushNotifications.addListener('registration',
-            (token: PushNotificationToken) => {
-                firebase.saveToken(token.value);
-                //alert('Push registration success, token: ' + token.value);
-            }
-        );
-
-        // Some issue with your setup and push will not work
-        PushNotifications.addListener('registrationError',
-            (error: any) => {
-                alert('Error on registration: ' + JSON.stringify(error));
-            }
-        );
-
-        // Show us the notification payload if the app is open on our device
-        PushNotifications.addListener('pushNotificationReceived',
-            (notification: PushNotification) => {
-                let notif = this.state.notifications;
-                // @ts-ignore
-                notif.push({ id: notification.id, title: notification.title, body: notification.body });
-                alert('notif received.');
-                this.setState({
-                    notifications: notif
-                })
-            }
-        );
-
-        // Method called when tapping on a notification
-        PushNotifications.addListener('pushNotificationActionPerformed',
-            (notification: PushNotificationActionPerformed) => {
-                let notif = this.state.notifications;
-                notif.push({
-                    id: notification.notification.data.id,
-                    title: notification.notification.data.title,
-                    body: notification.notification.data.body
-                });
-                this.setState({
-                    notifications: notif
-                })
-            }
-        );
-    };
 
     render() {
         const loading = this.state && this.state.loading;
@@ -122,7 +68,7 @@ export default class LockersPage extends Component<{}, LockersState> {
                         <div>
                             <div className="main-settings">
                                 <span className="main-title">Mis LockIts</span>
-                                <IonIcon onClick={this.push} className="settings-icon" icon={settings}/>
+                                <IonIcon className="settings-icon" icon={settings}/>
                             </div>
                             <span className="sub-title">Estos son los objetos que actualmente tenés guardados en LockIt,
                                 tocá el que quieras para interactuar!</span>
