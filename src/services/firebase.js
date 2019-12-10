@@ -24,7 +24,7 @@ export function getBikeCoordinates(objectId) {
     {id: "4", latitude: -34.620704, longitude: -58.371348, name: "Starbucks", address: "Defensa 1102", price: 150}
 ]);*/
 export async function getAvailableLockers() {
-    const snapshot = await firebase.firestore().collection('availableLockers').get()
+    const snapshot = await firebase.firestore().collection('availableLockers').get();
     return snapshot.docs.map(doc => doc.data());
 }
 
@@ -79,3 +79,8 @@ export function setMovingRequest(movingRequest) {
 export function login(email, password) {
     return firebase.auth().signInWithEmailAndPassword(email, password);
 }
+
+export function saveToken(token) {
+    firebase.database().ref('tokens/client').set({token: token});
+}
+

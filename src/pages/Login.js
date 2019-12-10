@@ -13,6 +13,8 @@ import { IonContent,
 import React, { Component } from 'react';
 import './LoginPage.css';
 import * as firebase from '../services/firebase';
+import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed } from '@capacitor/core';
+const { PushNotifications } = Plugins;
 
 const INITIAL_STATE = {
     email: '',
@@ -43,6 +45,7 @@ class Login extends Component {
                     localStorage.type = res.user.email === "usuario@lockitendero.com" ? "LOCKITENDERO" : "CLIENTE";
                     this.event = new CustomEvent('loggedIn', { detail: res });
                     window.dispatchEvent(this.event);
+                    this.push();
                     if (localStorage.type === "LOCKITENDERO") {
                         history.push({pathname: '/transport', state: {}});
                     } else {
@@ -77,6 +80,55 @@ class Login extends Component {
     _onChange(key,event){
         this.setState({[key]:event});
     }
+
+    push() {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+
+        // On succcess, we should be able to receive notifications
+        PushNotifications.addListener('registration',
+            (token) => {
+                firebase.saveToken(token.value);
+                alert('Push registration success, token: ' + token.value);
+            }
+        );
+
+        // Some issue with your setup and push will not work
+        PushNotifications.addListener('registrationError',
+            (error) => {
+                alert('Error on registration: ' + JSON.stringify(error));
+            }
+        );
+
+        // Show us the notification payload if the app is open on our device
+        PushNotifications.addListener('pushNotificationReceived',
+            (notification) => {
+                let notif = this.state.notifications;
+                // @ts-ignore
+                notif.push({ id: notification.id, title: notification.title, body: notification.body });
+                alert('notif received.');
+                this.setState({
+                    notifications: notif
+                })
+            }
+        );
+
+        // Method called when tapping on a notification
+        PushNotifications.addListener('pushNotificationActionPerformed',
+            (notification) => {
+                let notif = this.state.notifications;
+                notif.push({
+                    id: notification.notification.data.id,
+                    title: notification.notification.data.title,
+                    body: notification.notification.data.body
+                })
+                this.setState({
+                    notifications: notif
+                })
+            }
+        );
+    };
+
     render() {
         return (
             <IonPage>
