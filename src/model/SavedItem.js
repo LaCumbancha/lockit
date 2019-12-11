@@ -5,7 +5,7 @@ const LockerStatus = {
 
 export default class SavedItem {
 
-    constructor(id, name, locker, status, moveTo = undefined) {
+    constructor(id, name, locker, status, moveTo = "") {
         this.id = id;
         this.name = name;
         this.locker = locker;
