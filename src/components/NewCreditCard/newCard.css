@@ -1,0 +1,162 @@
+.App-payment {
+  padding: 30px;
+}
+
+.form-control{
+  display: block;
+  width: 100%;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .25rem;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.form-group{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.card-row{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col-6 {
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  border-radius: .25rem;
+  transition: all .15s ease-in-out;
+}
+
+.form-actions {
+  margin-top: 15px;
+}
+
+.App-cards {
+  margin: 0 auto;
+  max-width: 1280px;
+  text-align: center;
+}
+
+.App-cards-list {
+  display: flex;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.App-cards-list > * {
+  transform: scale(0.8);
+  margin-bottom: 30px !important;
+}
+
+.App-highlight {
+  font-family: serif;
+  margin: 15px auto 0;
+  max-width: 300px;
+}
+
+.App-highlight > div {
+  padding-left: 40px;
+}
+
+.App-badges {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.App-badges a {
+  display: block;
+}
+
+.App-badges a + a {
+  margin-top: 18px;
+}
+
+.github__btn {
+  align-items: center;
+  background-color: #ccc;
+  border-radius: 4px;
+  color: #444;
+  display: flex;
+  line-height: 1;
+  padding: 8px 12px;
+}
+
+.github__btn:hover {
+  color: #444;
+  text-decoration: none;
+}
+
+.github__btn img {
+  display: inline-block;
+  height: 28px;
+  margin-right: 8px;
+}
+
+.App-credits {
+  background-color: #000;
+  color: #fff;
+  line-height: 50px;
+  text-align: center;
+}
+
+.App-credits a {
+  color: #fff;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 600px) {
+  .App-badges {
+    flex-direction: row;
+  }
+
+  .App-badges a + a {
+    margin-top: 0;
+    margin-left: 18px;
+  }
+}
