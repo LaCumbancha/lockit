@@ -105,7 +105,7 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
                                 ?
                                 <div className="chk-info" onClick={this.moveTo}>
                                     Tarjeta terminada en {this.state.card}
-                                    <GenericCard/>
+                                    <GenericCard />
                                 </div>
                                 : null
                             }

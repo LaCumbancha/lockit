@@ -4,7 +4,7 @@ import Payment from 'payment';
 import './newCard.css'
 import 'react-credit-cards/es/styles-compiled.css';
 
-export default class App extends React.Component {
+export default class NewCreditCard extends React.Component {
     state = {
         number: '',
         name: '',
