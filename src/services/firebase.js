@@ -30,7 +30,7 @@ export async function getAvailableLockers() {
 
 export function setLocker(locker) {
     let saveItem = Object.assign({}, locker);
-    firebase.firestore().doc('availableLockers/' + locker.id).set(locker);
+    firebase.firestore().doc('availableLockers/' + locker.id).set(saveItem);
 }
 
 /*localStorage.savedItems = JSON.stringify([

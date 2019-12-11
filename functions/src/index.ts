@@ -19,6 +19,5 @@ exports.newSubscriberNotification = functions.database.ref('tokens/{user}')
                 body: `is following your content!`
             }
         };
-        console.log(userId);
         return admin.messaging().sendToDevice(userId, payload)
     });

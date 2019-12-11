@@ -51,9 +51,9 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
 
                         firebase.getMovingRequests().then(movingRequests => {
                                 MovementsBuilder.build(movingRequests).then(requests => {
-                                    let nextId = requests
+                                    let nextId = parseInt(requests
                                         .map((movement: Movement) => movement.id)
-                                        .reduce((maxId: number, id: number) => maxId > id ? maxId : id) + 1;
+                                        .reduce((maxId: number, id: number) => maxId > id ? maxId : id)) + 1;
 
                                     let item = { id: operation.itemId };
                                     let lockerFrom = { id: operation.lockerFromId };
