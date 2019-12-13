@@ -1,7 +1,7 @@
 /* global window */
 import React, {Component} from 'react';
 import {withRouter, Redirect} from 'react-router-dom';
-import {IonToast} from '@ionic/react';
+import {IonIcon, IonTabButton, IonToast} from '@ionic/react';
 
 import MapGL, {Source, Layer, Marker} from 'react-map-gl';
 
@@ -13,6 +13,7 @@ import LockerPin from './locker/LockerPin';
 
 import * as firebase from '../../services/firebase';
 import Operation from "../../model/Operation";
+import {alarm, bicycle} from "ionicons/icons";
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbnphcmFnb3phZ2NiYSIsImEiOiJjanJqaG5hc2UwMGJ3M3lwODlmZTI4NjAwIn0.sTM1hm0HAjSmcg3FfSBsHA'; // Set your mapbox token here
 const ICONS_SIZE = 48;
@@ -444,14 +445,6 @@ class Map extends Component {
         return (
             <>
                 {checkout.show ?
-                    // TODO: Replace redirecting to Checkout Page
-                    //null
-                    // <CheckoutComponent
-                    //     bagName={this.props.bagName}
-                    //     lockerName={this.state.lockerName}
-                    //     lockerLocation={this.state.lockerLocation}
-                    //     changeBagLocation={this._changeBagLocation}
-                    // />
                     <Redirect to="/checkout"/>
                     :
                     <MapGL
@@ -468,14 +461,15 @@ class Map extends Component {
                                 <Layer {...pointLayer} />
                             </Source>
                         )}
-
+                        {/* Bike position when it's moving */}
                         {bikeData && (
                             <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <BikeIcon
                                 size={ICONS_SIZE}/>
                             </Marker>
                         )}
-
+                        {/* My position */}
                         {this._renderMyPositionMarker()}
+                        {/* Lockits position */}
                         {lockers.map(this._renderLockerMarker)}
                     </MapGL>
                 }
