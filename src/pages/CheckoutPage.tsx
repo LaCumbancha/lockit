@@ -37,6 +37,7 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
     }
 
     moveTo = () => {
+        firebase.readyToMoveNotification();
         this.setState({loading: true});
     };
 

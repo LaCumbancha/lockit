@@ -91,7 +91,6 @@ class Login extends Component {
         PushNotifications.addListener('registration',
             (token) => {
                 firebase.saveToken(localStorage.type, token.value);
-                alert('Push registration success, token: ' + token.value);
             }
         );
 
@@ -108,7 +107,6 @@ class Login extends Component {
                 let notif = this.state.notifications;
                 // @ts-ignore
                 notif.push({ id: notification.id, title: notification.title, body: notification.body });
-                alert('notif received.');
                 this.setState({
                     notifications: notif
                 })

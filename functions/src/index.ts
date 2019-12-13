@@ -6,17 +6,22 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 
-exports.newSubscriberNotification = functions.database.ref('tokens/{user}')
+exports.readyToMoveNotificationTrigger = functions.database.ref('readyToMoveNotification/{userId}/{lockerId}')
     // @ts-ignore
     .onCreate(async event => {
 
-        const data = event.val();
-        const userId = data.token;
+        //const data = event.val();
+        const snapshot = await admin.firestore()
+            .collection('tokens')
+            .where("type", "==", "LOCKITENDERO")
+            .get();
+        // @ts-ignore
+        const userId = snapshot.docs.map(doc => doc.data())[0].token;
 
         const payload = {
             notification: {
-                title: 'Hola perrin',
-                body: `is following your content!`
+                title: 'Hay un locker disponible para transportar!',
+                body: 'No te lo pierdas.'
             }
         };
         return admin.messaging().sendToDevice(userId, payload)

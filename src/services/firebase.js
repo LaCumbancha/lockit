@@ -87,6 +87,11 @@ export function login(email, password) {
 
 export function saveToken(userId, token) {
     //firebase.database().ref('tokens/client').set({token: token});
-    firebase.firestore().doc('tokens/' + userId).set({token: token});
+    firebase.firestore().doc('tokens/' + userId).set({token: token, type: localStorage.type});
 }
 
+export function readyToMoveNotification() {
+    let saveItem = JSON.parse(localStorage.readyToMoveInfo);
+    let suffix = `${localStorage.userID}/${saveItem.id}`;
+    firebase.database().ref('readyToMoveNotification/'+suffix).set(saveItem);
+}

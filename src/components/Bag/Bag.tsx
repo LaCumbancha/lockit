@@ -27,6 +27,7 @@ class Bag extends Component<RouteComponentProps & BagProps> {
         localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.id, undefined, undefined, this.props.locker.id));
         let locker = this.props.locker;
         locker.taken = true;
+        localStorage.readyToMoveInfo = JSON.stringify(locker);
         firebase.setLocker(locker);
     }
 
