@@ -404,7 +404,8 @@ class Map extends Component {
         return (
             <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
                 <LockerPin id={locker.id} size={ICONS_SIZE} lockerName={locker.name} lockerAddress={locker.address}
-                           lockerPrice={locker.price} onRequestBooking={this._onRequestBooking.bind(this)}/>
+                           lockerPrice={locker.price} onRequestBooking={this._onRequestBooking.bind(this)}
+                           taken={locker.taken}/>
             </Marker>
         );
     };

@@ -62,7 +62,6 @@ class LockerPin extends Component<RouteComponentProps & InfoProps, State> {
     renderContent(){
         for (let i = 0; i < this.state.savedItems.length; i++) {
             const item = this.state.savedItems[i];
-            console.log(item)
             switch (item.status) {
                 case "STORED":
                     if(item.locker.id === this.props.id){
