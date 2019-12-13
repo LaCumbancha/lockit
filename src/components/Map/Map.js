@@ -27,7 +27,7 @@ const pointLayer = {
 };
 
 class Map extends Component {
-    bikeCoordinates = [
+    /*bikeCoordinates = [
         [-58.370574133333335, -34.6206582],
         [-58.370546266666665, -34.6206574],
         [-58.370518399999995, -34.6206566],
@@ -268,11 +268,13 @@ class Map extends Component {
         [-58.36796146666664, -34.617881066666584],
         [-58.36795673333331, -34.61788953333325],
         [-58.367951999999974, -34.61789799999991]
-    ];
+    ];*/
     state = {
+        bikeCoordinates: [],
         currentBikeIndex: 0,
         nextBikeIteration: null,
         bikeMoving: false,
+        fromTo: "",
         pointData: null,
         bikeData: null,
         viewport: {
@@ -351,6 +353,16 @@ class Map extends Component {
         this.setState({
             bikeMoving: this.props.location.search ? true : false
         })
+
+        if(this.props.location.search){
+            const query = new URLSearchParams(this.props.location.search);
+            const moving = query.get('moving');
+            firebase.getBikeCoordinates(moving).then(
+                res => {
+                    this.setState({bikeCoordinates: res});
+                },
+                err => console.log(err));
+        }
     }
 
     animation = null;
@@ -359,9 +371,9 @@ class Map extends Component {
     _animateBike = () => {
         this.animation = window.requestAnimationFrame(this._animateBike);
         if (!this.state.bikeMoving) return;
-        if (this.state.currentBikeIndex >= this.bikeCoordinates.length) return;
-        let longitude = this.bikeCoordinates[this.state.currentBikeIndex][0];
-        let latitude = this.bikeCoordinates[this.state.currentBikeIndex][1];
+        if (this.state.currentBikeIndex >= this.state.bikeCoordinates.length) return;
+        let longitude = this.state.bikeCoordinates[this.state.currentBikeIndex][0];
+        let latitude = this.state.bikeCoordinates[this.state.currentBikeIndex][1];
         if (this.state.nextBikeIteration == null || this.state.nextBikeIteration.getTime() < Date.now()) {
             if (this.state.nextBikeIteration != null) {
                 let newDate = new Date();
