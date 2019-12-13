@@ -13,7 +13,7 @@ import { IonContent,
 import React, { Component } from 'react';
 import './LoginPage.css';
 import * as firebase from '../services/firebase';
-import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
 const { PushNotifications } = Plugins;
 
 const INITIAL_STATE = {
@@ -45,9 +45,9 @@ class Login extends Component {
                 if (res) {
                     localStorage.userID = res.user.uid;
                     localStorage.type = res.user.email === "usuario@lockitendero.com" ? "LOCKITENDERO" : "CLIENTE";
+                    this.push();
                     this.event = new CustomEvent('loggedIn', { detail: res });
                     window.dispatchEvent(this.event);
-                    this.push();
                     if (localStorage.type === "LOCKITENDERO") {
                         history.push({pathname: '/transport', state: {}});
                     } else {
@@ -90,7 +90,7 @@ class Login extends Component {
         // On succcess, we should be able to receive notifications
         PushNotifications.addListener('registration',
             (token) => {
-                firebase.saveToken(token.value);
+                firebase.saveToken(localStorage.type, token.value);
                 alert('Push registration success, token: ' + token.value);
             }
         );

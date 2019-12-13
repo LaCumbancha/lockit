@@ -85,7 +85,8 @@ export function login(email, password) {
     return firebase.auth().signInWithEmailAndPassword(email, password);
 }
 
-export function saveToken(token) {
-    firebase.database().ref('tokens/client').set({token: token});
+export function saveToken(userId, token) {
+    //firebase.database().ref('tokens/client').set({token: token});
+    firebase.firestore().doc('tokens/' + userId).set({token: token});
 }
 
