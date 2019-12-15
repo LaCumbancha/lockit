@@ -12,13 +12,19 @@ const pinStyle = {
   stroke: 'none'
 };
 
+const pinStyleTaken = {
+  fill: '#620005',
+  stroke: 'none'
+};
+
 type PinProps = {
     id: string,
     size?: number,
     lockerName:string,
     lockerAddress:string,
     lockerPrice: string,
-    onRequestBooking?:Function
+    onRequestBooking?:Function,
+    taken: boolean
 }
 
 type State = {
@@ -51,7 +57,7 @@ export default class LockerPin extends Component<PinProps, State> {
     const size = this.props.size;
     return (
         <div>
-            <svg height={size} style={pinStyle}  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" onClick={()=> this.changeInfoState() }>
+            <svg height={size} style={this.props.taken? pinStyleTaken:pinStyle}  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" onClick={()=> this.changeInfoState() }>
                 <path d={ICON}/>
             </svg>
             <LockerInfo id={this.props.id} lockerName={this.props.lockerName}

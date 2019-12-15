@@ -1,7 +1,7 @@
 /* global window */
 import React, {Component} from 'react';
 import {withRouter, Redirect} from 'react-router-dom';
-import {IonToast} from '@ionic/react';
+import {IonIcon, IonTabButton, IonToast} from '@ionic/react';
 
 import MapGL, {Source, Layer, Marker} from 'react-map-gl';
 
@@ -13,6 +13,7 @@ import LockerPin from './locker/LockerPin';
 
 import * as firebase from '../../services/firebase';
 import Operation from "../../model/Operation";
+import {alarm, bicycle} from "ionicons/icons";
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbnphcmFnb3phZ2NiYSIsImEiOiJjanJqaG5hc2UwMGJ3M3lwODlmZTI4NjAwIn0.sTM1hm0HAjSmcg3FfSBsHA'; // Set your mapbox token here
 const ICONS_SIZE = 48;
@@ -26,7 +27,7 @@ const pointLayer = {
 };
 
 class Map extends Component {
-    bikeCoordinates = [
+    /*bikeCoordinates = [
         [-58.370574133333335, -34.6206582],
         [-58.370546266666665, -34.6206574],
         [-58.370518399999995, -34.6206566],
@@ -267,11 +268,13 @@ class Map extends Component {
         [-58.36796146666664, -34.617881066666584],
         [-58.36795673333331, -34.61788953333325],
         [-58.367951999999974, -34.61789799999991]
-    ];
+    ];*/
     state = {
+        bikeCoordinates: [],
         currentBikeIndex: 0,
         nextBikeIteration: null,
         bikeMoving: false,
+        fromTo: "",
         pointData: null,
         bikeData: null,
         viewport: {
@@ -350,6 +353,16 @@ class Map extends Component {
         this.setState({
             bikeMoving: this.props.location.search ? true : false
         })
+
+        if(this.props.location.search){
+            const query = new URLSearchParams(this.props.location.search);
+            const moving = query.get('moving');
+            firebase.getBikeCoordinates(moving).then(
+                res => {
+                    this.setState({bikeCoordinates: res});
+                },
+                err => console.log(err));
+        }
     }
 
     animation = null;
@@ -358,9 +371,9 @@ class Map extends Component {
     _animateBike = () => {
         this.animation = window.requestAnimationFrame(this._animateBike);
         if (!this.state.bikeMoving) return;
-        if (this.state.currentBikeIndex >= this.bikeCoordinates.length) return;
-        let longitude = this.bikeCoordinates[this.state.currentBikeIndex][0];
-        let latitude = this.bikeCoordinates[this.state.currentBikeIndex][1];
+        if (this.state.currentBikeIndex >= this.state.bikeCoordinates.length) return;
+        let longitude = this.state.bikeCoordinates[this.state.currentBikeIndex][0];
+        let latitude = this.state.bikeCoordinates[this.state.currentBikeIndex][1];
         if (this.state.nextBikeIteration == null || this.state.nextBikeIteration.getTime() < Date.now()) {
             if (this.state.nextBikeIteration != null) {
                 let newDate = new Date();
@@ -403,7 +416,8 @@ class Map extends Component {
         return (
             <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
                 <LockerPin id={locker.id} size={ICONS_SIZE} lockerName={locker.name} lockerAddress={locker.address}
-                           lockerPrice={locker.price} onRequestBooking={this._onRequestBooking.bind(this)}/>
+                           lockerPrice={locker.price} onRequestBooking={this._onRequestBooking.bind(this)}
+                           taken={locker.taken}/>
             </Marker>
         );
     };
@@ -444,14 +458,6 @@ class Map extends Component {
         return (
             <>
                 {checkout.show ?
-                    // TODO: Replace redirecting to Checkout Page
-                    //null
-                    // <CheckoutComponent
-                    //     bagName={this.props.bagName}
-                    //     lockerName={this.state.lockerName}
-                    //     lockerLocation={this.state.lockerLocation}
-                    //     changeBagLocation={this._changeBagLocation}
-                    // />
                     <Redirect to="/checkout"/>
                     :
                     <MapGL
@@ -468,14 +474,15 @@ class Map extends Component {
                                 <Layer {...pointLayer} />
                             </Source>
                         )}
-
+                        {/* Bike position when it's moving */}
                         {bikeData && (
                             <Marker longitude={bikeData.longitude} latitude={bikeData.latitude}> <BikeIcon
                                 size={ICONS_SIZE}/>
                             </Marker>
                         )}
-
+                        {/* My position */}
                         {this._renderMyPositionMarker()}
+                        {/* Lockits position */}
                         {lockers.map(this._renderLockerMarker)}
                     </MapGL>
                 }

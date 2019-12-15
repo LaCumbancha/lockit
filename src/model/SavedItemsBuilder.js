@@ -4,7 +4,6 @@ import * as firebase from '../services/firebase';
 export default class SavedItemsBuilder {
 
     static async build(rawData) {
-
         let availableLockers = await firebase.getAvailableLockers();
         return rawData.map(field => {
             let locker = !field.locker ? undefined : availableLockers.filter(locker => {

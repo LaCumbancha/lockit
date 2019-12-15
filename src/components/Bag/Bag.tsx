@@ -8,6 +8,7 @@ import QRLockerModal from "../QR/QRLockerModal";
 import Locker from "../../model/Locker";
 
 import * as firebase from '../../services/firebase';
+import Operation from "../../model/Operation";
 
 type BagProps = {
     id: Number,
@@ -23,6 +24,7 @@ class Bag extends Component<RouteComponentProps & BagProps> {
     transporting = this.props.status === "MOVING";
 
     _selectBagToMove() {
+        localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.id, undefined, undefined, this.props.locker.id));
         let locker = this.props.locker;
         locker.taken = true;
         firebase.setLocker(locker);
