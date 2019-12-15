@@ -96,6 +96,7 @@ class Bag extends Component<RouteComponentProps & BagProps> {
                     {this.stored ?
                         <div>
                             <span className="bag-info-transport-text-2">GUARDADA</span>
+                            {console.log(this.props.locker)}
                             <span className="bag-info-secondary-text">{this.props.locker.address}</span>
                         </div>
                         :

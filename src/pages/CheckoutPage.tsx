@@ -60,14 +60,14 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
                                     let nextId = parseInt(requests
                                         .map((movement: Movement) => movement.id)
                                         .reduce((maxId: number, id: number) => maxId > id ? maxId : id)) + 1;
-
+                                    nextId = isNaN(nextId) ? 0 : nextId;
                                     let item = { id: operation.itemId };
                                     let lockerFrom = { id: operation.lockerFromId };
                                     let lockerTo = { id: operation.lockerToId };
 
                                     firebase.setMovingRequest(new Movement(
                                         nextId, item, lockerFrom, lockerTo, "150", "REQUEST_TO_MOVE"
-                                    ));
+                                    ), true);
                                 })
                             }
                         );

@@ -19,7 +19,10 @@ class AcceptedRequest extends Component<RouteComponentProps & BagProps> {
     _withdrawItem() {
         let movement = this.props.movement;
         movement.move();
+        console.log(movement);
         firebase.setMovingRequest(movement);
+        firebase.movementWithdrawnNotification(movement);
+
 
         firebase.getSavedItemsById(movement.item.id).then(items => {
             firebase.getAvailableLockers().then(rawLockers => {

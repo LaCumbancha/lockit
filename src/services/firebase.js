@@ -69,17 +69,27 @@ export async function getMovingRequests() {
     return snapshot.docs.map(doc => doc.data());
 }
 
-export function setMovingRequest(movingRequest) {
-    let request = {
+export function setMovingRequest(movingRequest, userKey) {
+    if (userKey) {
+        let request = createMovingRequest(movingRequest, {clientId: localStorage.userID});
+        firebase.firestore().doc('movingRequests/' + movingRequest.id).set(request);
+
+    } else {
+        let request = createMovingRequest(movingRequest, {lockitenderoId: localStorage.userID});
+        firebase.firestore().doc('movingRequests/' + movingRequest.id).update(request);
+    }
+}
+
+const createMovingRequest = (movingRequest, request) => {
+    return Object.assign({
         id: movingRequest.id,
         itemId: movingRequest.item.id,
         lockerFromId: movingRequest.lockerFrom.id,
         lockerToId: movingRequest.lockerTo.id,
         price: movingRequest.price,
-        status: movingRequest.status
-    };
-    firebase.firestore().doc('movingRequests/' + movingRequest.id).set(request);
-}
+        status: movingRequest.status,
+    }, request);
+};
 
 export function login(email, password) {
     return firebase.auth().signInWithEmailAndPassword(email, password);
@@ -94,4 +104,13 @@ export function readyToMoveNotification() {
     let saveItem = JSON.parse(localStorage.readyToMoveInfo);
     let suffix = `${localStorage.userID}/${saveItem.id}`;
     firebase.database().ref('readyToMoveNotification/'+suffix).set(saveItem);
+}
+
+export function movementAcceptNotification(movement) {
+    let suffix = `${movement.lockitenderoId}/${movement.clientId}`;
+    firebase.database().ref('movementAcceptedNotification/'+suffix).set(movement);
+}
+
+export function movementWithdrawnNotification(movement) {
+    firebase.database().ref('movementWithdrawnNotification/'+movement.id).set(movement);
 }

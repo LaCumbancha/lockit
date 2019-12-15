@@ -11,7 +11,7 @@ export default class MovementsBuilder {
             let item = savedItems.filter(item => { return item.id === field.itemId })[0];
             let lockerFrom = availableLockers.filter(locker => { return locker.id === field.lockerFromId })[0];
             let lockerTo = availableLockers.filter(locker => { return locker.id === field.lockerToId })[0];
-            return new Movement(field.id, item, lockerFrom, lockerTo, field.price, field.status)
+            return new Movement(field.id, item, lockerFrom, lockerTo, field.price, field.status, field.clientId, localStorage.userID)
         })
     }
 

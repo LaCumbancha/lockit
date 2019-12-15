@@ -104,12 +104,13 @@ class Login extends Component {
         // Show us the notification payload if the app is open on our device
         PushNotifications.addListener('pushNotificationReceived',
             (notification) => {
+                alert(`${notification.title}`);
                 let notif = this.state.notifications;
                 // @ts-ignore
                 notif.push({ id: notification.id, title: notification.title, body: notification.body });
                 this.setState({
                     notifications: notif
-                })
+                });
             }
         );
 
