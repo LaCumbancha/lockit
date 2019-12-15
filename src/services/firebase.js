@@ -13,8 +13,9 @@ const config = {
 
 firebase.initializeApp(config);
 
-export function getBikeCoordinates(objectId) {
-    return firebase.firestore().doc("bikeCoordinates/" + objectId).get();
+export async function getBikeCoordinates(objectId) {
+    const snapshot = await firebase.firestore().doc("bikeCoordinates/" + objectId).get();
+    return JSON.parse(snapshot.data().coord);
 }
 
 /*localStorage.availableLockers = JSON.stringify([
