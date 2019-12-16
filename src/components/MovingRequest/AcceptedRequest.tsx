@@ -41,20 +41,20 @@ class AcceptedRequest extends Component<RouteComponentProps & BagProps> {
                     freeLocker.taken = false;
                     firebase.setLocker(freeLocker);
 
-                    // eslint-disable-next-line no-restricted-globals
-                    location.reload();
                 });
             });
         });
 
         // @ts-ignore
-        this.modalQR.current.showModal();
+        this.modalQR.current.showModal(true);
     }
 
     _saveItem() {
         let movement = this.props.movement;
         movement.store();
         firebase.setMovingRequest(movement);
+        firebase.movementWithdrawnNotification(movement);
+
 
         firebase.getSavedItemsById(movement.item.id).then(items => {
                 SavedItemsBuilder.build(items).then(items => {
@@ -64,14 +64,12 @@ class AcceptedRequest extends Component<RouteComponentProps & BagProps> {
                     delete item.moveTo;
                     firebase.setSavedItem(item);
 
-                    // eslint-disable-next-line no-restricted-globals
-                    location.reload();
                 });
             }
         );
 
         // @ts-ignore
-        this.modalQR.current.showModal();
+        this.modalQR.current.showModal(true);
     }
 
     render() {

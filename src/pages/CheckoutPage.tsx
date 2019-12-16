@@ -32,7 +32,7 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
         this.state = {
             loading: false,
             newCreditCard: false,
-            card: ""
+            card: localStorage.getItem('creditCard') || ''
         };
         this.operation = OperationBuilder.build(localStorage.operation);
     }
@@ -86,6 +86,7 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
     };
 
     setCard = (number:String) => {
+    localStorage.setItem('creditCard', number.toString());
         this.setState({
             newCreditCard: false,
             card: number
