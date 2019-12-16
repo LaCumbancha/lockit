@@ -13,7 +13,7 @@ const pinStyle = {
 };
 
 const pinStyleTaken = {
-  fill: '#620005',
+  fill: '#000cff',
   stroke: 'none'
 };
 
