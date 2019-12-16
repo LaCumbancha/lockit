@@ -14,6 +14,7 @@ import React, { Component } from 'react';
 import './LoginPage.css';
 import * as firebase from '../services/firebase';
 import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed } from '@capacitor/core';
+import { Trans } from "@lingui/react";
 const { PushNotifications } = Plugins;
 
 const INITIAL_STATE = {
@@ -137,13 +138,13 @@ class Login extends Component {
                 <IonContent className="ion-padding">
                     <IonRow>
                         <IonCol className="text-center">
-                            <IonImg className="title-img" src="assets/lockit-logo.jpeg" ></IonImg>
+                            <IonImg className="title-img" src="assets/lockit-logo.jpeg" />
                         </IonCol>
                     </IonRow>
                     <IonRow>
                         <IonCol className="text-center">
                             <IonText className="title">
-                                Si es una carga, nos encargamos
+                                <Trans id="Login.motto">Si es una carga, nos encargamos</Trans>
                             </IonText>
                         </IonCol>
                     </IonRow>
@@ -158,8 +159,8 @@ class Login extends Component {
                     <IonRow>
                         <IonCol className="text-center">
                             <IonItem>
-                                <IonLabel position="floating">Email</IonLabel>
-                                <IonInput value={this.state.email} onIonChange={(e) => this._onChange('email',e.target.value)}></IonInput>
+                                <IonLabel position="floating"><Trans id="Login.email_button">Email</Trans></IonLabel>
+                                <IonInput value={this.state.email} onIonChange={(e) => this._onChange('email', e.target.value)}/>
                             </IonItem>
                         </IonCol>
                     </IonRow>
@@ -167,14 +168,14 @@ class Login extends Component {
                     <IonRow>
                         <IonCol className="text-center">
                             <IonItem>
-                                <IonLabel position="floating">Password</IonLabel>
-                                <IonInput value={this.state.password} type={"password"} onIonChange={(e) => this._onChange('password',e.target.value)}></IonInput>
+                                <IonLabel position="floating"><Trans id="Login.psw_button">Password</Trans></IonLabel>
+                                <IonInput value={this.state.password} type={"password"} onIonChange={(e) => this._onChange('password', e.target.value)}/>
                             </IonItem>
                         </IonCol>
                     </IonRow>
 
                     <IonButton className="login-button" onClick={() => this.signIn()} expand="block" fill="solid" color="danger" disabled={this.state.loading}>
-                        Entrar
+                        <Trans id="Login.enter_button">Entrar</Trans>
                     </IonButton>
                 </IonContent>
                 <IonToast
@@ -186,7 +187,7 @@ class Login extends Component {
                     duration={5000}
                     buttons={[
                         {
-                            text: 'Cerrar',
+                            text: <Trans id="Login.toast_button">Cerrar</Trans>,
                             role: 'cancel'
                         }
                     ]}

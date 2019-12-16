@@ -9,6 +9,7 @@ import Locker from "../../model/Locker";
 
 import * as firebase from '../../services/firebase';
 import Operation from "../../model/Operation";
+import {Trans} from "@lingui/react";
 
 type BagProps = {
     id: Number,
@@ -51,7 +52,7 @@ class Bag extends Component<RouteComponentProps & BagProps> {
                 lockerStatus =
                     <div className="bag-info-transport">
                         <IonIcon className="bag-icon gold" icon={alarm}/>
-                        <span className="bag-info-status bag-info-waiting-text">Esperando</span>
+                        <span className="bag-info-status bag-info-waiting-text"><Trans id="Bag.waiting">Esperando</Trans></span>
                         <span className="bag-info-waiting-text">Lockitendero</span>
                     </div>;
                 break;
@@ -59,15 +60,15 @@ class Bag extends Component<RouteComponentProps & BagProps> {
                 lockerStatus =
                     <div className="bag-info-transport">
                         <IonIcon className="bag-icon green" icon={bicycle}/>
-                        <span className="bag-info-status bag-info-accepted-text">Lockitendero</span>
-                        <span className="bag-info-accepted-text">en camino</span>
+                        <span className="bag-info-status bag-info-accepted-text"><Trans id="Bag.worker_fantasy_name">Lockitendero</Trans></span>
+                        <span className="bag-info-accepted-text"><Trans id="Bag.fetching">en camino</Trans></span>
                     </div>;
                 break;
             case "MOVING":
                 lockerStatus =
                     <div className="bag-info-transport">
                         <IonIcon className="bag-icon red" icon={bicycle}/>
-                        <span className="bag-info-status bag-info-transport-text">Transportando a:</span>
+                        <span className="bag-info-status bag-info-transport-text"><Trans id="Bag.en_route">Transportando a:</Trans></span>
                         <span className="bag-info-transport-text">{this.props.moveTo}</span>
                     </div>;
                 break;
@@ -78,12 +79,12 @@ class Bag extends Component<RouteComponentProps & BagProps> {
                             <IonTabButton class="lockers-button" href="/lockers/move"
                                           onClick={this._selectBagToMove.bind(this)}>
                                 <span className="bag-info-transport-move-to-text">
-                                    MOVER
+                                    <Trans id="Bag.move">MOVER</Trans>
                                 </span>
                             </IonTabButton>
                         </div>
                         <div className="bag-info-open" onClick={this._showModal.bind(this)}>
-                            <span className="bag-info-open-text">ABRIR</span>
+                            <span className="bag-info-open-text"><Trans id="Bag.open">ABRIR</Trans></span>
                         </div>
                     </div>;
         }
@@ -94,7 +95,7 @@ class Bag extends Component<RouteComponentProps & BagProps> {
                     <span className="bag-info-main-text">{this.props.name}</span>
                     {this.stored ?
                         <div>
-                            <span className="bag-info-transport-text-2">GUARDADA</span>
+                            <span className="bag-info-transport-text-2"><Trans id="Bag.stored">GUARDADA</Trans></span>
                             <span className="bag-info-secondary-text">{this.props.locker.address}</span>
                         </div>
                         :

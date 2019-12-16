@@ -3,6 +3,7 @@ import Card from 'react-credit-cards';
 import Payment from 'payment';
 import './newCard.css'
 import 'react-credit-cards/es/styles-compiled.css';
+import {Trans} from "@lingui/react";
 
 export default class NewCreditCard extends React.Component {
     state = {
@@ -60,7 +61,7 @@ export default class NewCreditCard extends React.Component {
         return (
             <div key="Payment">
                 <div className="App-payment">
-                    <h1>Agregá una nueva tarjeta</h1>
+                    <h1><Trans id="NewCreditCard.title">Agregá una nueva tarjeta</Trans></h1>
                     <Card
                         number={number}
                         name={name}
@@ -75,7 +76,7 @@ export default class NewCreditCard extends React.Component {
                                 type="tel"
                                 name="number"
                                 className="form-control"
-                                placeholder="Card Number"
+                                placeholder={"Número de tarjeta"}
                                 pattern="[\d| ]{16,22}"
                                 required
                                 onChange={this.handleInputChange}
@@ -88,7 +89,7 @@ export default class NewCreditCard extends React.Component {
                                 type="text"
                                 name="name"
                                 className="form-control"
-                                placeholder="Name"
+                                placeholder="Nombre"
                                 required
                                 onChange={this.handleInputChange}
                                 onFocus={this.handleInputFocus}
@@ -100,7 +101,7 @@ export default class NewCreditCard extends React.Component {
                                     type="tel"
                                     name="expiry"
                                     className="form-control"
-                                    placeholder="Valid Thru"
+                                    placeholder="Válido hasta"
                                     pattern="\d\d/\d\d"
                                     required
                                     onChange={this.handleInputChange}
@@ -122,7 +123,7 @@ export default class NewCreditCard extends React.Component {
                         </div>
                         <input type="hidden" name="issuer" value={issuer} />
                         <div className="form-actions">
-                            <button className="btn btn-primary btn-block">Agregar</button>
+                            <button className="btn btn-primary btn-block"><Trans id="NewCreditCard.add">Agregar</Trans></button>
                         </div>
                     </form>
                     {formData && (

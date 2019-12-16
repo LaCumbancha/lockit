@@ -12,6 +12,7 @@ import SavedItemsBuilder from "../model/SavedItemsBuilder";
 import Movement from "../model/Movement";
 import MovementsBuilder from "../model/MovementsBuilder";
 import NewCreditCard from "../components/NewCreditCard/NewCreditCard";
+import {Trans} from "@lingui/react";
 
 type CheckoutPageProps = {
     item: SavedItem
@@ -100,21 +101,23 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
                     :
                     <IonContent>
                         <div className="main-move-to-page">
-                            <span className="main-title" onClick={this.moveTo}>Elegí un Método de Pago</span>
+                            <span className="main-title" onClick={this.moveTo}>
+                                <Trans id="Checkout.title">Elegí un Método de Pago</Trans>
+                            </span>
                             {this.state.card.length > 0
                                 ?
                                 <div className="chk-info" onClick={this.moveTo}>
-                                    Tarjeta terminada en {this.state.card}
+                                    <Trans id="Checkout.known_card">Tarjeta terminada en</Trans> {this.state.card}
                                     <GenericCard />
                                 </div>
                                 : null
                             }
                             <div className="chk-info" onClick={this.newCreditCard}>
-                                Agregar una nueva tarjeta
+                                <Trans id="Checkout.add_card">Agregar una nueva tarjeta</Trans>
                             </div>
                             <span className="main-title" onClick={this.moveTo}>Total: ${this.operation.price}</span>
                             <div className="main-button" onClick={() => this.props.history.push('/map')}>
-                                <span className="main-button-text">cancelar</span>
+                                <span className="main-button-text"><Trans id="Checkout.cancel">cancelar</Trans></span>
                             </div>
                             <IonLoading
                                 isOpen={this.state.loading}

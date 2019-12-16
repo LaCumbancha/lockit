@@ -1,0 +1,65 @@
+/* eslint-disable */
+module.exports = {
+    languageData: {
+        "plurals": function (n, ord) {
+            var s = String(n).split("."), v0 = !s[1], t0 = Number(s[0]) == n, n10 = t0 && s[0].slice(-1),
+                n100 = t0 && s[0].slice(-2);
+            if (ord) return n10 == 1 && n100 != 11 ? "one" : n10 == 2 && n100 != 12 ? "two" : n10 == 3 && n100 != 13 ? "few" : "other";
+            return n == 1 && v0 ? "one" : "other"
+        }
+    }, messages: {
+        "App.lockit_tab": "My LockIts",
+        "App.map_tab": "Map",
+        "App.orders_tab": "Orders",
+        "Login.motto": "Si es una carga, nos encargamos.",
+        "Login.email_button": "Email",
+        "Login.psw_button": "Password",
+        "Login.enter_button": "Enter",
+        "Login.toast_button": "Close",
+        "DataModal.transport_request": "Transportation order",
+        "DataModal.from": "From:",
+        "DataModal.to": "To:",
+        "DataModal.price": "Price:",
+        "DataModal.accept_button": "ACCEPT",
+        "MoveTo.select_message": "Choose a Locker",
+        "MoveTo.cancel": "Cancel",
+        "LockerTag.move_button": "MOVE",
+        "Checkout.title": "Choose a Payment Method",
+        "Checkout.known_card": "Visa finished in",
+        "Checkout.add_card": "Add new card",
+        "Checkout.cancel": "cancel",
+        "Checkout.loading_message": "Processing your payment...",
+        "MovingRequest.request_info": "Locker in",
+        "MovingRequest.move_button": "MOVE",
+        "AcceptedRequest.info": "Locker in",
+        "AcceptedRequest.withdraw_button": "WITHDRAW",
+        "AcceptedRequest.store_button": "STORE",
+        "QRModal.text": "Scan this QR code to open the locker!",
+        "NoRequests.title": "¡We are sorry!",
+        "NoRequests.text": "There are no moving orders in your area now. Try again later!",
+        "OrdersPage.title": "Orders",
+        "OrdersPage.active_order_header": "Complete your current order to be able to take new ones!",
+        "OrdersPage.no_active_orders_header": "These are the orders near your area!",
+        "Bag.worker_fantasy_name": "Lockitendero",
+        "Bag.waiting": "Waiting",
+        "Bag.fetching": "fetching",
+        "Bag.en_route": "En route to:",
+        "Bag.stored": "STORED",
+        "Bag.move": "MOVE",
+        "Bag.open": "OPEN",
+        "LockersPage.header_message": "These are your currently stored items, touch to interact!",
+        "LockersPage.title": "My LockIts",
+        "LockerInfo.available": "Available",
+        "LockerInfo.price": "Price:",
+        "LockerInfo.move": "Move",
+        "LockerInfo.searching": "Searching",
+        "LockerInfo.en_route": "en route",
+        "LockerInfo.book": "Book now",
+        "NewCreditCard.add": "Add",
+        "NewCreditCard.number": "Card number",
+        "NewCreditCard.name": "Name",
+        "NewCreditCard.valid_thru": "Valid thru",
+        "NewCreditCard.title": "Add a new card",
+        "locker_request_toast_message": "You will see your order in your LockIt list in a moment."
+    }
+};
