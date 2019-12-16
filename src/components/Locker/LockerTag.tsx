@@ -5,6 +5,7 @@ import './LockerTag.css'
 import {IonTabButton} from "@ionic/react";
 import Operation from "../../model/Operation";
 import SavedItem from "../../model/SavedItem";
+import {Trans} from "@lingui/react";
 
 type LockerProps = {
     item: SavedItem,
@@ -31,7 +32,7 @@ class LockerTag extends Component<RouteComponentProps & LockerProps> {
                 <div className="locker-info-transport">
                     <div className="locker-info-transport-move-to">
                         <IonTabButton class="lockers-button" onClick={this._selectLockerToMove.bind(this)}>
-                            <span className="locker-info-transport-move-to-text">MOVER</span>
+                            <span className="locker-info-transport-move-to-text"><Trans id="LockerTag.move_button">MOVER</Trans></span>
                         </IonTabButton>
                     </div>
                 </div>

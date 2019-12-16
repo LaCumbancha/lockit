@@ -11,6 +11,7 @@ import LoadingBag from "../components/Bag/LoadingBag";
 import SavedItemsBuilder from "../model/SavedItemsBuilder.js";
 import SavedItem from "../model/SavedItem";
 import {settings} from "ionicons/icons";
+import {Trans} from "@lingui/react";
 
 const MAX_LOCKERS = 5;
 
@@ -67,11 +68,16 @@ export default class LockersPage extends Component<{}, LockersState> {
                 <IonContent>
                         <div>
                             <div className="main-settings">
-                                <span className="main-title">Mis LockIts</span>
+                                <span className="main-title">
+                                    <Trans id="LockersPage.title">Mis LockIts</Trans>
+                                </span>
                                 <IonIcon className="settings-icon" icon={settings}/>
                             </div>
-                            <span className="sub-title">Estos son los objetos que actualmente tenés guardados en LockIt,
-                                tocá el que quieras para interactuar!</span>
+                            <span className="sub-title">
+                                <Trans id="LockersPage.header_message">
+                                    Estos son los objetos que actualmente tenés guardados en LockIt, tocá el que quieras para interactuar!
+                                </Trans>
+                            </span>
                             {storedLockers}
                             {emptyLockers}
                         </div>

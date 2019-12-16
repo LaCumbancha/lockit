@@ -10,6 +10,7 @@ import Locker from "../model/Locker";
 import LockersBuilder from "../model/LockersBuilder";
 import LockerTag from "../components/Locker/LockerTag";
 import LoadingBag from "../components/Bag/LoadingBag";
+import {Trans} from "@lingui/react";
 
 type MoveToState = {
     showCheckout: Boolean,
@@ -66,12 +67,16 @@ export default class MoveToPage extends Component<{}, MoveToState> {
         return (
             <IonPage>
                 <IonContent>
-                    <span className="main-title">Elegí un Locker</span>
+                    <span className="main-title">
+                        <Trans id="MoveTo.select_message">Elegí un Locker</Trans>
+                    </span>
                     {lockers}
                     <div>
                     <IonButton className="main-button" href="/lockers">
                         <div className="main-button cancel-button">
-                            <span className="main-button-text">Cancelar</span>
+                            <span className="main-button-text">
+                                <Trans id="MoveTo.cancel">Cancelar</Trans>
+                            </span>
                         </div>
                     </IonButton>
                     </div>

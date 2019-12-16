@@ -12,6 +12,7 @@ import MovementsBuilder from "../model/MovementsBuilder";
 import MovingRequest from "../components/MovingRequest/MovingRequest";
 import AcceptedRequest from "../components/MovingRequest/AcceptedRequest";
 import NoRequests from "../components/MovingRequest/NoRequests";
+import {Trans} from "@lingui/react";
 
 const MAX_MOVEMENTS = 5;
 
@@ -75,13 +76,17 @@ export default class LockersPage extends Component<{}, TransportState> {
                 <IonContent>
                     <div>
                         <div className="main-settings">
-                            <span className="main-title">Pedidos</span>
+                            <span className="main-title"><Trans id="OrdersPage.title">Pedidos</Trans></span>
                             <IonIcon className="settings-icon" icon={settings}/>
                         </div>
                         {hasActiveRequest ?
-                            <span className="sub-title">¡Completa tu pedido actual para poder tomar nuevos!</span>
+                            <span className="sub-title">
+                                <Trans id="OrdersPage.active_order_header">¡Completa tu pedido actual para poder tomar nuevos!</Trans>
+                            </span>
                             :
-                            <span className="sub-title">¡Estos son los pedidos de transporte actuales en tu zona!</span>
+                            <span className="sub-title">
+                                <Trans id="OrdersPage.no_active_orders_header">¡Estos son los pedidos de transporte actuales en tu zona!</Trans>
+                            </span>
                         }
                         {activeRequest}
                         {possibleRequests}
