@@ -104,8 +104,7 @@ export function saveToken(userId, token) {
 
 export function readyToMoveNotification() {
     let saveItem = JSON.parse(localStorage.readyToMoveInfo);
-    let suffix = `${localStorage.userID}/${saveItem.id}`;
-    firebase.database().ref('readyToMoveNotification/'+suffix).set(saveItem);
+    firebase.database().ref('readyToMoveNotification/'+saveItem.id).set(saveItem);
 }
 
 export function movementAcceptNotification(movement) {

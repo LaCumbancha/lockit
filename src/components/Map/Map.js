@@ -16,6 +16,9 @@ import Operation from "../../model/Operation";
 import {alarm, bicycle} from "ionicons/icons";
 import SavedItemsBuilder from "../../model/SavedItemsBuilder";
 import Movement from "../../model/Movement";
+import {Plugins} from "@capacitor/core";
+const { PushNotifications } = Plugins;
+
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbnphcmFnb3phZ2NiYSIsImEiOiJjanJqaG5hc2UwMGJ3M3lwODlmZTI4NjAwIn0.sTM1hm0HAjSmcg3FfSBsHA'; // Set your mapbox token here
 const ICONS_SIZE = 48;
@@ -298,6 +301,7 @@ class Map extends Component {
         },
         showToast: false,
         savedItems: [],
+        notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }]
     };
 
     componentDidMount() {
@@ -352,6 +356,54 @@ class Map extends Component {
             },
             err => console.log(err));
 
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+
+        // On succcess, we should be able to receive notifications
+        PushNotifications.addListener('registration',
+            (token) => {
+                firebase.saveToken(localStorage.type, token.value);
+            }
+        );
+
+        // Some issue with your setup and push will not work
+        PushNotifications.addListener('registrationError',
+            (error) => {
+                alert('Error on registration: ' + JSON.stringify(error));
+            }
+        );
+
+        // Show us the notification payload if the app is open on our device
+        PushNotifications.addListener('pushNotificationReceived',
+            (notification) => {
+                alert(`${notification.title}`);
+                // @ts-ignore
+                let notif = this.state.notifications;
+                // @ts-ignore
+                notif.push({ id: notification.id, title: notification.title, body: notification.body });
+                // @ts-ignore
+                this.setState({
+                    notifications: notif
+                });
+            }
+        );
+
+        // Method called when tapping on a notification
+        PushNotifications.addListener('pushNotificationActionPerformed',
+            (notification) => {
+                // @ts-ignore
+                let notif = this.state.notifications;
+                notif.push({
+                    id: notification.notification.data.id,
+                    title: notification.notification.data.title,
+                    body: notification.notification.data.body
+                });
+                // @ts-ignore
+                this.setState({
+                    notifications: notif
+                })
+            }
+        );
 
     }
 

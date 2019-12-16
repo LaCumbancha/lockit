@@ -23,7 +23,7 @@ const readyToMoveNotification = async () => {
     return admin.messaging().sendToDevice(userId, payload)
 };
 
-exports.readyToMoveNotificationTrigger = functions.database.ref('readyToMoveNotification/{userId}/{lockerId}')
+exports.readyToMoveNotificationTrigger = functions.database.ref('readyToMoveNotification/{lockerId}')
     // @ts-ignore
     .onWrite(async event => {
         await readyToMoveNotification();

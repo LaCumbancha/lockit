@@ -15,7 +15,6 @@ import './LoginPage.css';
 import * as firebase from '../services/firebase';
 import { Plugins } from '@capacitor/core';
 import { Trans } from "@lingui/react";
-const { PushNotifications } = Plugins;
 
 const INITIAL_STATE = {
     email: '',
@@ -26,7 +25,6 @@ const INITIAL_STATE = {
         message: '',
         color: ''
     },
-    notifications: [{ id: 'id', title: "Test Push", body: "This is my first push notification" }]
 };
 
 class Login extends Component {
@@ -67,7 +65,6 @@ class Login extends Component {
                 })
             }
         );
-
     }
 
     _onDidDismissToast() {
@@ -84,52 +81,6 @@ class Login extends Component {
         this.setState({[key]:event});
     }
 
-    push() {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-
-        // On succcess, we should be able to receive notifications
-        PushNotifications.addListener('registration',
-            (token) => {
-                firebase.saveToken(localStorage.type, token.value);
-            }
-        );
-
-        // Some issue with your setup and push will not work
-        PushNotifications.addListener('registrationError',
-            (error) => {
-                alert('Error on registration: ' + JSON.stringify(error));
-            }
-        );
-
-        // Show us the notification payload if the app is open on our device
-        PushNotifications.addListener('pushNotificationReceived',
-            (notification) => {
-                alert(`${notification.title}`);
-                let notif = this.state.notifications;
-                // @ts-ignore
-                notif.push({ id: notification.id, title: notification.title, body: notification.body });
-                this.setState({
-                    notifications: notif
-                });
-            }
-        );
-
-        // Method called when tapping on a notification
-        PushNotifications.addListener('pushNotificationActionPerformed',
-            (notification) => {
-                let notif = this.state.notifications;
-                notif.push({
-                    id: notification.notification.data.id,
-                    title: notification.notification.data.title,
-                    body: notification.notification.data.body
-                })
-                this.setState({
-                    notifications: notif
-                })
-            }
-        );
-    };
 
     render() {
         return (
