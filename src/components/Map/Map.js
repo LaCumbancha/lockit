@@ -410,16 +410,24 @@ class Map extends Component {
 
     componentWillUnmount() {
         window.cancelAnimationFrame(this.animation);
+        localStorage.removeItem('moving');
     }
 
     componentWillReceiveProps() {
         /* Si le pasamos cualquier query param => se tiene que mover la bici*/
         /*TODO: esto es el unico modo de reemplazar redux central. Cambiar!!*/
         this.setState({
-            bikeMoving: this.props.location.search ? true : false
-        })
+            bikeMoving: this.props.location.search || localStorage.moving ? true : false
+        });
 
-        if(this.props.location.search){
+        if(localStorage.moving){
+            firebase.getBikeCoordinates(localStorage.moving).then(
+                res => {
+                    this.setState({bikeCoordinates: res});
+                },
+                err => console.log(err));
+        }
+        else if(this.props.location.search){
             const query = new URLSearchParams(this.props.location.search);
             const moving = query.get('moving');
             firebase.getBikeCoordinates(moving).then(

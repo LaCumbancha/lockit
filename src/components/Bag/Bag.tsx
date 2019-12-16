@@ -34,7 +34,12 @@ class Bag extends Component<RouteComponentProps & BagProps> {
 
     _goToMap() {
         if (this.transporting) {
-            this.props.history.push('/map?ib=1422');
+          firebase.getMovingRequests().then(res => {
+            const mov = res[res.length-1];
+            localStorage.setItem('moving', mov.lockerFromId+'-'+mov.lockerToId);
+            this.props.history.push('/map');
+          })
+
         }
     }
 

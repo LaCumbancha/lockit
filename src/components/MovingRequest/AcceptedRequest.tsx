@@ -30,11 +30,12 @@ class AcceptedRequest extends Component<RouteComponentProps & BagProps> {
                 let lockers = LockersBuilder.build(rawLockers);
                 SavedItemsBuilder.build(items).then(items => {
                     let item = items[0];
-                    item.locker = {id: ""};
-                    item.status = "MOVING";
-                    item.moveTo = lockers
+                    const currentLocker = lockers
                         .filter((locker: Locker) => locker.id === movement.lockerTo.id)
-                        .map((locker: Locker) => locker.name)[0];
+                        .map((locker: Locker) => locker)[0];
+                    item.locker = {id: currentLocker.id};
+                    item.status = "MOVING";
+                    item.moveTo = currentLocker.name;
                     firebase.setSavedItem(item);
 
                     let freeLocker = lockers.filter((locker: Locker) => locker.id === movement.lockerFrom.id)[0];
