@@ -54,6 +54,8 @@ class AcceptedRequest extends Component<RouteComponentProps & BagProps> {
         let movement = this.props.movement;
         movement.store();
         firebase.setMovingRequest(movement);
+        firebase.movementWithdrawnNotification(movement);
+
 
         firebase.getSavedItemsById(movement.item.id).then(items => {
                 SavedItemsBuilder.build(items).then(items => {

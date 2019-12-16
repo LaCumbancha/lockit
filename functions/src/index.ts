@@ -25,13 +25,7 @@ const readyToMoveNotification = async () => {
 
 exports.readyToMoveNotificationTrigger = functions.database.ref('readyToMoveNotification/{userId}/{lockerId}')
     // @ts-ignore
-    .onCreate(async event => {
-        await readyToMoveNotification();
-    });
-
-exports.readyToMoveNotificationTrigger = functions.database.ref('readyToMoveNotification/{userId}/{lockerId}')
-    // @ts-ignore
-    .onUpdate(async event => {
+    .onWrite(async event => {
         await readyToMoveNotification();
     });
 
@@ -57,12 +51,32 @@ const withdrawnMovementNotification = async () => {
 
 exports.withdrawnMovementNotificationTrigger = functions.database.ref('movementWithdrawnNotification/{movementId}')
     // @ts-ignore
-    .onCreate(async event => {
+    .onWrite(async event => {
         await withdrawnMovementNotification();
     });
 
-exports.withdrawnMovementNotificationTrigger = functions.database.ref('movementWithdrawnNotification/{movementId}')
+/* ---------------------------------------------------------------- */
+
+const movementDoneNotification = async () => {
+    //const data = event.val();
+    const snapshot = await admin.firestore()
+        .collection('tokens')
+        .where("type", "==", "CLIENTE")
+        .get();
     // @ts-ignore
-    .onUpdate(async event => {
-        await withdrawnMovementNotification();
+    const userId = snapshot.docs.map(doc => doc.data())[0].token;
+
+    const payload = {
+        notification: {
+            title: 'Tu LockIt ya esta listo.',
+            body: 'El lockitendero entrego tu LockIt.'
+        }
+    };
+    return admin.messaging().sendToDevice(userId, payload);
+};
+
+exports.movementDoneNotificationnTrigger = functions.database.ref('movementDoneNotification/{movementId}')
+    // @ts-ignore
+    .onWrite(async event => {
+        await movementDoneNotification();
     });

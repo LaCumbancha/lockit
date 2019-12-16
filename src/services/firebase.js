@@ -115,3 +115,7 @@ export function movementAcceptNotification(movement) {
 export function movementWithdrawnNotification(movement) {
     firebase.database().ref('movementWithdrawnNotification/'+movement.id).set(movement);
 }
+
+export function movementDoneNotification(movement) {
+    firebase.database().ref('movementDoneNotification/'+movement.id).set(movement);
+}
