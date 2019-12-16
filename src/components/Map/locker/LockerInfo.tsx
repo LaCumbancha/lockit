@@ -14,7 +14,8 @@ type InfoProps = {
     lockerAddress:string,
     hideInfo:boolean,
     lockerPrice:string,
-    onRequestBooking?:Function
+    onRequestBooking?:Function,
+    defaultValue: boolean
 }
 
 type State = {
@@ -63,6 +64,24 @@ class LockerPin extends Component<RouteComponentProps & InfoProps, State> {
     renderContent(){
         for (let i = 0; i < this.state.savedItems.length; i++) {
             const item = this.state.savedItems[i];
+
+            //si el value es default es porque este locker no tiene nada guardado
+            if(this.props.defaultValue){
+                return (
+                    <div>
+                        <div className={"info-availability-text info-available-text"}>
+                            <Trans id="LockerInfo.available">Disponible</Trans>
+                        </div>
+                        <div className={"info-price-text"}>
+                            <Trans id="LockerInfo.price">Precio:</Trans> ${this.props.lockerPrice}
+                        </div>
+                        <button className={"reservation-button clickable"} onClick={this.onRequestBooking.bind(this)}>
+                            <Trans id="LockerInfo.book">Reservar</Trans>
+                        </button>
+                    </div>
+                )
+            }
+
             switch (item.status) {
                 case "STORED":
                     if(item.locker.id === this.props.id){
@@ -134,7 +153,6 @@ class LockerPin extends Component<RouteComponentProps & InfoProps, State> {
               <span className={"info-main-text"}>{this.props.lockerName}</span>
               <span className={"info-secondary-text"}>{this.props.lockerAddress}</span>
               {this.renderContent()}
-
           </div>
         );
     }

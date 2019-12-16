@@ -43,42 +43,55 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
     };
 
     changeLocation() {
+        const mochilas = ["Valija", "Bolso Boxeo", "Maletín", "Ropa Vestuario", "Herramientas", "Objetos de Limieza"];
         let operation = this.operation;
-        firebase.getSavedItemsByUserId(localStorage.userID).then(
-            savedItems => {
-                SavedItemsBuilder.build(savedItems).then(
-                    items => {
-                        items.map(function (item: SavedItem) {
-                            if (item.id === operation.itemId) {
-                                item.waitForMovement();
-                            }
-                            firebase.setSavedItem(item);
-                            return item;
-                        });
 
-                        firebase.getMovingRequests().then(movingRequests => {
-                                MovementsBuilder.build(movingRequests).then(requests => {
-                                    let nextId = parseInt(requests
-                                        .map((movement: Movement) => movement.id)
-                                        .reduce((maxId: number, id: number) => maxId > id ? maxId : id)) + 1;
-                                    nextId = isNaN(nextId) ? 0 : nextId;
-                                    let item = { id: operation.itemId };
-                                    let lockerFrom = { id: operation.lockerFromId };
-                                    let lockerTo = { id: operation.lockerToId };
+        if(operation.type === "STORED"){
+            firebase.getSavedItemsByUserId(localStorage.userID).then(
+                savedItems => {
+                    const newId = parseInt(savedItems[savedItems.length -1].id) + 1
+                    firebase.setSavedItem(new SavedItem(newId.toString(), mochilas[operation.lockerFromId], {"id" : operation.lockerFromId}, operation.type, ""));
+                    this.setState({loading: false});
+                    this.props.history.push('/map');
+                });
+        } else {
 
-                                    firebase.setMovingRequest(new Movement(
-                                        nextId, item, lockerFrom, lockerTo, "150", "REQUEST_TO_MOVE"
-                                    ), true);
-                                })
-                            }
-                        );
+            firebase.getSavedItemsByUserId(localStorage.userID).then(
+                savedItems => {
+                    SavedItemsBuilder.build(savedItems).then(
+                        items => {
+                            items.map(function (item: SavedItem) {
+                                if (item.id === operation.itemId) {
+                                    item.waitForMovement();
+                                }
+                                firebase.setSavedItem(item);
+                                return item;
+                            });
 
-                        this.setState({loading: false});
-                        this.props.history.push('/map');
-                    },
-                    err => console.log(err));
-            },
-            err => console.log(err));
+                            firebase.getMovingRequests().then(movingRequests => {
+                                    MovementsBuilder.build(movingRequests).then(requests => {
+                                        let nextId = parseInt(requests
+                                            .map((movement: Movement) => movement.id)
+                                            .reduce((maxId: number, id: number) => maxId > id ? maxId : id)) + 1;
+                                        nextId = isNaN(nextId) ? 0 : nextId;
+                                        let item = {id: operation.itemId};
+                                        let lockerFrom = {id: operation.lockerFromId};
+                                        let lockerTo = {id: operation.lockerToId};
+
+                                        firebase.setMovingRequest(new Movement(
+                                            nextId, item, lockerFrom, lockerTo, "150", "REQUEST_TO_MOVE"
+                                        ), true);
+                                    })
+                                }
+                            );
+
+                            this.setState({loading: false});
+                            this.props.history.push('/map');
+                        },
+                        err => console.log(err));
+                },
+                err => console.log(err));
+        }
     }
 
     newCreditCard = () => {

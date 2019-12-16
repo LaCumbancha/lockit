@@ -36,7 +36,6 @@ export default class LockersPage extends Component<{}, LockersState> {
         };
         firebase.getSavedItemsByUserId(localStorage.userID).then(
             savedItems => {
-                console.log(savedItems);
                 SavedItemsBuilder.build(savedItems).then(
                     res => {
                         this.setState({

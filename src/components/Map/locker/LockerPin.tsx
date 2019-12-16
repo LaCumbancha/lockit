@@ -24,7 +24,8 @@ type PinProps = {
     lockerAddress:string,
     lockerPrice: string,
     onRequestBooking?:Function,
-    taken: boolean
+    taken: boolean,
+    defaultValue: boolean
 }
 
 type State = {
@@ -62,7 +63,9 @@ export default class LockerPin extends Component<PinProps, State> {
             </svg>
             <LockerInfo id={this.props.id} lockerName={this.props.lockerName}
                         lockerAddress={this.props.lockerAddress} lockerPrice={this.props.lockerPrice}
-                        hideInfo={this.state.hideInfo} onRequestBooking={this.onRequestBooking.bind(this)} />
+                        hideInfo={this.state.hideInfo} onRequestBooking={this.onRequestBooking.bind(this)}
+                        defaultValue={this.props.defaultValue}
+            />
         </div>
     );
   }

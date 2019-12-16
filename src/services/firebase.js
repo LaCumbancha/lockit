@@ -61,7 +61,8 @@ export async function getAllSavedItems() {
 export function setSavedItem(item) {
     let saveItem = Object.assign({}, item);
     saveItem.locker = item.locker.id;
-    firebase.firestore().doc('savedItems/' + item.id).set(saveItem);
+    console.log(saveItem)
+    firebase.firestore().doc('savedItems/' + saveItem.id).set(saveItem);
 }
 
 export async function getMovingRequests() {

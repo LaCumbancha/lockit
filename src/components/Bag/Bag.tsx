@@ -45,8 +45,6 @@ class Bag extends Component<RouteComponentProps & BagProps> {
 
     render() {
         let lockerStatus;
-        console.log("Va el locker:");
-        console.log(this.props.locker);
 
         switch (this.props.status) {
             case "REQUEST_TO_MOVE":
@@ -97,7 +95,6 @@ class Bag extends Component<RouteComponentProps & BagProps> {
                     {this.stored ?
                         <div>
                             <span className="bag-info-transport-text-2"><Trans id="Bag.stored">GUARDADA</Trans></span>
-                            {console.log(this.props.locker)}
                             <span className="bag-info-secondary-text">{this.props.locker.address}</span>
                         </div>
                         :

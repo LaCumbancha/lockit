@@ -14,6 +14,8 @@ import LockerPin from './locker/LockerPin';
 import * as firebase from '../../services/firebase';
 import Operation from "../../model/Operation";
 import {alarm, bicycle} from "ionicons/icons";
+import SavedItemsBuilder from "../../model/SavedItemsBuilder";
+import Movement from "../../model/Movement";
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbnphcmFnb3phZ2NiYSIsImEiOiJjanJqaG5hc2UwMGJ3M3lwODlmZTI4NjAwIn0.sTM1hm0HAjSmcg3FfSBsHA'; // Set your mapbox token here
 const ICONS_SIZE = 48;
@@ -294,11 +296,22 @@ class Map extends Component {
             lockerLocation: "",
             show: false
         },
-        showToast: false
+        showToast: false,
+        savedItems: [],
     };
 
     componentDidMount() {
         this._animateBike();
+
+        firebase.getAllSavedItems().then(
+            res => {
+                SavedItemsBuilder.build(res).then(items => {
+                    this.setState({
+                        savedItems: items
+                    });
+                })
+            },
+            err => console.log(err));
         /*
         Esto no lo borro porque me sirve de ejemplo para otras cosas,
         pero no se esta utilizando
@@ -413,18 +426,19 @@ class Map extends Component {
     };
 
     _renderLockerMarker = (locker, index) => {
+        const defaultValue = !this.state.savedItems.some(item => item.locker !== undefined && item.locker.id === locker.id);
         return (
             <Marker key={`marker-${index}`} longitude={locker.longitude} latitude={locker.latitude}>
                 <LockerPin id={locker.id} size={ICONS_SIZE} lockerName={locker.name} lockerAddress={locker.address}
                            lockerPrice={locker.price} onRequestBooking={this._onRequestBooking.bind(this)}
-                           taken={locker.taken}/>
+                           taken={locker.taken} defaultValue={defaultValue}/>
             </Marker>
         );
     };
 
     _onRequestBooking(info) {
         //TODO: refactor
-        localStorage.operation = JSON.stringify(new Operation("STORING_ITEM", info.lockerId, info.lockerPrice, undefined, undefined));
+        localStorage.operation = JSON.stringify(new Operation("STORED", "id que no me importa", info.lockerPrice, "", info.lockerId));
         this.setState({
             checkout: {
                 lockerName: info.lockerName,
