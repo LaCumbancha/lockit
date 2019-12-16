@@ -8,6 +8,7 @@ import * as firebase from "../../services/firebase";
 import SavedItemsBuilder from "../../model/SavedItemsBuilder";
 import LockersBuilder from "../../model/LockersBuilder";
 import Locker from "../../model/Locker";
+import {Trans} from "@lingui/react";
 
 type BagProps = {
     movement: Movement
@@ -82,19 +83,19 @@ class AcceptedRequest extends Component<RouteComponentProps & BagProps> {
             <div className="accepted-request-info">
                 <QRLockerModal show={false} ref={this.modalQR}/>
                 <div className="request-info-main">
-                    <span className="request-info-main-text">Locker en {this.props.movement.lockerFrom.name}</span>
+                    <span className="request-info-main-text"><Trans id="AcceptedRequest.info">Locker en</Trans> {this.props.movement.lockerFrom.name}</span>
                     <span className="request-info-secondary-text">{this.props.movement.lockerFrom.address}</span>
                 </div>
                 {!moving ?
                     <div className="request-info-transport">
                         <div className="accepted-request-info-open" onClick={this._withdrawItem.bind(this)}>
-                            <span className="request-info-open-text">RETIRAR</span>
+                            <span className="request-info-open-text"><Trans id="AcceptedRequest.withdraw_button">RETIRAR</Trans></span>
                         </div>
                     </div>
                     :
                     <div className="request-info-transport">
                         <div className="accepted-request-info-open" onClick={this._saveItem.bind(this)}>
-                            <span className="request-info-open-text">GUARDAR</span>
+                            <span className="request-info-open-text"><Trans id="AcceptedRequest.store_button">GUARDAR</Trans></span>
                         </div>
                     </div>
                 }

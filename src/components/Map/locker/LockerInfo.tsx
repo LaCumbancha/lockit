@@ -6,6 +6,7 @@ import * as firebase from "../../../services/firebase";
 import SavedItem from "../../../model/SavedItem";
 import SavedItemsBuilder from "../../../model/SavedItemsBuilder";
 import Operation from "../../../model/Operation";
+import {Trans} from "@lingui/react";
 
 type InfoProps = {
     id: string,
@@ -67,9 +68,15 @@ class LockerPin extends Component<RouteComponentProps & InfoProps, State> {
                     if(item.locker.id === this.props.id){
                         return (
                             <div>
-                                <div className={"info-availability-text info-available-text"}>Disponible</div>
-                                <div className={"info-price-text"}>Precio: ${this.props.lockerPrice}</div>
-                                <button className={"reservation-button clickable"} onClick={this.onRequestMoving.bind(this,item)}>Mover</button>
+                                <div className={"info-availability-text info-available-text"}>
+                                    <Trans id="LockerInfo.available">Disponible</Trans>
+                                </div>
+                                <div className={"info-price-text"}>
+                                    <Trans id="LockerInfo.price">Precio:</Trans> ${this.props.lockerPrice}
+                                </div>
+                                <button className={"reservation-button clickable"} onClick={this.onRequestMoving.bind(this,item)}>
+                                    <Trans id="LockerInfo.move">Mover</Trans>
+                                </button>
                             </div>
                         )
                     }
@@ -78,8 +85,12 @@ class LockerPin extends Component<RouteComponentProps & InfoProps, State> {
                     if(item.locker.id === this.props.id) {
                         return (
                             <>
-                                <span className={"info-availability-text info-unavailable-text"}>Buscando</span>
-                                <span className={"info-availability-text info-unavailable-text"}>Lockitendero</span>
+                                <span className={"info-availability-text info-unavailable-text"}>
+                                    <Trans id="LockerInfo.searching">Buscando</Trans>
+                                </span>
+                                <span className={"info-availability-text info-unavailable-text"}>
+                                    <Trans id="Bag.worker_fantasy_name">Lockitendero</Trans>
+                                </span>
                             </>
                         )
                     }
@@ -88,8 +99,12 @@ class LockerPin extends Component<RouteComponentProps & InfoProps, State> {
                     if(item.locker.id === this.props.id) {
                         return (
                             <>
-                                <span className={"info-availability-text info-unavailable-text"}>Lockitendero</span>
-                                <span className={"info-availability-text info-unavailable-text"}>en camino</span>
+                                <span className={"info-availability-text info-unavailable-text"}>
+                                    <Trans id="Bag.worker_fantasy_name">Lockitendero</Trans>
+                                </span>
+                                <span className={"info-availability-text info-unavailable-text"}>
+                                    <Trans id="LockerInfo.en_route">en camino</Trans>
+                                </span>
                             </>
                         )
                     }
@@ -98,9 +113,15 @@ class LockerPin extends Component<RouteComponentProps & InfoProps, State> {
                 default:
                     return (
                         <div>
-                            <div className={"info-availability-text info-available-text"}>Disponible</div>
-                            <div className={"info-price-text"}>Precio: ${this.props.lockerPrice}</div>
-                            <button className={"reservation-button clickable"} onClick={this.onRequestBooking.bind(this)}>Reservar</button>
+                            <div className={"info-availability-text info-available-text"}>
+                                <Trans id="LockerInfo.available">Disponible</Trans>
+                            </div>
+                            <div className={"info-price-text"}>
+                                <Trans id="LockerInfo.price">Precio:</Trans> ${this.props.lockerPrice}
+                            </div>
+                            <button className={"reservation-button clickable"} onClick={this.onRequestBooking.bind(this)}>
+                                <Trans id="LockerInfo.book">Reservar</Trans>
+                            </button>
                         </div>
                     )
             }

@@ -7,7 +7,7 @@ class LoginPage extends Component<RouteComponentProps<{}>> {
 
     render() {
         return (
-            <Login history={this.props.history}></Login>
+            <Login history={this.props.history}/>
         )
     }
 }
