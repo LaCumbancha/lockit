@@ -7,7 +7,8 @@ type ModalProps = {
 };
 
 type State = {
-    show: Boolean
+    show: Boolean,
+    reload: Boolean
 };
 
 
@@ -15,7 +16,7 @@ export default class QRLockerModal extends Component<ModalProps,State> {
 
     constructor({props}: { props: any }) {
         super(props);
-        this.state = {show: false};
+        this.state = {show: false, reload: false};
     }
 
     render() {
@@ -35,9 +36,18 @@ export default class QRLockerModal extends Component<ModalProps,State> {
 
     hideModal = () => {
         this.setState({ show: false });
+        if(this.state.reload){
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+        }
     };
 
-    showModal = () => {
-        this.setState({show: true});
+    showModal = (reload = false) => {
+        this.setState({show: true, reload: reload});
+    };
+
+    reload = () => {
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
     }
 };
