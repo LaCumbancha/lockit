@@ -59,6 +59,7 @@ module.exports={
         "NewCreditCard.name": "Nombre",
         "NewCreditCard.valid_thru": "Válido hasta",
         "NewCreditCard.title": "Agregá una nueva tarjeta",
+        "Settings.language_title": "Idioma",
         "locker_request_toast_message": "En momentos verá el pedido en su lista de LockIts."
     }
 };

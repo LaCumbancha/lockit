@@ -76,7 +76,7 @@ export default class NewCreditCard extends React.Component {
                                 type="tel"
                                 name="number"
                                 className="form-control"
-                                placeholder={"Número de tarjeta"}
+                                placeholder={localStorage.language === "en" ? "Card Number" : "Número de tarjeta"}
                                 pattern="[\d| ]{16,22}"
                                 required
                                 onChange={this.handleInputChange}
@@ -89,7 +89,7 @@ export default class NewCreditCard extends React.Component {
                                 type="text"
                                 name="name"
                                 className="form-control"
-                                placeholder="Nombre"
+                                placeholder={localStorage.language === "en" ? "Name" : "Nombre"}
                                 required
                                 onChange={this.handleInputChange}
                                 onFocus={this.handleInputFocus}
@@ -101,7 +101,7 @@ export default class NewCreditCard extends React.Component {
                                     type="tel"
                                     name="expiry"
                                     className="form-control"
-                                    placeholder="Válido hasta"
+                                    placeholder={localStorage.language === "en" ? "Valid thru" : "Válido hasta"}
                                     pattern="\d\d/\d\d"
                                     required
                                     onChange={this.handleInputChange}

@@ -489,7 +489,7 @@ class Map extends Component {
                 <IonToast
                     isOpen={showToast}
                     onDidDismiss={() => this.setState({showToast: false})}
-                    message="En momentos verá pedido en su lista de lockits"
+                    message={localStorage.language === "en" ? "You will see your order in your LockIt list in a moment." :"En momentos verá pedido en su lista de lockits."}
                     position="bottom"
                     buttons={[
                         {

@@ -123,7 +123,7 @@ class CheckoutPage extends Component<CheckoutPageProps & RouteComponentProps<{}>
                             <IonLoading
                                 isOpen={this.state.loading}
                                 onDidDismiss={() => this.changeLocation()}
-                                message={'Procesando el pago...'}
+                                message={localStorage.language === "en" ? 'Processing your payment...' : 'Procesando el pago...'}
                                 duration={2000}
                             />
                         </div>

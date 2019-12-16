@@ -60,6 +60,7 @@ module.exports = {
         "NewCreditCard.name": "Name",
         "NewCreditCard.valid_thru": "Valid thru",
         "NewCreditCard.title": "Add a new card",
+        "Settings.language_title": "Language",
         "locker_request_toast_message": "You will see your order in your LockIt list in a moment."
     }
 };

@@ -37,6 +37,7 @@ import MoveToPage from "./pages/MoveToPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
 import TransportPage from "./pages/TransportPage";
+import SettingsPage from "./pages/SettingsPage";
 import { setupI18n } from "@lingui/core";
 import {I18nProvider, Trans} from '@lingui/react';
 import catalogEn from './locale/en/messages';
@@ -67,6 +68,7 @@ const App: React.FC = (props) => {
                             <Route path="/lockers/details" component={Details}/>
                             <Route path="/lockers/move" component={MoveToPage} exact={true}/>
                             <Route path="/checkout" component={CheckoutPage} exact={true}/>
+                            <Route path="/settings" component={SettingsPage} exact={true}/>
                             {!isLoggedIn ?
                                 <Redirect to="/login" from="*"/>
                                 :

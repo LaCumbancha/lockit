@@ -12,24 +12,27 @@ import SavedItemsBuilder from "../model/SavedItemsBuilder.js";
 import SavedItem from "../model/SavedItem";
 import {settings} from "ionicons/icons";
 import {Trans} from "@lingui/react";
+import {Redirect} from "react-router-dom";
 
 const MAX_LOCKERS = 5;
 
 type LockersState = {
     loading: Boolean,
     showMoveTo: Boolean,
-    savedItems: SavedItem[]
+    savedItems: SavedItem[],
+    settingsOpen: Boolean,
 }
 
 export default class LockersPage extends Component<{}, LockersState> {
     private savedItems: SavedItem[] = [];
 
-    constructor(props:PropertyDecorator) {
+    constructor(props: PropertyDecorator) {
         super(props);
         this.state = {
-          loading: true,
-          showMoveTo: false,
-          savedItems: []
+            loading: true,
+            showMoveTo: false,
+            savedItems: [],
+            settingsOpen: false
         };
         firebase.getSavedItemsByUserId(localStorage.userID).then(
             savedItems => {
@@ -39,8 +42,8 @@ export default class LockersPage extends Component<{}, LockersState> {
                         this.setState({
                             loading: false,
                             showMoveTo: false,
-                            savedItems: res.map(function(item: SavedItem){
-                              return new SavedItem(item.id,item.name,item.locker,item.status,item.moveTo);
+                            savedItems: res.map(function (item: SavedItem) {
+                                return new SavedItem(item.id, item.name, item.locker, item.status, item.moveTo);
                             })
                         });
                     },
@@ -52,50 +55,41 @@ export default class LockersPage extends Component<{}, LockersState> {
     render() {
         const loading = this.state && this.state.loading;
         let storedLockers, remainingFields = MAX_LOCKERS, emptyLockers = null;
-        if(loading){
-          emptyLockers = remainingFields > 0 ? Array.from(Array(remainingFields),(x,index) => <LoadingBag key={index}/>) : null;
-        }
-        else if(this.state && this.state.savedItems){
+        if (loading) {
+            emptyLockers = remainingFields > 0 ? Array.from(Array(remainingFields), (x, index) => <LoadingBag
+                key={index}/>) : null;
+        } else if (this.state && this.state.savedItems) {
             storedLockers = this.state.savedItems.slice(0, MAX_LOCKERS).map((item, key) =>
-                <Bag key={key} id={item.id} name={item.name} locker={item.locker} status={item.status} moveTo={item.moveTo}/>
+                <Bag key={key} id={item.id} name={item.name} locker={item.locker} status={item.status}
+                     moveTo={item.moveTo}/>
             );
             remainingFields = MAX_LOCKERS - this.state.savedItems.length;
-            emptyLockers = remainingFields > 0 ? Array.from(Array(remainingFields),(x,index) => <EmptyBag key={index}/>) : null;
+            emptyLockers = remainingFields > 0 ? Array.from(Array(remainingFields), (x, index) => <EmptyBag
+                key={index}/>) : null;
         }
+        if (this.state.settingsOpen && localStorage.settingsOpen) return (<Redirect to={'/settings'}/>);
 
-        return(
+        return (
             <IonPage>
                 <IonContent>
-                        <div>
-                            <div className="main-settings">
-                                <span className="main-title">
-                                    <Trans id="LockersPage.title">Mis LockIts</Trans>
-                                </span>
-                                <IonIcon className="settings-icon" icon={settings}/>
-                            </div>
-                            <span className="sub-title">
-                                <Trans id="LockersPage.header_message">
-                                    Estos son los objetos que actualmente tenés guardados en LockIt, tocá el que quieras para interactuar!
-                                </Trans>
+                    <div>
+                        <div className="main-settings">
+                            <span className="main-title">
+                                <Trans id="LockersPage.title">Mis LockIts</Trans>
                             </span>
-                            {storedLockers}
-                            {emptyLockers}
+                            <IonIcon className="settings-icon" icon={settings} onClick={() => {
+                                localStorage.settingsOpen = true;
+                                this.setState({settingsOpen: localStorage.settingsOpen})
+                            }}/>
                         </div>
-                    {/*<IonList>*/}
-                        {/*<IonListHeader>*/}
-                            {/*<IonLabel>Notifications</IonLabel>*/}
-                        {/*</IonListHeader>*/}
-                        {/*{this.state.notifications && this.state.notifications.map((notif: any) =>*/}
-                            {/*<IonItem key={notif.id}>*/}
-                                {/*<IonLabel>*/}
-                                    {/*<IonText>*/}
-                                        {/*<h3>{notif.title}</h3>*/}
-                                    {/*</IonText>*/}
-                                    {/*<p>{notif.body}</p>*/}
-                                {/*</IonLabel>*/}
-                            {/*</IonItem>*/}
-                        {/*)}*/}
-                    {/*</IonList>*/}
+                        <span className="sub-title">
+                            <Trans id="LockersPage.header_message">
+                                Estos son los objetos que actualmente tenés guardados en LockIt, tocá el que quieras para interactuar!
+                            </Trans>
+                        </span>
+                        {storedLockers}
+                        {emptyLockers}
+                    </div>
                 </IonContent>
             </IonPage>
         )
