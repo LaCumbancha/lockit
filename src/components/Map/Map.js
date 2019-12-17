@@ -499,6 +499,12 @@ class Map extends Component {
     _onRequestBooking(info) {
         //TODO: refactor
         localStorage.operation = JSON.stringify(new Operation("STORED", "id que no me importa", info.lockerPrice, "", info.lockerId));
+        this.state.lockers.filter((value,index)=>{
+            if(value.id === info.lockerId){
+                value.taken = true;
+                localStorage.readyToMoveInfo = JSON.stringify(value);
+            }
+        });
         this.setState({
             checkout: {
                 lockerName: info.lockerName,
