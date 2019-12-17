@@ -13,11 +13,13 @@ import MovingRequest from "../components/MovingRequest/MovingRequest";
 import AcceptedRequest from "../components/MovingRequest/AcceptedRequest";
 import NoRequests from "../components/MovingRequest/NoRequests";
 import {Trans} from "@lingui/react";
+import {Redirect} from "react-router-dom";
 
 const MAX_MOVEMENTS = 5;
 
 type TransportState = {
-    loading: Boolean
+    loading: Boolean,
+    settingsOpen: Boolean
 }
 
 export default class LockersPage extends Component<{}, TransportState> {
@@ -27,6 +29,7 @@ export default class LockersPage extends Component<{}, TransportState> {
         super(props);
         this.state = {
             loading: true,
+            settingsOpen: false
         };
 
         firebase.getMovingRequests().then(
@@ -71,13 +74,18 @@ export default class LockersPage extends Component<{}, TransportState> {
 
         let hasActiveRequest = activeRequest !== null;
 
+        if (this.state.settingsOpen && localStorage.settingsOpen) return (<Redirect to={'/settings'}/>);
+
         return (
             <IonPage>
                 <IonContent>
                     <div>
                         <div className="main-settings">
                             <span className="main-title"><Trans id="OrdersPage.title">Pedidos</Trans></span>
-                            <IonIcon className="settings-icon" icon={settings}/>
+                            <IonIcon className="settings-icon" icon={settings} onClick={() => {
+                                localStorage.settingsOpen = true;
+                                this.setState({settingsOpen: localStorage.settingsOpen})
+                            }}/>
                         </div>
                         {hasActiveRequest ?
                             <span className="sub-title">
