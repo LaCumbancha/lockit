@@ -503,6 +503,7 @@ class Map extends Component {
             if(value.id === info.lockerId){
                 value.taken = true;
                 localStorage.readyToMoveInfo = JSON.stringify(value);
+                firebase.setLocker(value);
             }
         });
         this.setState({

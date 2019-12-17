@@ -58,7 +58,7 @@ export default class MoveToPage extends Component<{}, MoveToState> {
         let lockers;
         if(this.item){
             lockers = this.state.nearestLockers.map(locker =>
-                <LockerTag key={locker.id} item={this.item} lockerId={locker.id} lockerName={locker.name} lockerAddress={locker.address} price={locker.price}/>
+                <LockerTag key={locker.id} item={this.item} lockerId={locker.id} lockerToId={this.item.locker.id} lockerName={locker.name} lockerAddress={locker.address} price={locker.price}/>
             );
         } else {
             lockers = Array.from(Array(MAX_LOCKERS),(x,index) => <LoadingBag key={index}/>);

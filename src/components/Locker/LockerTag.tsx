@@ -10,6 +10,7 @@ import {Trans} from "@lingui/react";
 type LockerProps = {
     item: SavedItem,
     lockerId: String,
+    lockerToId: String,
     lockerName: String,
     lockerAddress: String,
     price: String
@@ -18,7 +19,7 @@ type LockerProps = {
 class LockerTag extends Component<RouteComponentProps & LockerProps> {
 
     _selectLockerToMove() {
-        localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.item.id, this.props.price, this.props.lockerId, this.props.item.id));
+        localStorage.operation = JSON.stringify(new Operation("MOVING_LOCKER", this.props.item.id, this.props.price, this.props.lockerId, this.props.lockerToId));
         this.props.history.push("/checkout")
     }
 
